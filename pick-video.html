@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Pick hero video</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, sans-serif; background: #0f0f12; color: #fff; padding: 2rem; }
+  h1 { text-align: center; margin-bottom: .5rem; font-size: 1.6rem; }
+  .subtitle { text-align: center; color: #666; margin-bottom: 2rem; font-size: .9rem; }
+  .subtitle b { color: #e92f23; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .card { background: #1e1e23; border-radius: 14px; overflow: hidden; border: 1px solid #2a2a30; }
+  video { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; background: #111; }
+  .info { padding: .85rem 1rem; }
+  h3 { font-size: .95rem; font-weight: 700; margin-bottom: .25rem; }
+  p { font-size: .78rem; color: #666; line-height: 1.5; }
+  .badge { display: inline-block; padding: .18rem .5rem; border-radius: 4px; font-size: .68rem; font-weight: 700; letter-spacing: .04em; margin-bottom: .4rem; }
+  .badge--ai { background: rgba(139,92,246,.2); color: #a78bfa; }
+  .badge--hd { background: rgba(16,185,129,.15); color: #34d399; }
+  .badge--wide { background: rgba(59,130,246,.15); color: #60a5fa; }
+</style>
+</head>
+<body>
+<h1>Pick the hero video</h1>
+<p class="subtitle">Open at <b>http://localhost:8099/pick-video.html</b> · Tell Claude which number to use</p>
+<div class="grid">
+
+  <div class="card">
+    <video autoplay muted loop playsinline src="assets/hero-candidate-1.mp4"></video>
+    <div class="info">
+      <span class="badge badge--hd">HD</span>
+      <h3>Candidate 1</h3>
+      <p>3.2 MB · 25fps · Pexels #7382259</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <video autoplay muted loop playsinline src="assets/hero-candidate-2.mp4"></video>
+    <div class="info">
+      <span class="badge badge--hd">HD</span>
+      <h3>Candidate 2</h3>
+      <p>3.6 MB · 25fps · Pexels #9057563</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <video autoplay muted loop playsinline src="assets/hero-candidate-3.mp4"></video>
+    <div class="info">
+      <span class="badge badge--hd">HD</span>
+      <h3>Candidate 3</h3>
+      <p>6.0 MB · 30fps · Pexels #6496247</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <video autoplay muted loop playsinline src="assets/hero-candidate-4.mp4"></video>
+    <div class="info">
+      <span class="badge badge--hd">1080p</span>
+      <h3>Candidate 4 — Woman at laptop</h3>
+      <p>7.0 MB · 24fps · Pexels #4822855</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <video autoplay muted loop playsinline src="assets/hero-candidate-5.mp4"></video>
+    <div class="info">
+      <span class="badge badge--wide">2732×1440</span>
+      <h3>Candidate 5 — Woman laughing at laptop</h3>
+      <p>20 MB · 25fps · Pexels #7710240 · Floral shirt, indoors</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <video autoplay muted loop playsinline src="assets/hero-candidate-6.mp4"></video>
+    <div class="info">
+      <span class="badge badge--hd">1080p</span>
+      <h3>Candidate 6 — Office woman at computer</h3>
+      <p>7.8 MB · Pixabay #27095 · Modern office setting</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <video autoplay muted loop playsinline src="assets/hero-candidate-7.mp4"></video>
+    <div class="info">
+      <span class="badge badge--hd">1080p</span>
+      <h3>Candidate 7 — Office woman at computer</h3>
+      <p>4.5 MB · Pixabay #27093 · Modern office, close-up</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <video autoplay muted loop playsinline src="assets/hero-candidate-8.mp4"></video>
+    <div class="info">
+      <span class="badge badge--ai">AI-Generated</span>
+      <h3>Candidate 8 — AI: Woman &amp; laptop</h3>
+      <p>2.2 MB · 60fps · Pixabay #205691 · Cinematic AI gen</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Globster.ai — One-click AI agents</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <meta name="description" content="One-click AI agents. Way more than an AI assistant — live in 120 seconds." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function(){
+        var r=document.documentElement,k="globster-theme";
+        try{var t=localStorage.getItem(k);if(t==="dark"||t==="light"){r.setAttribute("data-theme",t);return;}}catch(e){}
+        r.setAttribute("data-theme","dark");
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!-- ── Header ── -->
+    <header class="site-header" id="site-header">
+      <div class="container site-header__inner">
+        <a class="brand" href="#hero" aria-label="Globster home">
+          <img class="brand__logo-dark"  src="assets/globster-logo-dark.svg"  alt="Globster" width="801" height="142" />
+          <img class="brand__logo-light" src="assets/globster-logo.svg"       alt="Globster" width="801" height="142" />
+        </a>
+        <nav aria-label="Primary">
+          <ul class="nav-links">
+            <li><a href="#about">What is Globster</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+          </ul>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+            <svg class="icon-sun"  width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+          <a class="btn btn--dark btn--nav" href="#pricing">Get Your Agent</a>
+          <button class="menu-btn" id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="2" y1="5" x2="20" y2="5"/><line x1="2" y1="11" x2="20" y2="11"/><line x1="2" y1="17" x2="20" y2="17"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── Mobile nav ── -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
+      <button class="mobile-nav__close" id="mobile-nav-close" type="button" aria-label="Close menu">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="4" x2="18" y2="18"/><line x1="18" y1="4" x2="4" y2="18"/></svg>
+      </button>
+      <ul class="mobile-nav__links">
+        <li><a href="#about">What is Globster</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+      </ul>
+      <a class="btn btn--primary" href="#pricing">Get Your Agent</a>
+    </nav>
+    <div class="mobile-nav__overlay" id="mobile-nav-overlay" aria-hidden="true"></div>
+
+    <main id="main">
+
+      <!-- HERO V1 — preserved, do not delete
+      <section class="hero" id="hero">
+        <video class="hero__bg-video" autoplay muted loop playsinline aria-hidden="true"
+          poster="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1600&q=80">
+          <source src="assets/hero-rd.mp4" type="video/mp4" />
+        </video>
+        <div class="hero__overlay" aria-hidden="true"></div>
+        <div class="container">
+          <div class="hero__content">
+            <h1 class="hero__h1">On<span class="hero__h1-kern">e</span>-click<br>AI agents</h1>
+            <p class="hero__sub">Way more than an AI assistant.<br class="sub-br--mobile"> Live in 120 seconds, acts in the world<br class="sub-br--desktop">on your behalf, works where you work, gets smarter every day.</p>
+            <div class="hero__actions">
+              <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
+                Get Your Agent
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <button class="hero__watch-btn" type="button" id="watch-demo-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M10 8l6 4-6 4V8z" fill="currentColor"/></svg>
+                Watch it work
+              </button>
+            </div>
+            <p class="hero__fine-print">Start free · No credit card needed</p>
+          </div>
+        </div>
+      </section>
+      -->
+
+      <!-- ══════════════════════════════════════════════════
+           S1 · HERO
+           ══════════════════════════════════════════════════ -->
+      <section class="hero hero--v2" id="hero">
+        <!-- Full-bleed background video -->
+        <video
+          class="hero__bg-video"
+          autoplay muted loop playsinline
+          aria-hidden="true"
+          poster="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1600&q=80"
+        >
+          <source src="assets/hero-rd.mp4" type="video/mp4" />
+        </video>
+        <div class="hero__overlay" aria-hidden="true"></div>
+
+        <div class="container">
+          <div class="hero__content">
+            <h1 class="hero__h1">On<span class="hero__h1-kern">e</span>-click<br>AI agents</h1>
+            <p class="hero__sub">Way more than an AI assistant.<br class="sub-br--mobile"> Live in 120 seconds, acts in the world<br class="sub-br--desktop">on your behalf, works where you work, gets smarter every day.</p>
+            <div class="hero__actions">
+              <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
+                Get Your Agent
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <button class="hero__watch-btn" type="button" id="watch-demo-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M10 8l6 4-6 4V8z" fill="currentColor"/></svg>
+                Watch it work
+              </button>
+            </div>
+            <p class="hero__fine-print">Start free · No credit card needed</p>
+          </div>
+        </div>
+
+        <!-- ══ HERO VISUAL: infra panels + connector lines + agent cards ══ -->
+        <div class="hero__visual" aria-hidden="true">
+
+  <!-- ── Layer 1: Infra panels ── -->
+  <div class="infra-panel infra-panel--model" id="ip-model">
+    <div class="infra-panel__title">MODEL</div>
+    <pre class="infra-panel__pre">Provider      Anthropic
+Model         Claude Sonnet 4.6
+Context       200K tokens
+Status        ● Active</pre>
+  </div>
+
+  <div class="infra-panel infra-panel--nemo" id="ip-nemo">
+    <div class="infra-panel__title">NEMOCLAW_RUNTIME</div>
+    <pre class="infra-panel__pre">Container     Isolated ✓
+Credentials   Protected ✓
+Network       Restricted ✓
+Enabled       ✓</pre>
+  </div>
+
+  <div class="infra-panel infra-panel--config" id="ip-config">
+    <div class="infra-panel__title">AGENT_CONFIG</div>
+    <pre class="infra-panel__pre">Name          Peach 🌸
+Memory        847 context items
+Schedule      Daily · 08:00
+Mode          Autonomous</pre>
+  </div>
+
+  <div class="infra-panel infra-panel--tools" id="ip-tools">
+    <div class="infra-panel__title">TOOLS</div>
+    <div class="infra-panel__pre"><span class="ip-row">● Gmail          Connected</span>
+<span class="ip-row ip-row--github">● GitHub         Connected</span>
+<span class="ip-row ip-row--gcal">● Google Cal     Connected</span>
+<span class="ip-row">● WhatsApp       Connected</span>
+<span class="ip-row">● Slack          Connected</span></div>
+  </div>
+
+  <!-- ── Layer 1.5: Globster backend block ── -->
+  <div class="globster-block" id="globster-block">
+    <div class="globster-block__header">
+      <img src="assets/globster-logo-dark.svg" alt="" class="globster-block__logo">
+      <span class="globster-block__brand">GLOBSTER</span>
+      <span class="globster-block__active-dot" aria-hidden="true"></span>
+      <span class="globster-block__active-label">Active</span>
+    </div>
+  </div>
+
+  <!-- ── Layer 2: SVG connectors + curved arrow ── -->
+  <svg class="hero__connectors" viewBox="0 0 700 560" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <filter id="hc-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="2" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <marker id="hc-arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+        <path d="M0,0 L6,3 L0,6 Z" fill="#E8424A" opacity="0.75"/>
+      </marker>
+    </defs>
+    <!-- Static rails (always faint) -->
+    <path class="hc-line" d="M 250 72 C 285 65 330 95 345 128"/>
+    <path class="hc-line" d="M 450 72 C 415 65 370 95 355 128"/>
+    <path class="hc-line" d="M 245 488 C 280 488 330 450 345 410"/>
+    <path class="hc-line" d="M 455 482 C 420 488 375 450 355 410"/>
+    <!-- Flowing particles (Globster red) -->
+    <path class="hc-particle hc-p1" d="M 250 72 C 285 65 330 95 345 128"/>
+    <path class="hc-particle hc-p2" d="M 450 72 C 415 65 370 95 355 128"/>
+    <path class="hc-particle hc-p3" d="M 245 488 C 280 488 330 450 345 410"/>
+    <path class="hc-particle hc-p4" d="M 455 482 C 420 488 375 450 355 410"/>
+    <!-- Curved arrow: Card 1 → Card 2 -->
+    <path class="hc-arrow" id="hero-arrow" d="M 348 232 C 352 242 352 248 356 258" marker-end="url(#hc-arrowhead)"/>
+  </svg>
+
+  <!-- ── Layer 3: Agent cards ── -->
+
+  <!-- Telegram card -->
+  <div class="notif-float hero-seq-card hero-card--tg" id="hero-card-tg">
+    <div class="notif-float__shine" aria-hidden="true"></div>
+    <div class="notif-float__header">
+      <img class="notif-float__app-icon" src="assets/telegram.svg" alt="Telegram" width="22" height="22"/>
+      <span class="notif-float__app-name">Telegram</span>
+      <span class="notif-float__time">now</span>
+    </div>
+    <div class="notif-float__rule"></div>
+    <div class="notif-float__body">
+      <img class="notif-float__avatar" src="assets/Peach.png" alt="Peach"/>
+      <div class="notif-float__content">
+        <span class="notif-float__sender">Peach</span>
+        <p class="notif-float__msg"><span id="hero-msg-tg"></span><span class="hero-cursor" id="hero-cursor-tg">|</span></p>
+        <div class="notif-float__tools" id="hero-tools-tg">
+          <div class="notif-tool-chip hero-chip-single" id="hero-chip-gcal">
+            <span class="notif-tool-chip__dot"></span>
+            <img src="assets/google-calendar.svg" class="notif-tool-chip__icon" alt="Google Calendar"/>
+          </div>
+          <div class="notif-tool-chip hero-chip-single" id="hero-chip-whatsapp">
+            <span class="notif-tool-chip__dot"></span>
+            <img src="assets/whatsapp.svg" class="notif-tool-chip__icon" alt="WhatsApp"/>
+          </div>
+          <div class="notif-tool-chip hero-chip-single" id="hero-chip-monday">
+            <span class="notif-tool-chip__dot"></span>
+            <img src="assets/monday-m.svg" class="notif-tool-chip__icon" alt="Monday"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp card -->
+  <div class="notif-float hero-seq-card hero-card--wa" id="hero-card-wa">
+    <div class="notif-float__shine" aria-hidden="true"></div>
+    <div class="notif-float__header">
+      <img class="notif-float__app-icon" src="assets/whatsapp.svg" alt="WhatsApp" width="22" height="22"/>
+      <span class="notif-float__app-name">WhatsApp</span>
+      <span class="notif-float__time">now</span>
+    </div>
+    <div class="notif-float__rule"></div>
+    <div class="notif-float__body">
+      <img class="notif-float__avatar" src="assets/Peach.png" alt="Peach"/>
+      <div class="notif-float__content">
+        <span class="notif-float__sender">Product Team · 4 members</span>
+        <span class="notif-float__sub-sender">Peach</span>
+        <p class="notif-float__msg"><span id="hero-msg-wa"></span><span class="hero-cursor" id="hero-cursor-wa">|</span></p>
+        <div id="hero-tasks-wa" class="hero-seq-tasks"></div>
+        <div class="notif-float__tools" id="hero-tools-wa">
+          <div class="notif-tool-chip hero-chip-single" id="hero-chip-gh">
+            <span class="notif-tool-chip__dot"></span>
+            <img src="assets/github.svg" class="notif-tool-chip__icon notif-tool-chip__icon--white" alt="GitHub"/>
+          </div>
+          <div class="notif-tool-chip hero-chip-single" id="hero-chip-wa-gmail">
+            <span class="notif-tool-chip__dot"></span>
+            <img src="assets/gmail.svg" class="notif-tool-chip__icon" alt="Gmail"/>
+          </div>
+          <div class="notif-tool-chip hero-chip-single" id="hero-chip-sheets">
+            <span class="notif-tool-chip__dot"></span>
+            <img src="assets/google-sheets.svg" class="notif-tool-chip__icon" alt="Google Sheets"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        </div><!-- /.hero__visual -->
+
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           S2 · TRUST BAR
+           ══════════════════════════════════════════════════ -->
+      <div class="trust-bar">
+        <div class="container trust-bar__inner">
+          <div class="trust-bar__item">
+            <span class="trust-bar__label">Managed by</span>
+            <svg class="trust-bar__monday-svg" role="img" aria-label="monday.com" viewBox="0 0 320 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.41626 42.2165C4.17727 42.2145 2.11576 41.0486 1.03213 39.1714C-0.051499 37.2943 0.0134463 35.0016 1.20175 33.1835L12.2892 16.2247C13.428 14.3781 15.5229 13.2689 17.7608 13.3277C19.9986 13.3864 22.027 14.6039 23.0585 16.5075C24.09 18.4111 23.9622 20.7011 22.7248 22.4884L11.6439 39.4473C10.5169 41.1728 8.54083 42.2196 6.41626 42.2165Z" fill="#FB275D"/><path d="M25.3076 42.2165C23.0722 42.2145 21.0141 41.0514 19.9322 39.1787C18.8504 37.306 18.9152 35.0188 20.1016 33.205L31.1676 16.2864C32.2885 14.4129 34.3908 13.2771 36.6455 13.327C38.9001 13.3769 40.9454 14.6044 41.9748 16.5255C43.0041 18.4466 42.8524 20.753 41.5795 22.5353L30.5135 39.4539C29.3908 41.1715 27.424 42.2152 25.3076 42.2165Z" fill="#FFCC00"/><path d="M43.7251 42.251C47.1114 42.251 49.8565 39.5107 49.8565 36.1303C49.8565 32.7499 47.1114 30.0095 43.7251 30.0095C40.3389 30.0095 37.5938 32.7499 37.5938 36.1303C37.5938 39.5107 40.3389 42.251 43.7251 42.251Z" fill="#00CA72"/><g fill="currentColor"><path d="M60 11.9061H68.4408V15.3679C70.0697 13.1251 72.9327 11.6135 76.4867 11.6135C80.6824 11.6135 84.039 13.4176 85.9147 16.6844C87.7411 13.8077 91.147 11.6135 95.1946 11.6135C102.006 11.6135 106.4 15.9043 106.4 23.2181V39.1133H98.0082V24.3395C98.0082 20.7801 95.8857 18.8298 92.7265 18.8298C89.4687 18.8298 87.4449 20.7801 87.4449 24.3395V39.1133H79.0535V24.3395C79.0535 20.7801 76.9309 18.8298 73.7718 18.8298C70.514 18.8298 68.4408 20.7801 68.4408 24.3395V39.1133H60V11.9061Z"/><path d="M124.12 39.7471C116.025 39.7471 109.954 34.3837 109.954 25.5096C109.954 16.6356 116.173 11.2722 124.268 11.2722C132.364 11.2722 138.583 16.6356 138.583 25.5096C138.583 34.3837 132.265 39.7471 124.12 39.7471ZM118.493 25.5096C118.493 30.0929 121.109 32.2871 124.12 32.2871C127.131 32.2871 129.994 30.0929 129.994 25.5096C129.994 20.8776 127.181 18.7322 124.219 18.7322C121.208 18.7322 118.493 20.8776 118.493 25.5096Z"/><path d="M161.252 24.3395C161.252 20.6339 159.129 18.586 155.97 18.586C152.712 18.586 150.639 20.6339 150.639 24.3395V39.1133H142.198V11.9061H150.639V15.563C152.317 13.2226 155.279 11.6135 158.981 11.6135C165.398 11.6135 169.643 15.9043 169.643 23.2181V39.1133H161.252V24.3395Z"/><path d="M185.302 11.5162C188.955 11.5162 192.065 13.174 193.743 15.6607V3.03223H202.233V39.1135H193.743V35.2128C192.262 37.6995 189.35 39.5035 185.253 39.5035C178.491 39.5035 173.16 34.0426 173.16 25.4611C173.16 16.8796 178.491 11.5162 185.302 11.5162ZM181.748 25.4611C181.748 29.8006 184.562 32.2385 187.771 32.2385C190.979 32.2385 193.793 29.8494 193.793 25.5099C193.793 21.1704 190.979 18.7812 187.771 18.7812C184.562 18.7812 181.748 21.1216 181.748 25.4611Z"/><path d="M217.989 11.516C222.136 11.516 225.048 13.3688 226.529 15.758V11.9061H234.97V39.1133H226.529V35.2614C224.999 37.6505 222.086 39.5034 217.989 39.5034C211.227 39.5034 205.896 34.0424 205.896 25.4609C205.896 16.8794 211.227 11.516 217.989 11.516ZM214.485 25.4609C214.485 29.8004 217.298 32.2383 220.507 32.2383C223.715 32.2383 226.529 29.8492 226.529 25.5097C226.529 21.1702 223.715 18.781 220.507 18.781C217.298 18.781 214.485 21.1214 214.485 25.4609Z"/><path d="M243.716 48.8163L248.8 37.3093L237.644 11.9062H247.023L253.39 28.3377L259.906 11.9062H268.89L252.798 48.8163H243.716Z"/></g>
+            </svg>
+            <span class="trust-bar__sub">Trusted by 250,000+ companies worldwide</span>
+          </div>
+          <div class="trust-bar__item">
+            <span class="trust-bar__label">Your model, your choice</span>
+            <div class="llm-strip">
+              <img src="assets/llm-claude.svg"  alt="Claude"  width="22" height="22" loading="lazy" />
+              <img src="assets/llm-gemini.svg"  alt="Gemini"  width="22" height="22" loading="lazy" />
+              <img src="assets/llm-grok.svg"    alt="Grok"    width="22" height="22" loading="lazy" />
+              <span class="strip-more">+ more</span>
+            </div>
+            <span class="trust-bar__sub2">Claude · Gemini · Grok + more</span>
+          </div>
+          <div class="trust-bar__item">
+            <span class="trust-bar__label">Connect to 20+ tools</span>
+            <div class="tools-strip">
+              <img src="assets/gmail.svg"          alt="Gmail"    width="20" height="20" loading="lazy" />
+              <img src="assets/github.svg"         alt="GitHub"   width="20" height="20" loading="lazy" />
+              <img src="assets/slack.svg"          alt="Slack"    width="20" height="20" loading="lazy" />
+              <img src="assets/google-calendar.svg" alt="Calendar" width="20" height="20" loading="lazy" />
+              <span class="strip-more">+ more</span>
+            </div>
+            <span class="trust-bar__sub2">Gmail · GitHub · Salesforce · Jira + more</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════
+           S3 · PROBLEM INTERSTITIAL
+           ══════════════════════════════════════════════════ -->
+      <section class="interstitial" id="interstitial-section">
+        <div class="interstitial__inner">
+          <p class="interstitial__quote">"For the past year, a small group of engineers had an unfair advantage.<br><span>That's over."</span></p>
+          <p class="interstitial__attr">— The Globster.ai Team</p>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           S4 · WHAT IS GLOBSTER
+           ══════════════════════════════════════════════════ -->
+      <section class="section" id="about">
+        <div class="container">
+          <div class="section-head--center section-head">
+            <p class="eyebrow reveal">What is Globster</p>
+            <h2 class="section-title reveal reveal-d1">Your operational hire.<br>Live in 2 minutes.</h2>
+            <p class="section-lead reveal reveal-d2">Built by monday agent labs on top of NVIDIA NemoClaw — the secure agent runtime powering the next generation of AI agents.</p>
+          </div>
+          <!-- Video thumbnail — replace poster with actual thumbnail when available -->
+          <div class="demo-thumb reveal" id="about-video-btn" role="button" tabindex="0" aria-label="Watch Globster demo video">
+            <div class="demo-thumb__frame">
+              <img class="demo-thumb__poster" src="https://i.vimeocdn.com/video/2147687596-79c0025f08182bd5e278aae1fd0a0927ba8c885bd4bdf3bea5c09c985deec5f5-d_640?region=us" alt="Globster demo" width="1200" height="675" loading="lazy" />
+              <div class="demo-thumb__play" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+              </div>
+            </div>
+          </div>
+          <!-- Video CTA -->
+          <div class="about-video-cta reveal reveal-d1">
+            <a class="btn btn--primary btn--xl btn--glow" href="#pricing">Get Your Agent</a>
+            <p class="about-video-cta__fine">Start free · No credit card needed</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           S5 · REAL-WORLD IDENTITY
+           ══════════════════════════════════════════════════ -->
+      <section class="section section--alt" id="identity">
+        <div class="container identity-grid">
+          <!-- Agent identity card — horizontal -->
+          <div class="agent-card-scene reveal" aria-hidden="true">
+          <div class="agent-card agent-card--h" id="agent-card-3d">
+            <div class="agent-card__shine" aria-hidden="true"></div>
+
+            <!-- Top row: avatar + info + fields -->
+            <div class="agent-card__top">
+              <!-- Avatar -->
+              <div class="agent-card__avatar-wrap">
+                <img class="agent-card__avatar-pixel" src="assets/Luna.png" alt="Luna" />
+              </div>
+
+              <!-- Name + status -->
+              <div class="agent-card__id">
+                <div class="agent-card__name">Luna 💎</div>
+                <div class="agent-card__status"><span class="agent-card__dot"></span>Running</div>
+              </div>
+
+              <!-- Fields -->
+              <div class="agent-card__fields">
+                <div class="agent-card__field">
+                  <svg class="agent-card__field-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <span>luna@globster.ai</span>
+                </div>
+                <div class="agent-card__field">
+                  <svg class="agent-card__field-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.69 3.4a2 2 0 0 1 2-2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <span>+1 415 xxx xxxx</span>
+                </div>
+                <div class="agent-card__field agent-card__field--gold">
+                  <svg class="agent-card__field-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                  <span class="agent-card__visa-num">Visa •••• 4821</span><span class="agent-card__limit"> · $500 limit</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="agent-card__divider"></div>
+
+            <!-- Bottom row: channel toggles + tools -->
+            <div class="agent-card__bottom">
+              <div class="agent-card__channels">
+                <button class="agent-card__channel is-on" data-channel="whatsapp" type="button" aria-pressed="true">
+                  <img src="assets/whatsapp.svg" alt="WhatsApp" width="16" height="16" />
+                  <span>WhatsApp</span>
+                  <span class="agent-card__toggle" aria-hidden="true"><span></span></span>
+                </button>
+                <button class="agent-card__channel is-on" data-channel="telegram" type="button" aria-pressed="true">
+                  <img src="assets/telegram.svg" alt="Telegram" width="16" height="16" />
+                  <span>Telegram</span>
+                  <span class="agent-card__toggle" aria-hidden="true"><span></span></span>
+                </button>
+              </div>
+              <div class="agent-card__tools">
+                <img src="assets/gmail.svg" alt="Gmail" width="16" height="16" />
+                <img src="assets/slack.svg" alt="Slack" width="16" height="16" />
+                <img src="assets/google-calendar.svg" alt="Calendar" width="16" height="16" />
+                <img src="assets/github.svg" alt="GitHub" width="16" height="16" />
+              </div>
+            </div>
+          </div>
+          </div><!-- /.agent-card-scene -->
+          <!-- Copy -->
+          <div class="identity-copy">
+            <p class="eyebrow reveal">A real presence in the world</p>
+            <h2 class="section-title reveal reveal-d1">It has its own email, phone, and credit card.</h2>
+            <p class="section-lead reveal reveal-d2">Your Globster agent — it's not a tool, it's a hire — that operates in the real world: making purchases, booking travel, sending follow-ups. All on your behalf. All within the limits you set.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           S5 · WHAT IT CAN DO — Parallax icon background
+           ══════════════════════════════════════════════════ -->
+      <section class="pp-section" id="features">
+        <!-- Blurred background grid — parallaxes behind the text — all 24 real logos -->
+        <div class="pp-bg" id="pp-grid" aria-hidden="true">
+          <!-- Row 1: Google suite -->
+          <div class="pp-card" title="Gmail"><img src="https://img.icons8.com/color/96/gmail-new.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Google Calendar"><img src="https://img.icons8.com/color/96/google-calendar--v2.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Google Docs"><img src="https://img.icons8.com/color/96/google-docs--v1.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Google Drive"><img src="https://img.icons8.com/color/96/google-drive--v2.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Google Sheets"><img src="https://img.icons8.com/color/96/google-sheets--v1.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Google Maps"><img src="https://img.icons8.com/color/96/google-maps-new.png" alt="" width="44" height="44" loading="lazy"></div>
+          <!-- Row 2: Dev tools -->
+          <div class="pp-card" title="GitHub"><img src="https://img.icons8.com/ios-filled/96/181717/github.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Figma"><img src="https://img.icons8.com/color/96/figma--v1.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Bitbucket"><img src="https://img.icons8.com/color/96/bitbucket.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Jira"><img src="https://img.icons8.com/color/96/jira.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Linear"><img src="https://cdn.simpleicons.org/linear/5E6AD2" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Slack"><img src="https://img.icons8.com/color/96/slack-new.png" alt="" width="44" height="44" loading="lazy"></div>
+          <!-- Row 3: Business & CRM -->
+          <div class="pp-card" title="LinkedIn"><img src="https://img.icons8.com/color/96/linkedin.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Salesforce"><img src="https://img.icons8.com/color/96/salesforce.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="monday.com"><img src="https://img.icons8.com/fluency/96/monday.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Zapier"><img src="https://img.icons8.com/color/96/zapier.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Notion"><img src="https://img.icons8.com/color/96/notion--v1.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Microsoft Excel"><img src="https://img.icons8.com/color/96/microsoft-excel-2019--v1.png" alt="" width="44" height="44" loading="lazy"></div>
+          <!-- Row 4: Social & Payments -->
+          <div class="pp-card" title="Stripe"><img src="https://img.icons8.com/color/96/stripe.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Facebook"><img src="https://img.icons8.com/color/96/facebook-new.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Reddit"><img src="https://img.icons8.com/color/96/reddit.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="YouTube"><img src="https://img.icons8.com/color/96/youtube-play.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="X"><img src="https://img.icons8.com/fluency/96/twitterx--v1.png" alt="" width="44" height="44" loading="lazy"></div>
+          <div class="pp-card" title="Google Meet"><img src="https://img.icons8.com/color/96/google-meet.png" alt="" width="44" height="44" loading="lazy"></div>
+        </div>
+
+        <!-- Radial vignette — fades grid toward center for text legibility -->
+        <div class="pp-vignette" aria-hidden="true"></div>
+
+        <!-- Centered text + CTA overlay -->
+        <div class="pp-overlay">
+          <span class="pp-eyebrow reveal">What it can do</span>
+          <h2 class="pp-heading reveal reveal-d1">While you focus,<br>your Globster<br>handles the rest.</h2>
+          <p class="pp-sub reveal reveal-d2">Connect your agent to the tools you already use — in one click.</p>
+          <a class="btn btn--dark btn--xl reveal reveal-d3" href="#pricing">Get Your Agent</a>
+          <p class="pp-fine reveal reveal-d3">Start free · No credit card needed</p>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           S7 · LIVES WHERE YOU ARE
+           ══════════════════════════════════════════════════ -->
+      <section class="section section--alt" id="channels">
+        <div class="container channels-grid">
+          <!-- Copy -->
+          <div class="channels-copy">
+            <p class="eyebrow reveal">It lives where you already are</p>
+            <h2 class="section-title reveal reveal-d1">You don't go to Globster.<br>Globster comes to you.</h2>
+            <p class="section-lead reveal reveal-d2">Your agent lives on WhatsApp, Telegram, and across your favorite channels. You message it like a colleague. It messages you back when something needs attention. No new app to learn. No dashboard to check.</p>
+            <div class="channel-badges reveal reveal-d3">
+              <div class="channel-badge"><img src="assets/whatsapp.svg" alt="" width="16" height="16"/>WhatsApp</div>
+              <div class="channel-badge"><img src="assets/telegram.svg" alt="" width="16" height="16"/>Telegram</div>
+              <div class="channel-badge channel-badge--more">+ more coming</div>
+            </div>
+          </div>
+          <!-- Phone mockups -->
+          <div class="channels-phones reveal" aria-hidden="true">
+
+            <!-- Left floating card: Luna via Telegram — meeting prep -->
+            <div class="notif-float notif-float--left" id="notif-card-tg">
+              <div class="notif-float__shine" aria-hidden="true"></div>
+              <!-- App header row -->
+              <div class="notif-float__header">
+                <img class="notif-float__app-icon" src="assets/telegram.svg" alt="Telegram" width="22" height="22"/>
+                <span class="notif-float__app-name">Telegram</span>
+                <span class="notif-float__time">now</span>
+              </div>
+              <!-- Divider -->
+              <div class="notif-float__rule"></div>
+              <!-- Agent + message -->
+              <div class="notif-float__body">
+                <img class="notif-float__avatar" src="assets/Luna.png" alt="Luna"/>
+                <div class="notif-float__content">
+                  <span class="notif-float__sender">Luna 💎</span>
+                  <p class="notif-float__msg">3pm Acme brief ready. CTO is switching suppliers — talk track in your inbox.</p>
+                  <div class="notif-float__tools">
+                    <div class="notif-tool-chip">
+                      <span class="notif-tool-chip__dot"></span>
+                      <img src="assets/linkedin.svg" class="notif-tool-chip__icon notif-tool-chip__icon--white" alt=""/>
+                      <span class="notif-tool-chip__name">LinkedIn</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Single centered phone — empty wireframe -->
+            <div class="phone-mockup phone-mockup--solo phone-mockup--ghost">
+              <div class="phone-notch"></div>
+              <div class="phone-ghost-ui">
+                <div class="phone-ghost-header">
+                  <div class="phone-ghost-dot"></div>
+                  <div class="phone-ghost-line phone-ghost-line--name"></div>
+                </div>
+                <div class="phone-ghost-body">
+                  <div class="phone-ghost-bubble phone-ghost-bubble--out"></div>
+                  <div class="phone-ghost-bubble phone-ghost-bubble--in phone-ghost-bubble--wide"></div>
+                  <div class="phone-ghost-bubble phone-ghost-bubble--out phone-ghost-bubble--sm"></div>
+                  <div class="phone-ghost-bubble phone-ghost-bubble--in"></div>
+                  <div class="phone-ghost-bubble phone-ghost-bubble--out phone-ghost-bubble--sm"></div>
+                  <div class="phone-ghost-bubble phone-ghost-bubble--in phone-ghost-bubble--wide"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right floating card: Ray via WhatsApp — dentist reminder -->
+            <div class="notif-float notif-float--right" id="notif-card-wa">
+              <div class="notif-float__shine" aria-hidden="true"></div>
+              <!-- App header row -->
+              <div class="notif-float__header">
+                <img class="notif-float__app-icon" src="assets/whatsapp.svg" alt="WhatsApp" width="22" height="22"/>
+                <span class="notif-float__app-name">WhatsApp</span>
+                <span class="notif-float__time">now</span>
+              </div>
+              <!-- Divider -->
+              <div class="notif-float__rule"></div>
+              <!-- Agent + message -->
+              <div class="notif-float__body">
+                <img class="notif-float__avatar" src="assets/Ray.png" alt="Ray"/>
+                <div class="notif-float__content">
+                  <span class="notif-float__sender">Ray ⚡</span>
+                  <p class="notif-float__msg">Booked Dr. Kim, 11am tomorrow. Calendar blocked, reminder at 10:30. 🦷</p>
+                  <div class="notif-float__tools">
+                    <div class="notif-tool-chip">
+                      <span class="notif-tool-chip__dot"></span>
+                      <img src="assets/google-calendar.svg" class="notif-tool-chip__icon" alt=""/>
+                      <span class="notif-tool-chip__name">Google Calendar</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           S8 · GETS SMARTER
+           ══════════════════════════════════════════════════ -->
+      <section class="section memory-section">
+        <div class="container">
+          <div class="memory-grid">
+
+            <!-- LEFT: dark card + proof pills -->
+            <div class="memory-left">
+              <div class="memory-viz reveal" id="mem-viz-wrap" aria-hidden="true">
+                <svg class="mem-brain-svg" id="mem-brain-svg" viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <filter id="mbf-hub"  x="-55%" y="-55%" width="210%" height="210%">
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="b"/>
+                      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                    <filter id="mbf-node" x="-80%" y="-80%" width="260%" height="260%">
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="b"/>
+                      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                    <filter id="mbf-pt"   x="-300%" y="-300%" width="700%" height="700%">
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="b"/>
+                      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                    <filter id="mbf-chip" x="-10%" y="-30%" width="120%" height="160%">
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="b"/>
+                      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                    <filter id="mbf-white" color-interpolation-filters="sRGB">
+                      <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+                    </filter>
+
+                    <!-- Input paths (tools → brain) -->
+                    <path id="mip-0" d="M 58,58   C 175,58  240,210 300,210"/>
+                    <path id="mip-1" d="M 58,140  C 175,140 245,210 300,210"/>
+                    <path id="mip-2" d="M 58,210  C 165,210 255,210 300,210"/>
+                    <path id="mip-3" d="M 58,282  C 175,282 245,210 300,210"/>
+                    <path id="mip-4" d="M 58,362  C 175,362 240,210 300,210"/>
+
+                    <!-- Output paths (brain → outcomes) -->
+                    <path id="mop-0" d="M 300,210 C 372,210 395,82  436,82"/>
+                    <path id="mop-1" d="M 300,210 C 372,210 395,163 436,163"/>
+                    <path id="mop-2" d="M 300,210 C 372,210 395,252 436,252"/>
+                    <path id="mop-3" d="M 300,210 C 372,210 395,338 436,338"/>
+
+                    <!-- Node clip paths -->
+                    <clipPath id="mnc-0"><circle cx="58" cy="58"  r="22"/></clipPath>
+                    <clipPath id="mnc-1"><circle cx="58" cy="140" r="22"/></clipPath>
+                    <clipPath id="mnc-2"><circle cx="58" cy="210" r="22"/></clipPath>
+                    <clipPath id="mnc-3"><circle cx="58" cy="282" r="22"/></clipPath>
+                    <clipPath id="mnc-4"><circle cx="58" cy="362" r="22"/></clipPath>
+                    <clipPath id="mnc-hub"><circle cx="300" cy="210" r="46"/></clipPath>
+                  </defs>
+
+                  <!-- ── AMBIENT HALOS ── -->
+                  <circle cx="300" cy="210" r="130" fill="none" stroke="rgba(233,47,35,0.04)" stroke-width="1"/>
+                  <circle cx="300" cy="210" r="105" fill="none" stroke="rgba(233,47,35,0.055)" stroke-width="1"/>
+                  <circle cx="300" cy="210" r="82"  fill="rgba(233,47,35,0.045)"/>
+                  <circle cx="300" cy="210" r="65"  fill="rgba(233,47,35,0.09)" class="mbrain-halo"/>
+
+                  <!-- ── INPUT LINES (faint static base) ── -->
+                  <use href="#mip-0" fill="none" stroke="rgba(233,47,35,0.14)" stroke-width="1.5"/>
+                  <use href="#mip-1" fill="none" stroke="rgba(233,47,35,0.14)" stroke-width="1.5"/>
+                  <use href="#mip-2" fill="none" stroke="rgba(233,47,35,0.14)" stroke-width="1.5"/>
+                  <use href="#mip-3" fill="none" stroke="rgba(233,47,35,0.14)" stroke-width="1.5"/>
+                  <use href="#mip-4" fill="none" stroke="rgba(233,47,35,0.14)" stroke-width="1.5"/>
+
+                  <!-- ── STREAMING PARTICLES (tools → brain, continuous) ── -->
+                  <!-- Slack -->
+                  <circle class="mstream" r="3"   fill="#e92f23" filter="url(#mbf-pt)"><animateMotion dur="1.65s" repeatCount="indefinite" begin="0s"    ><mpath href="#mip-0"/></animateMotion></circle>
+                  <circle class="mstream" r="2"   fill="#e92f23" opacity=".5">          <animateMotion dur="1.65s" repeatCount="indefinite" begin="0.55s"  ><mpath href="#mip-0"/></animateMotion></circle>
+                  <!-- Gmail -->
+                  <circle class="mstream" r="3"   fill="#e92f23" filter="url(#mbf-pt)"><animateMotion dur="1.9s"  repeatCount="indefinite" begin="0.3s"   ><mpath href="#mip-1"/></animateMotion></circle>
+                  <circle class="mstream" r="2"   fill="#e92f23" opacity=".5">          <animateMotion dur="1.9s"  repeatCount="indefinite" begin="0.95s"  ><mpath href="#mip-1"/></animateMotion></circle>
+                  <!-- Calendar -->
+                  <circle class="mstream" r="3"   fill="#e92f23" filter="url(#mbf-pt)"><animateMotion dur="1.5s"  repeatCount="indefinite" begin="0.7s"   ><mpath href="#mip-2"/></animateMotion></circle>
+                  <circle class="mstream" r="2"   fill="#e92f23" opacity=".5">          <animateMotion dur="1.5s"  repeatCount="indefinite" begin="1.2s"   ><mpath href="#mip-2"/></animateMotion></circle>
+                  <!-- WhatsApp -->
+                  <circle class="mstream" r="3"   fill="#e92f23" filter="url(#mbf-pt)"><animateMotion dur="1.75s" repeatCount="indefinite" begin="0.15s"  ><mpath href="#mip-3"/></animateMotion></circle>
+                  <circle class="mstream" r="2"   fill="#e92f23" opacity=".5">          <animateMotion dur="1.75s" repeatCount="indefinite" begin="0.85s"  ><mpath href="#mip-3"/></animateMotion></circle>
+                  <!-- Monday -->
+                  <circle class="mstream" r="3"   fill="#e92f23" filter="url(#mbf-pt)"><animateMotion dur="2.0s"  repeatCount="indefinite" begin="0.45s"  ><mpath href="#mip-4"/></animateMotion></circle>
+                  <circle class="mstream" r="2"   fill="#e92f23" opacity=".5">          <animateMotion dur="2.0s"  repeatCount="indefinite" begin="1.1s"   ><mpath href="#mip-4"/></animateMotion></circle>
+
+                  <!-- ── TOOL NODES (LEFT) ── -->
+                  <!-- Slack -->
+                  <circle cx="58" cy="58"  r="26" fill="#e92f23" filter="url(#mbf-node)"/>
+                  <circle cx="58" cy="58"  r="26" fill="#e92f23"/>
+                  <image href="assets/slack.svg" x="36" y="36" width="44" height="44" preserveAspectRatio="xMidYMid meet" clip-path="url(#mnc-0)" filter="url(#mbf-white)"/>
+                  <!-- Gmail -->
+                  <circle cx="58" cy="140" r="26" fill="#e92f23" filter="url(#mbf-node)"/>
+                  <circle cx="58" cy="140" r="26" fill="#e92f23"/>
+                  <image href="assets/gmail.svg" x="36" y="118" width="44" height="44" preserveAspectRatio="xMidYMid meet" clip-path="url(#mnc-1)" filter="url(#mbf-white)"/>
+                  <!-- Google Calendar -->
+                  <circle cx="58" cy="210" r="26" fill="#e92f23" filter="url(#mbf-node)"/>
+                  <circle cx="58" cy="210" r="26" fill="#e92f23"/>
+                  <g clip-path="url(#mnc-2)">
+                    <!-- outer body -->
+                    <rect x="43" y="196" width="30" height="27" rx="3.5" fill="rgba(255,255,255,0.22)" stroke="white" stroke-width="1.5"/>
+                    <!-- top header bar -->
+                    <rect x="43" y="196" width="30" height="9" rx="3.5" fill="white"/>
+                    <rect x="43" y="201" width="30" height="4" fill="white"/>
+                    <!-- binding pins -->
+                    <line x1="51" y1="193" x2="51" y2="200" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                    <line x1="65" y1="193" x2="65" y2="200" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                    <!-- date "31" -->
+                    <text x="58" y="220" text-anchor="middle" font-size="10.5" font-family="Poppins,sans-serif" font-weight="700" fill="white">31</text>
+                  </g>
+                  <!-- WhatsApp -->
+                  <circle cx="58" cy="282" r="26" fill="#e92f23" filter="url(#mbf-node)"/>
+                  <circle cx="58" cy="282" r="26" fill="#e92f23"/>
+                  <image href="assets/whatsapp.svg" x="36" y="260" width="44" height="44" preserveAspectRatio="xMidYMid meet" clip-path="url(#mnc-3)" filter="url(#mbf-white)"/>
+                  <!-- monday.com (inline M icon) -->
+                  <circle cx="58" cy="362" r="26" fill="#e92f23" filter="url(#mbf-node)"/>
+                  <circle cx="58" cy="362" r="26" fill="#e92f23"/>
+                  <g clip-path="url(#mnc-4)">
+                    <g transform="translate(40.15, 342.75) scale(0.7)">
+                      <path d="M6.416 42.217C4.177 42.215 2.116 41.049 1.032 39.171C-0.052 37.294 0.013 35.002 1.202 33.184L12.289 16.225C13.428 14.378 15.523 13.269 17.761 13.328C19.999 13.386 22.027 14.604 23.059 16.508C24.09 18.411 23.962 20.701 22.725 22.488L11.644 39.447C10.517 41.173 8.541 42.22 6.416 42.217Z" fill="white"/>
+                      <path d="M25.308 42.217C23.072 42.215 21.014 41.051 19.932 39.179C18.85 37.306 18.915 35.019 20.102 33.205L31.168 16.286C32.289 14.413 34.391 13.277 36.646 13.327C38.9 13.377 40.945 14.604 41.975 16.526C43.004 18.447 42.852 20.753 41.58 22.535L30.514 39.454C29.391 41.172 27.424 42.215 25.308 42.217Z" fill="white"/>
+                      <path d="M43.725 42.251C47.111 42.251 49.857 39.511 49.857 36.13C49.857 32.75 47.111 30.01 43.725 30.01C40.339 30.01 37.594 32.75 37.594 36.13C37.594 39.511 40.339 42.251 43.725 42.251Z" fill="white"/>
+                    </g>
+                  </g>
+
+                  <!-- ── CENTER BRAIN ── -->
+                  <!-- Outer pulse ring (CSS animated) -->
+                  <circle cx="300" cy="210" r="62" fill="none" stroke="rgba(233,47,35,0.3)" stroke-width="1.5" class="mbrain-pulse-ring"/>
+                  <!-- Glow layer -->
+                  <circle cx="300" cy="210" r="52" fill="#e92f23" filter="url(#mbf-hub)"/>
+                  <!-- Solid core (CSS pulse) -->
+                  <circle cx="300" cy="210" r="52" fill="#e92f23" class="mbrain-core"/>
+                  <!-- Globster icon -->
+                  <image href="assets/favicon.svg" x="268" y="178" width="64" height="64" preserveAspectRatio="xMidYMid meet" clip-path="url(#mnc-hub)" filter="url(#mbf-white)"/>
+
+                  <!-- ── OUTPUT SECTION ── -->
+                  <!-- All 4 outcomes — JS cycles is-active on .moutcome -->
+
+                  <!-- Outcome 0: Briefing ready -->
+                  <g class="moutcome" data-out="0">
+                    <path class="mout-line" d="M 300,210 C 372,210 395,82 436,82" fill="none" stroke="#e92f23" stroke-width="1.5"/>
+                    <circle class="mout-particle" r="4" fill="#ff7060" filter="url(#mbf-pt)">
+                      <animateMotion dur="0.55s" begin="indefinite" fill="freeze"><mpath href="#mop-0"/></animateMotion>
+                    </circle>
+                    <g class="mout-chip" transform="translate(436,60)">
+                      <rect width="162" height="44" rx="22" fill="#1c1c25" stroke="rgba(233,47,35,0.55)" stroke-width="1.5"/>
+                      <rect width="162" height="44" rx="22" fill="#e92f23" opacity="0.06" filter="url(#mbf-chip)"/>
+                      <text x="81" y="28" text-anchor="middle" fill="rgba(240,240,242,0.92)" font-size="17" font-family="Poppins,sans-serif" font-weight="600">Briefing ready</text>
+                    </g>
+                  </g>
+
+                  <!-- Outcome 1: Follow-up sent -->
+                  <g class="moutcome" data-out="1">
+                    <path class="mout-line" d="M 300,210 C 372,210 395,163 436,163" fill="none" stroke="#e92f23" stroke-width="1.5"/>
+                    <circle class="mout-particle" r="4" fill="#ff7060" filter="url(#mbf-pt)">
+                      <animateMotion dur="0.5s" begin="indefinite" fill="freeze"><mpath href="#mop-1"/></animateMotion>
+                    </circle>
+                    <g class="mout-chip" transform="translate(436,141)">
+                      <rect width="162" height="44" rx="22" fill="#1c1c25" stroke="rgba(233,47,35,0.55)" stroke-width="1.5"/>
+                      <rect width="162" height="44" rx="22" fill="#e92f23" opacity="0.06" filter="url(#mbf-chip)"/>
+                      <text x="81" y="28" text-anchor="middle" fill="rgba(240,240,242,0.92)" font-size="17" font-family="Poppins,sans-serif" font-weight="600">Follow-up sent</text>
+                    </g>
+                  </g>
+
+                  <!-- Outcome 2: Deal flagged -->
+                  <g class="moutcome" data-out="2">
+                    <path class="mout-line" d="M 300,210 C 372,210 395,252 436,252" fill="none" stroke="#e92f23" stroke-width="1.5"/>
+                    <circle class="mout-particle" r="4" fill="#ff7060" filter="url(#mbf-pt)">
+                      <animateMotion dur="0.52s" begin="indefinite" fill="freeze"><mpath href="#mop-2"/></animateMotion>
+                    </circle>
+                    <g class="mout-chip" transform="translate(436,230)">
+                      <rect width="162" height="44" rx="22" fill="#1c1c25" stroke="rgba(233,47,35,0.55)" stroke-width="1.5"/>
+                      <rect width="162" height="44" rx="22" fill="#e92f23" opacity="0.06" filter="url(#mbf-chip)"/>
+                      <text x="81" y="28" text-anchor="middle" fill="rgba(240,240,242,0.92)" font-size="17" font-family="Poppins,sans-serif" font-weight="600">Deal flagged</text>
+                    </g>
+                  </g>
+
+                  <!-- Outcome 3: Meeting booked -->
+                  <g class="moutcome" data-out="3">
+                    <path class="mout-line" d="M 300,210 C 372,210 395,338 436,338" fill="none" stroke="#e92f23" stroke-width="1.5"/>
+                    <circle class="mout-particle" r="4" fill="#ff7060" filter="url(#mbf-pt)">
+                      <animateMotion dur="0.58s" begin="indefinite" fill="freeze"><mpath href="#mop-3"/></animateMotion>
+                    </circle>
+                    <g class="mout-chip" transform="translate(436,316)">
+                      <rect width="162" height="44" rx="22" fill="#1c1c25" stroke="rgba(233,47,35,0.55)" stroke-width="1.5"/>
+                      <rect width="162" height="44" rx="22" fill="#e92f23" opacity="0.06" filter="url(#mbf-chip)"/>
+                      <text x="81" y="28" text-anchor="middle" fill="rgba(240,240,242,0.92)" font-size="17" font-family="Poppins,sans-serif" font-weight="600">Meeting booked</text>
+                    </g>
+                  </g>
+
+                </svg>
+              </div><!-- /.memory-viz -->
+
+              <!-- Proof pills -->
+
+            </div><!-- /.memory-left -->
+
+            <!-- RIGHT: copy -->
+            <div class="memory-copy">
+              <p class="eyebrow reveal">It gets smarter the longer it works with you</p>
+              <h2 class="section-title reveal reveal-d1">Every other agent resets.<br>Globster accumulates.</h2>
+              <p class="section-lead reveal reveal-d2">Long-term memory across every conversation, every channel, every task. The more context it builds, the stronger the output. That's the difference between a tool you use and a hire that knows the job.</p>
+            </div>
+
+          </div><!-- /.memory-grid -->
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           S9 · TESTIMONIALS
+           ══════════════════════════════════════════════════ -->
+      <section class="section section--alt" id="testimonials">
+        <div class="container">
+          <div class="section-head--center section-head">
+            <h2 class="section-title reveal">What people are saying</h2>
+          </div>
+
+          <div class="testi-wrap">
+            <button class="testi-arrow" id="testi-prev" aria-label="Previous testimonial">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+
+            <div class="testi-viewport" id="testi-viewport">
+              <div class="testi-track" id="testi-track">
+
+                <div class="testi-card testi-card--featured">
+                  <div class="testi-body">
+                    <span class="testi-mark">"</span>
+                    <p class="testi-text">This is the type of technology that once you have it, you don't know how you managed before.</p>
+                  </div>
+                  <div class="testi-author">
+                    <img class="testi-avatar" src="assets/Roymann.jpg" alt="Roy Mann" />
+                    <div class="testi-meta">
+                      <span class="testi-name">Roy Mann</span>
+                      <span class="testi-role">Co-founder &amp; Co-CEO, monday.com</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="testi-card">
+                  <div class="testi-body">
+                    <span class="testi-mark">"</span>
+                    <p class="testi-text">I set up my agent in two minutes. By the end of the day it had cleared my inbox, prepped me for three meetings, and posted a Slack update I didn't even ask for. That's when I knew this was different.</p>
+                  </div>
+                  <div class="testi-author">
+                    <img class="testi-avatar" src="assets/Dean.png" alt="Dean Abraham" />
+                    <div class="testi-meta">
+                      <span class="testi-name">Dean Abraham</span>
+                      <span class="testi-role">Early Globster user</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="testi-card">
+                  <div class="testi-body">
+                    <span class="testi-mark">"</span>
+                    <p class="testi-text">OpenClaw changed what agents could do. Globster made it something anyone can actually use. The gap between knowing agents are powerful and having one work for you — that's gone now.</p>
+                  </div>
+                  <div class="testi-author">
+                    <img class="testi-avatar" src="assets/Aviv.png" alt="Aviv Peled" />
+                    <div class="testi-meta">
+                      <span class="testi-name">Aviv Peled</span>
+                      <span class="testi-role">Early Globster user</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <button class="testi-arrow" id="testi-next" aria-label="Next testimonial">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+
+          <div class="testi-dots" id="testi-dots">
+            <button class="testi-dot is-active" data-index="0" aria-label="Go to slide 1"></button>
+            <button class="testi-dot" data-index="1" aria-label="Go to slide 2"></button>
+            <button class="testi-dot" data-index="2" aria-label="Go to slide 3"></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           S10 · HOW IT WORKS
+           ══════════════════════════════════════════════════ -->
+      <section class="section" id="how-it-works">
+        <div class="container">
+          <div class="section-head--center section-head">
+            <p class="eyebrow reveal">How it works</p>
+            <h2 class="section-title reveal reveal-d1">
+  <span class="mobile-br">Three steps.</span>
+  <span class="mobile-br">Two minutes.</span>
+  <span class="mobile-br">Your agent is live.</span>
+</h2>
+          </div>
+          <div class="steps-grid">
+            <article class="step-card reveal">
+              <div class="step-card__num">1</div>
+              <h3 class="step-card__title">Create your agent</h3>
+              <p class="step-card__desc">One click. Name it. Give it a personality.</p>
+            </article>
+
+            <div class="step-connector" aria-hidden="true">
+              <svg class="step-connector__svg" viewBox="0 0 64 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="step-connector__track" d="M4 12 H54" stroke-linecap="round"/>
+                <path class="step-connector__fill"  d="M4 12 H54" stroke-linecap="round"/>
+                <polyline class="step-connector__arrow" points="48,6 58,12 48,18" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <article class="step-card reveal reveal-d1">
+              <div class="step-card__num">2</div>
+              <h3 class="step-card__title">Connect your tools</h3>
+              <p class="step-card__desc">Only the ones you already use. One click each.</p>
+            </article>
+
+            <div class="step-connector" aria-hidden="true">
+              <svg class="step-connector__svg" viewBox="0 0 64 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="step-connector__track" d="M4 12 H54" stroke-linecap="round"/>
+                <path class="step-connector__fill"  d="M4 12 H54" stroke-linecap="round" style="animation-delay:.7s"/>
+                <polyline class="step-connector__arrow" points="48,6 58,12 48,18" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <article class="step-card reveal reveal-d2">
+              <div class="step-card__num">3</div>
+              <h3 class="step-card__title">Your agent gets to work</h3>
+              <p class="step-card__desc">Immediately. No briefing. No babysitting.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           S11 · PRICING
+           ══════════════════════════════════════════════════ -->
+      <section class="section section--alt" id="pricing" data-billing="monthly">
+        <div class="container">
+          <div class="section-head--center section-head">
+            <p class="eyebrow reveal">Pricing</p>
+            <h2 class="section-title reveal reveal-d1">Costs less than a junior.<br>Delivers more than a senior.</h2>
+            <p class="section-lead reveal reveal-d2">7-day free trial. No credit card needed.<br>Scale up when your agent outgrows the plan.</p>
+          </div>
+          <div class="pricing-toggle-wrap">
+            <div class="pricing-billing-toggle" role="group" aria-label="Billing period">
+              <button class="pricing-billing-toggle__btn js-pricing-billing is-active" type="button" data-value="monthly" aria-pressed="true">Monthly</button>
+              <button class="pricing-billing-toggle__btn js-pricing-billing" type="button" data-value="yearly" aria-pressed="false">Yearly <span class="pricing-save-pill">Save 20%</span></button>
+            </div>
+          </div>
+          <div class="pricing-grid">
+            <article class="price-card reveal">
+              <h3 class="price-card__name">Starter Globster</h3>
+              <p class="price-card__hint">Perfect for your first agent</p>
+              <div class="price-card__price-wrap">
+                <p class="price-card__amount price-card__billing price-card__billing--monthly">$29<span>/mo</span></p>
+                <div class="price-card__billing price-card__billing--yearly">
+                  <p class="price-card__compare-price">$29<span>/mo</span></p>
+                  <p class="price-card__amount price-card__amount--yearly-line">$23<span>/mo</span><span class="price-card__billed-note"> · billed yearly</span></p>
+                  <span class="price-card__save-badge">Save $72/yr</span>
+                </div>
+              </div>
+              <ul>
+                <li>2,900 credits / month</li>
+                <li>Up to 50% free bonus credits</li>
+                <li>All core integrations</li>
+                <li>WhatsApp & Telegram</li>
+              </ul>
+              <a class="btn btn--ghost" href="#hero">Start Free — 7 Day Trial</a>
+            </article>
+            <article class="price-card price-card--featured reveal reveal-d1">
+              <span class="price-card__badge">Most popular</span>
+              <h3 class="price-card__name">Pro Globster</h3>
+              <p class="price-card__hint">For power users who ship fast</p>
+              <div class="price-card__price-wrap">
+                <p class="price-card__amount price-card__billing price-card__billing--monthly">$79<span>/mo</span></p>
+                <div class="price-card__billing price-card__billing--yearly">
+                  <p class="price-card__compare-price">$79<span>/mo</span></p>
+                  <p class="price-card__amount price-card__amount--yearly-line">$63<span>/mo</span><span class="price-card__billed-note"> · billed yearly</span></p>
+                  <span class="price-card__save-badge">Save $192/yr</span>
+                </div>
+              </div>
+              <ul>
+                <li>7,900 credits / month</li>
+                <li>Up to 50% free bonus credits</li>
+                <li>Real-world identity (email + phone)</li>
+                <li>Credit card with spending limits</li>
+                <li>Priority support</li>
+              </ul>
+              <a class="btn btn--primary" href="#hero">Start Free — 7 Day Trial</a>
+            </article>
+            <article class="price-card reveal reveal-d2">
+              <h3 class="price-card__name">Business Globster</h3>
+              <p class="price-card__hint">Run your own agent workforce</p>
+              <div class="price-card__price-wrap">
+                <p class="price-card__amount price-card__billing price-card__billing--monthly">$199<span>/mo</span></p>
+                <div class="price-card__billing price-card__billing--yearly">
+                  <p class="price-card__compare-price">$199<span>/mo</span></p>
+                  <p class="price-card__amount price-card__amount--yearly-line">$159<span>/mo</span><span class="price-card__billed-note"> · billed yearly</span></p>
+                  <span class="price-card__save-badge">Save $480/yr</span>
+                </div>
+              </div>
+              <ul>
+                <li>22,900 credits / month</li>
+                <li>Up to 50% free bonus credits</li>
+                <li>Multiple agents</li>
+                <li>Agent teams & collaboration</li>
+                <li>Dedicated support</li>
+              </ul>
+              <a class="btn btn--ghost" href="#hero">Start Free — 7 Day Trial</a>
+            </article>
+          </div>
+          <p class="pricing-footnote">All plans include up to 50% free bonus credits · 20% off yearly</p>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           S11.5 · STATS BENTO
+           ══════════════════════════════════════════════════ -->
+      <section class="section stats-bento-section">
+        <div class="container">
+          <div class="stats-bento-header reveal">
+            <span class="eyebrow">By the numbers</span>
+            <h2 class="section-title">Fast to start.<br>Built to last.</h2>
+          </div>
+          <div class="about-stats reveal reveal-d1">
+            <div class="about-stat about-stat--hero" id="stat-hero">
+              <div class="about-stat__shine" aria-hidden="true"></div>
+              <span class="about-stat__label">Deploy in</span>
+              <div class="about-stat__num-row">
+                <span class="about-stat__num">120</span>
+                <span class="about-stat__num-unit">seconds</span>
+              </div>
+            </div>
+            <div class="about-stats__stack">
+              <div class="about-stat about-stat--accent" id="stat-accent">
+                <div class="about-stat__shine" aria-hidden="true"></div>
+                <span class="about-stat__label">Plugins</span>
+                <span class="about-stat__num">20+</span>
+                <span class="about-stat__sub">more with APIs or MCPs</span>
+              </div>
+              <div class="about-stat about-stat--muted" id="stat-muted">
+                <div class="about-stat__shine" aria-hidden="true"></div>
+                <span class="about-stat__label">days free trial</span>
+                <span class="about-stat__num">7</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           FAQ
+           ══════════════════════════════════════════════════ -->
+      <section class="section faq-section" id="faq">
+        <div class="container faq-container">
+
+          <div class="faq-header reveal">
+            <span class="eyebrow">FAQ</span>
+            <h2 class="section-title reveal reveal-d1">Questions, answered.</h2>
+          </div>
+
+          <div class="faq-accordion reveal reveal-d2" id="faq-accordion">
+
+            <div class="faq-item" data-faq>
+              <button type="button" class="faq-trigger" aria-expanded="false">
+                <span class="faq-num">01</span>
+                <span class="faq-question">What is Globster.ai?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">Globster.ai is a hosted platform that lets anyone deploy a personal AI agent in under 2 minutes. Not a chatbot. Not a copilot. An operational hire — with its own name, personality, email address, phone number, and credit card. It connects to your tools, lives on your favorite channels, and gets smarter every day it works with you. Built by monday agent labs. Powered by NVIDIA NemoClaw. Managed by monday.com.</div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-faq>
+              <button type="button" class="faq-trigger" aria-expanded="false">
+                <span class="faq-num">02</span>
+                <span class="faq-question">How is Globster different from ChatGPT or other AI assistants?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">ChatGPT answers questions. Globster executes tasks. Most AI tools reset every session — they have no memory, no tools, and no presence in the world. Your Globster agent remembers everything across every conversation and every channel. It has a real-world identity — its own email, phone, and credit card — and can act on your behalf autonomously. It's the difference between an AI you talk to and an AI that works for you.</div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-faq>
+              <button type="button" class="faq-trigger" aria-expanded="false">
+                <span class="faq-num">03</span>
+                <span class="faq-question">Do I need technical knowledge to set up my agent?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">None. You sign up with your Google account, click "Create New Agent," give it a name and an emoji, and your agent is live in under 2 minutes. No servers, no configuration, no engineering background required. If you've ever set up a Slack account, you can set up a Globster agent. And it starts with a 7-day free trial — no credit card needed.</div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-faq>
+              <button type="button" class="faq-trigger" aria-expanded="false">
+                <span class="faq-num">04</span>
+                <span class="faq-question">What tools and apps can my agent connect to?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">Your agent connects to 20+ tools in one click — including Gmail, Google Calendar, GitHub, Salesforce, Jira, LinkedIn, Gong, monday.com, Figma, Slack, and more. Each integration you add is a new capability your agent can use from day one. The library is growing every month. You can also connect any tool with an API or MCP directly to your Globster agent.</div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-faq>
+              <button type="button" class="faq-trigger" aria-expanded="false">
+                <span class="faq-num">05</span>
+                <span class="faq-question">Which AI models does Globster support?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">You choose the brain. Globster supports Claude, Gemini, Grok, and more. Each model has different strengths — switch at any time without losing any of your agent's memory or context. Your agent, your call.</div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-faq>
+              <button type="button" class="faq-trigger" aria-expanded="false">
+                <span class="faq-num">06</span>
+                <span class="faq-question">Is there a free trial?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">Yes. Every new Globster account comes with a 7-day free trial — no credit card needed. You get full access to your agent, all integrations, and all channels from day one. No setup fees. No surprises.</div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-faq>
+              <button type="button" class="faq-trigger" aria-expanded="false">
+                <span class="faq-num">07</span>
+                <span class="faq-question">How much does Globster cost?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">Plans start at $23/month billed yearly (or $29/month billed monthly) for the Starter plan (2,900 credits/month). The Pro plan is $63/month yearly (7,900 credits) and Business is $159/month yearly (22,900 credits). All plans include up to 50% free bonus credits. You can also top up credits anytime starting at $20. Start free — 7-day trial, no credit card needed.</div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-faq>
+              <button type="button" class="faq-trigger" aria-expanded="false">
+                <span class="faq-num">08</span>
+                <span class="faq-question">Is my data safe?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">Yes. Every Globster agent runs in its own isolated container on monday.com's managed cloud — powered by NVIDIA NemoClaw, the security-hardened agent runtime built specifically for AI agents. NemoClaw restricts access to sensitive files, blocks open internet access by default, and keeps your credentials protected. Your data never mixes with other users. Enterprise-grade security — made personal.</div>
+              </div>
+            </div>
+
+            <div class="faq-item" data-faq>
+              <button type="button" class="faq-trigger" aria-expanded="false">
+                <span class="faq-num">09</span>
+                <span class="faq-question">What happens if I need help?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">Every Globster agent comes with Dr. Claw — a built-in AI support agent available 24/7 to help you configure your agent, troubleshoot issues, and improve your workflows. You're never on your own.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           S12 · SEND-OFF
+           ══════════════════════════════════════════════════ -->
+      <section class="sendoff" id="get-started">
+        <div class="container">
+          <div class="sendoff__inner reveal">
+            <h2 class="sendoff__h1">Your agent is one click away.</h2>
+            <a class="btn btn--primary btn--xl btn--glow" href="#pricing">Get Your Agent</a>
+            <p class="sendoff__fine">Start free · No credit card needed</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ══════════════════════════════════════════════════
+         FOOTER
+         ══════════════════════════════════════════════════ -->
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <a href="#" class="site-footer__logo-link" aria-label="Globster.ai home">
+          <img src="assets/globster-logo.svg" alt="Globster.ai" class="site-footer__logo" />
+        </a>
+        <p class="site-footer__copy">All Rights Reserved © Globster.ai 2026 · monday agent labs</p>
+        <div class="site-footer__social">
+          <a href="https://www.linkedin.com/company/globster-ai" target="_blank" rel="noopener noreferrer" aria-label="Globster on LinkedIn" class="site-footer__social-link">
+            <svg width="20" height="20" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
+              <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
+            </svg>
+          </a>
+          <a href="https://x.com/globsterai" target="_blank" rel="noopener noreferrer" aria-label="Globster on X" class="site-footer__social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Video modal -->
+    <div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-label="Globster demo" hidden>
+      <div class="video-modal__backdrop" id="video-modal-backdrop"></div>
+      <div class="video-modal__window">
+        <button class="video-modal__close" id="video-modal-close" type="button" aria-label="Close video">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="video-modal__frame">
+          <iframe id="video-modal-iframe" src="" title="Globster demo" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://player.vimeo.com/api/player.js" defer></script>
+    <script src="script.js" defer></script>
+  </body>
+</html>
