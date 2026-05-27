@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICP Framework — Globster GTM 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --light-bg: #f5f5f3; --light-bg-2: #ebebea;
+      --light-text: #0f0f12; --light-text-2: #4a4a5a;
+      --light-surface: #ffffff; --light-border: rgba(0,0,0,.09);
+    }
+    * { box-sizing: border-box; }
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--accent); z-index: 9999; transition: width 80ms linear; }
+    body { padding-top: 60px; font-family: var(--font, 'Poppins', sans-serif); }
+
+    .gtm-nav { position: fixed; top: 0; left: 0; right: 0; height: 60px; background: rgba(10,10,11,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; z-index: 1000; gap: 1rem; }
+    .gtm-nav__brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; flex-shrink: 0; }
+    .gtm-nav__logo { font-size: .95rem; font-weight: 800; color: var(--text); letter-spacing: -.01em; }
+    .gtm-nav__label { font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); padding: .2rem .5rem; border: 1px solid var(--accent-dim); border-radius: 4px; }
+    .gtm-nav__back { font-size: .75rem; font-weight: 500; color: var(--text-2); text-decoration: none; display: flex; align-items: center; gap: .35rem; transition: color 150ms; }
+    .gtm-nav__back:hover { color: var(--text); }
+    .gtm-nav__sub { position: relative; margin-left: auto; }
+    .gtm-nav__sub-btn { display: flex; align-items: center; gap: .35rem; font-size: .75rem; font-weight: 600; color: var(--text-2); background: rgba(255,255,255,.06); border: 1px solid var(--border-med); border-radius: 6px; padding: .35rem .7rem; cursor: pointer; transition: all 150ms; white-space: nowrap; }
+    .gtm-nav__sub-btn:hover { color: var(--text); background: rgba(255,255,255,.1); }
+    .gtm-nav__sub-btn svg { width: 11px; height: 11px; opacity: .5; transition: transform 200ms; }
+    .gtm-nav__dropdown { position: absolute; top: calc(100% + 8px); right: 0; min-width: 210px; background: #1a1a1f; border: 1px solid var(--border-med); border-radius: 10px; padding: .4rem; box-shadow: var(--shadow-lg); display: none; flex-direction: column; gap: .1rem; z-index: 2000; }
+    .gtm-nav__dropdown.open { display: flex; }
+    .gtm-nav__dropdown a { font-size: .78rem; font-weight: 500; color: var(--text-2); text-decoration: none; padding: .5rem .75rem; border-radius: 6px; transition: all 150ms; }
+    .gtm-nav__dropdown a:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .gtm-nav__dropdown a.active { color: var(--accent); background: var(--accent-dim); }
+
+    .page-hero { padding: 4rem 2rem 3rem; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .page-hero__inner { max-width: 1080px; margin: 0 auto; }
+    .page-hero__eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; display: block; }
+    .page-hero__h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.1; color: var(--text); margin: 0 0 1rem; }
+    .page-hero__sub { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-2); line-height: 1.65; max-width: 660px; margin: 0; }
+
+    .gtm-section { padding: 4rem 2rem; position: relative; }
+    .gtm-section--dark { background: var(--bg, #0a0a0b); color: var(--text); }
+    .gtm-section--dark2 { background: var(--bg-2, #111113); color: var(--text); }
+    .gtm-section--light { background: var(--light-bg); color: var(--light-text); }
+    .gtm-section--light2 { background: var(--light-bg-2); color: var(--light-text); }
+    .gtm-inner { max-width: 1080px; margin: 0 auto; }
+    .gtm-section-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .6rem; display: block; }
+    .gtm-h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 1.5rem; }
+    .gtm-section--dark .gtm-h2, .gtm-section--dark2 .gtm-h2 { color: var(--text); }
+    .gtm-section--light .gtm-h2, .gtm-section--light2 .gtm-h2 { color: var(--light-text); }
+    .gtm-divider { width: 2.5rem; height: 3px; background: var(--accent); border-radius: 2px; margin: 1rem 0 1.5rem; }
+    .gtm-lead { font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1rem, 1.8vw, 1.15rem); font-style: italic; line-height: 1.75; margin: 0 0 2rem; max-width: 680px; }
+    .gtm-section--dark .gtm-lead, .gtm-section--dark2 .gtm-lead { color: var(--text-2); }
+    .gtm-section--light .gtm-lead, .gtm-section--light2 .gtm-lead { color: var(--light-text-2); }
+    .gtm-narrative { font-size: .97rem; line-height: 1.9; max-width: 680px; }
+    .gtm-section--dark .gtm-narrative, .gtm-section--dark2 .gtm-narrative { color: var(--text-2); }
+    .gtm-section--light .gtm-narrative, .gtm-section--light2 .gtm-narrative { color: var(--light-text-2); }
+
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
+    .card { border-radius: 14px; padding: 1.5rem; transition: transform 200ms; }
+    .gtm-section--dark .card, .gtm-section--dark2 .card { background: var(--surface); border: 1px solid var(--border); }
+    .gtm-section--light .card, .gtm-section--light2 .card { background: var(--light-surface); border: 1px solid var(--light-border); }
+    .card:hover { transform: translateY(-2px); }
+    .card__label { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+    .card__title { font-size: .92rem; font-weight: 700; margin-bottom: .6rem; }
+    .gtm-section--dark .card__title, .gtm-section--dark2 .card__title { color: var(--text); }
+    .gtm-section--light .card__title { color: var(--light-text); }
+    .card__body { font-size: .82rem; line-height: 1.7; }
+    .gtm-section--dark .card__body, .gtm-section--dark2 .card__body { color: var(--text-2); }
+    .gtm-section--light .card__body { color: var(--light-text-2); }
+
+    .gtm-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    @media (max-width: 768px) { .gtm-two-col { grid-template-columns: 1fr; } }
+
+    .data-table-wrap { overflow-x: auto; margin: 2rem 0; border-radius: 12px; border: 1px solid var(--light-border); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+    .data-table th { background: var(--light-bg-2); color: var(--light-text-2); font-weight: 600; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; padding: .85rem 1rem; text-align: left; border-bottom: 1px solid var(--light-border); white-space: nowrap; }
+    .data-table td { padding: .8rem 1rem; border-bottom: 1px solid var(--light-border); color: var(--light-text-2); vertical-align: middle; }
+    .data-table td:first-child { font-weight: 600; color: var(--light-text); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tbody tr:hover { background: rgba(0,0,0,.03); }
+    .badge { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .03em; padding: .2rem .55rem; border-radius: 20px; }
+    .badge--green { background: rgba(22,163,74,.12); color: #16a34a; }
+    .badge--red { background: rgba(233,47,35,.1); color: var(--accent); }
+    .badge--yellow { background: rgba(217,119,6,.1); color: #d97706; }
+    .badge--blue { background: rgba(37,99,235,.1); color: #2563eb; }
+
+    .callout { background: var(--surface-2); border: 1px solid var(--border-med); border-radius: 14px; padding: 1.75rem 2rem; margin: 2rem 0; }
+    .callout--accent { background: var(--accent-dim); border-color: rgba(233,47,35,.25); }
+    .callout__title { font-size: .95rem; font-weight: 800; margin-bottom: .6rem; color: var(--text); }
+    .callout__body { font-size: .88rem; line-height: 1.7; color: var(--text-2); }
+
+    .styled-list { list-style: none; padding: 0; margin: 1.5rem 0; display: flex; flex-direction: column; gap: .5rem; }
+    .styled-list li { font-size: .9rem; line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .gtm-section--dark .styled-list li, .gtm-section--dark2 .styled-list li { color: var(--text-2); }
+    .gtm-section--light .styled-list li, .gtm-section--light2 .styled-list li { color: var(--light-text-2); }
+    .styled-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: .8rem; top: .15rem; font-weight: 700; }
+
+    .num-list { list-style: none; padding: 0; margin: 1.5rem 0; display: flex; flex-direction: column; gap: .75rem; counter-reset: nl; }
+    .num-list li { display: flex; gap: 1rem; font-size: .9rem; line-height: 1.7; counter-increment: nl; }
+    .num-list li::before { content: counter(nl); font-size: .75rem; font-weight: 900; color: var(--accent); background: var(--accent-dim); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: .15rem; }
+    .gtm-section--dark .num-list li, .gtm-section--dark2 .num-list li { color: var(--text-2); }
+    .gtm-section--light .num-list li, .gtm-section--light2 .num-list li { color: var(--light-text-2); }
+
+    .evidence-block { background: var(--surface); border: 1px solid var(--border-med); border-left: 3px solid var(--accent); border-radius: 8px; padding: 1.4rem 1.4rem 1.1rem 2rem; margin-bottom: .9rem; font-family: 'Source Serif 4', Georgia, serif; font-size: .9rem; line-height: 1.65; color: var(--text); position: relative; }
+    .evidence-block::before { content: '"'; position: absolute; top: -.2rem; left: .6rem; font-size: 3.5rem; line-height: 1; color: var(--accent); opacity: .35; font-style: italic; pointer-events: none; }
+    .evidence-block .source { display: block; margin-top: .6rem; font-family: 'Poppins', sans-serif; font-size: .7rem; font-weight: 600; letter-spacing: .04em; color: var(--text-3); font-style: normal; }
+
+    /* ICP profile card */
+    .icp-card { background: var(--light-surface); border: 1px solid var(--light-border); border-radius: 16px; padding: 2rem; }
+    .icp-card__name { font-size: 1.25rem; font-weight: 900; color: var(--light-text); margin-bottom: .2rem; }
+    .icp-card__title { font-size: .8rem; color: var(--accent); font-weight: 700; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .icp-row { display: flex; flex-direction: column; gap: .15rem; margin-bottom: 1.1rem; }
+    .icp-row__label { font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--light-text-2); }
+    .icp-row__val { font-size: .87rem; line-height: 1.6; color: var(--light-text); font-weight: 500; }
+    .icp-row__list { list-style: none; padding: 0; margin: .25rem 0 0; display: flex; flex-direction: column; gap: .2rem; }
+    .icp-row__list li { font-size: .83rem; line-height: 1.55; color: var(--light-text-2); padding-left: 1rem; position: relative; }
+    .icp-row__list li::before { content: '·'; position: absolute; left: .2rem; color: var(--accent); }
+
+    /* Disqualification section */
+    .disqual-card { background: rgba(233,47,35,.04); border: 1px solid rgba(233,47,35,.15); border-radius: 12px; padding: 1.5rem; margin-top: 2rem; }
+    .disqual-card__title { font-size: .85rem; font-weight: 800; color: var(--light-text); margin-bottom: 1rem; }
+
+    /* Expansion table dark wrapper */
+    .dark-table-wrap { overflow-x: auto; margin: 2rem 0; border-radius: 12px; border: 1px solid var(--border-med); }
+    .data-table--dark { width: 100%; border-collapse: collapse; font-size: .8rem; }
+    .data-table--dark th { background: var(--surface-2); color: var(--text-3); font-weight: 600; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; padding: .85rem 1rem; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    .data-table--dark td { padding: .8rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-2); vertical-align: middle; }
+    .data-table--dark td:first-child { font-weight: 600; color: var(--text); }
+    .data-table--dark tr:last-child td { border-bottom: none; }
+    .data-table--dark tbody tr:hover { background: rgba(255,255,255,.03); }
+
+    @media (max-width: 640px) { .card-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<header class="gtm-nav">
+  <a href="GTM planning.html" class="gtm-nav__brand">
+    <span class="gtm-nav__logo">Globster</span>
+    <span class="gtm-nav__label">GTM 2026</span>
+  </a>
+  <a href="GTM planning.html" class="gtm-nav__back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="15 18 9 12 15 6"/></svg>
+    GTM Overview
+  </a>
+  <div class="gtm-nav__sub">
+    <button class="gtm-nav__sub-btn">
+      Subpages
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="gtm-nav__dropdown">
+      <a href="gtm-competitors.html">Competitive Landscape</a>
+      <a href="gtm-icp.html">ICP Framework</a>
+      <a href="gtm-messaging.html">Messaging Framework</a>
+      <a href="gtm-narrative.html">Narrative</a>
+      <a href="gtm-channels.html">Channel Strategy</a>
+      <a href="gtm-content.html">Content Strategy</a>
+      <a href="gtm-launch.html">Launch Sequence</a>
+      <a href="gtm-metrics.html">Success Metrics</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero__inner">
+    <span class="page-hero__eyebrow">Ideal Customer Profile</span>
+    <h1 class="page-hero__h1">ICP Framework</h1>
+    <p class="page-hero__sub">We're not selling to everyone who uses AI. We're selling to one person: the Head of Marketing at a 50-person company who needs results today.</p>
+  </div>
+</section>
+
+<!-- SECTION 1: PRIMARY ICP -->
+<section class="gtm-section gtm-section--light">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Who We Sell To</span>
+    <h2 class="gtm-h2" style="color: var(--light-text);">The Primary ICP</h2>
+    <div class="gtm-divider"></div>
+
+    <div class="gtm-two-col">
+      <div class="icp-card">
+        <div class="icp-card__name">The Marketing Head</div>
+        <div class="icp-card__title">Primary ICP — Marketing Lane</div>
+
+        <div class="icp-row">
+          <span class="icp-row__label">Role</span>
+          <span class="icp-row__val">Head of Marketing / VP Marketing / Marketing Director</span>
+        </div>
+        <div class="icp-row">
+          <span class="icp-row__label">Company Size</span>
+          <span class="icp-row__val">30–120 employees (sweet spot: 50)</span>
+        </div>
+        <div class="icp-row">
+          <span class="icp-row__label">Industry</span>
+          <span class="icp-row__val">B2B SaaS, professional services, e-commerce, digital agencies, fintech startups</span>
+        </div>
+        <div class="icp-row">
+          <span class="icp-row__label">Current Tech Stack</span>
+          <ul class="icp-row__list">
+            <li>HubSpot or Salesforce (CRM)</li>
+            <li>Slack + WhatsApp for team communication</li>
+            <li>Notion or ClickUp for project management</li>
+            <li>Canva or Figma for creative</li>
+            <li>ChatGPT or Jasper for AI drafts</li>
+          </ul>
+        </div>
+        <div class="icp-row">
+          <span class="icp-row__label">Top Goals</span>
+          <ul class="icp-row__list">
+            <li>Generate more qualified pipeline with the same or smaller team</li>
+            <li>Reduce time spent on content production and reporting</li>
+            <li>Demonstrate clear ROI to the CEO</li>
+            <li>Move faster than the competition</li>
+          </ul>
+        </div>
+        <div class="icp-row">
+          <span class="icp-row__label">Core Pains</span>
+          <ul class="icp-row__list">
+            <li>Wearing 6 hats — strategist, writer, analyst, PM, designer, account manager</li>
+            <li>AI tools that require too much prompt engineering to be reliable</li>
+            <li>Can't afford to hire the specialist they actually need</li>
+            <li>Reporting takes hours that should go to actual work</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <p class="gtm-narrative" style="color: var(--light-text-2);">This ICP is not chosen arbitrarily. The Head of Marketing at a 50-person company is the highest-leverage early adopter for Globster because they are simultaneously under-resourced and results-accountable. They have enough context to understand what a good AI agent would do for them — and enough daily pain to feel the gap immediately.</p>
+        <p class="gtm-narrative" style="color: var(--light-text-2); margin-top: 1rem;">At 50 people, the company is too small for a dedicated marketing operations hire, too big to operate on gut instinct alone. The marketing head is expected to run campaigns, manage a content calendar, own the pipeline number, and justify headcount requests — all with a lean team of 2–3. They've tried generic AI tools and found them useful but unreliable. They are primed for something that just knows their job.</p>
+        <p class="gtm-narrative" style="color: var(--light-text-2); margin-top: 1rem;">Critically, this person is also a natural amplifier. When they find a tool that genuinely saves them 5 hours a week, they share it. With their CEO. With peers at other companies. On LinkedIn. They are the node through which word-of-mouth propagates — which is why the bottom-up motion starts here.</p>
+
+        <div style="background: var(--light-bg-2); border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1.5rem; border: 1px solid var(--light-border);">
+          <div style="font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem;">Buying authority</div>
+          <p style="font-size: .85rem; line-height: 1.65; color: var(--light-text-2);">This person can typically approve $0–$500/mo independently. Above that, they need sign-off from CEO or CFO. Our pricing must stay below the approval threshold during the individual activation phase, then expand post-proof.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: PSYCHOGRAPHIC PROFILE -->
+<section class="gtm-section gtm-section--dark">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">The Psychology</span>
+    <h2 class="gtm-h2">Psychographic Profile</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">Features don't sell. Feelings do. Understand the emotional landscape of this buyer before you write a single word of copy.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card__label">Motivations</div>
+        <div class="card__title">What drives them to act</div>
+        <div class="card__body">
+          <ul class="styled-list" style="margin: 0;">
+            <li>Desire to be the person who brought AI into the company "the right way"</li>
+            <li>Ambition to grow without headcount — doing more with less is a badge of honor</li>
+            <li>FOMO: their peers are posting LinkedIn wins about AI-driven growth</li>
+            <li>Pride in craft — they want to produce great marketing, not just more marketing</li>
+            <li>Proving their strategic value to the C-suite beyond execution</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__label">Pain Points</div>
+        <div class="card__title">What keeps them up at night</div>
+        <div class="card__body">
+          <ul class="styled-list" style="margin: 0;">
+            <li>Every AI tool they've tried required hours of setup to get mediocre output</li>
+            <li>The pipeline is behind and the CEO is asking questions</li>
+            <li>Content backlog is months deep and growing</li>
+            <li>Can't prove that the AI tools they're paying for are actually generating ROI</li>
+            <li>Team burnout from too many tools, too many logins, too little clarity</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__label">Buying Triggers</div>
+        <div class="card__title">What makes them pull the trigger</div>
+        <div class="card__body">
+          <ul class="styled-list" style="margin: 0;">
+            <li>A peer in a Slack community posts a specific result ("saved 8h/week on reports")</li>
+            <li>They see a product demo that shows their exact workflow, not a generic use case</li>
+            <li>A painful Monday morning — missed deadline, bad campaign result, team conflict</li>
+            <li>CEO asks "what are we doing with AI?" — they need an answer fast</li>
+            <li>Free trial with zero setup friction — they can try it without a meeting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="evidence-block" style="margin-top: 2rem;">
+      I don't have time to learn a new platform. I just need something that understands what a Head of Marketing actually does — runs campaigns, writes copy, tracks performance, coordinates the team — and does the boring parts so I can focus on the strategy. I've tried building agents in Lindy and honestly it just gave me a new job: agent maintenance.
+      <span class="source">— Persona: Sarah M., Head of Marketing, 55-person B2B SaaS company, Series A</span>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: QUALIFICATION CRITERIA -->
+<section class="gtm-section gtm-section--light2">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Scoring Framework</span>
+    <h2 class="gtm-h2" style="color: var(--light-text);">Qualification Criteria</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead" style="color: var(--light-text-2);">Not every company with 50 employees is our ICP. Use these signals to qualify fast and disqualify faster.</p>
+
+    <div class="gtm-two-col">
+      <div>
+        <div style="font-size: .8rem; font-weight: 700; color: var(--light-text); margin-bottom: .75rem; letter-spacing: .04em; text-transform: uppercase;">✅ Qualification Signals</div>
+        <ol class="num-list">
+          <li><strong style="color: var(--light-text);">30–120 headcount with lean marketing team (1–3 people).</strong> The pain is structural, not situational. They are chronically under-resourced.</li>
+          <li><strong style="color: var(--light-text);">Active on Slack or WhatsApp for business operations.</strong> Native channel delivery only works for people who actually use those channels for work. Must be present.</li>
+          <li><strong style="color: var(--light-text);">Currently paying for at least one AI tool (ChatGPT, Jasper, Notion AI, etc.).</strong> They've crossed the AI adoption threshold. We're competing for consolidation, not evangelizing AI from scratch.</li>
+          <li><strong style="color: var(--light-text);">Marketing owns pipeline or lead-gen responsibility.</strong> If marketing is purely brand/comms with no demand gen mandate, the ROI story changes.</li>
+          <li><strong style="color: var(--light-text);">Individual contributor with autonomous purchase authority to $500/mo.</strong> No 6-month procurement cycles. They can say yes without a steering committee.</li>
+          <li><strong style="color: var(--light-text);">Recent trigger event: growth round, hiring push, new leadership, product launch.</strong> Companies in motion are more likely to invest in tools that accelerate that motion.</li>
+        </ol>
+      </div>
+
+      <div>
+        <div class="disqual-card">
+          <div class="disqual-card__title">❌ Disqualification Criteria — Who is NOT Our ICP</div>
+          <ul class="styled-list" style="margin: 0;">
+            <li><strong style="color: var(--light-text);">Enterprise with a dedicated marketing ops function.</strong> They already have people doing what our agent does. We're competing against headcount, not pain.</li>
+            <li><strong style="color: var(--light-text);">Fewer than 10 employees.</strong> At this size, the founder is doing marketing. They usually don't have established workflows for an agent to slot into.</li>
+            <li><strong style="color: var(--light-text);">Industries with strict AI-use compliance requirements (healthcare, legal, finance).</strong> Until we have compliance certifications, avoid regulated verticals in early GTM.</li>
+            <li><strong style="color: var(--light-text);">Companies with no Slack or WhatsApp presence.</strong> Our delivery model depends on these channels. Email-only teams miss 70% of our UX.</li>
+            <li><strong style="color: var(--light-text);">Buyer who needs IT approval for any SaaS tool.</strong> Our motion is bottom-up, self-serve. A 6-week procurement process kills the viral loop before it starts.</li>
+            <li><strong style="color: var(--light-text);">Primary marketing channel is offline or event-led only.</strong> Our Marketing Kit is optimized for digital channels. Offline-first businesses won't extract full value.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: ICP EXPANSION ROADMAP -->
+<section class="gtm-section gtm-section--dark2">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Lane Expansion</span>
+    <h2 class="gtm-h2">ICP Expansion Roadmap</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">The marketing lane is the beachhead. Every subsequent lane replicates the same GTM motion with a new role-specific kit. The ICP archetype is consistent — the job title and pain vocabulary changes.</p>
+
+    <div class="dark-table-wrap">
+      <table class="data-table--dark">
+        <thead>
+          <tr>
+            <th>Lane</th>
+            <th>Target ICP</th>
+            <th>Core Pain</th>
+            <th>Kit Capabilities</th>
+            <th>TAM Estimate</th>
+            <th>Timeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🚀 Marketing (Live)</td>
+            <td>Head of Marketing, 50-person co.</td>
+            <td>Too much to produce, not enough people; pipeline pressure; AI tools that require too much work</td>
+            <td>Campaign drafting, lead follow-up, weekly reporting, content calendar management, SEO brief generation</td>
+            <td>~4.2M SMBs in target verticals</td>
+            <td><span class="badge badge--green">Q1 2026</span></td>
+          </tr>
+          <tr>
+            <td>Sales</td>
+            <td>Head of Sales / Account Exec, 50-person co.</td>
+            <td>Hours lost on prospecting, follow-up, and pipeline hygiene instead of selling</td>
+            <td>Prospect research, outreach personalization, meeting prep briefs, CRM update automation, deal status summaries</td>
+            <td>~3.8M SMBs</td>
+            <td><span class="badge badge--blue">Q2 2026</span></td>
+          </tr>
+          <tr>
+            <td>HR &amp; People Ops</td>
+            <td>Head of People / HR Manager, 50-person co.</td>
+            <td>Hiring admin is overwhelming; onboarding is inconsistent; engagement survey analysis never gets actioned</td>
+            <td>JD drafting, screening questionnaires, onboarding comms, pulse survey analysis, performance review templates</td>
+            <td>~2.9M SMBs</td>
+            <td><span class="badge badge--yellow">Q3 2026</span></td>
+          </tr>
+          <tr>
+            <td>Customer Support</td>
+            <td>Head of Support / CX Manager, 50-person co.</td>
+            <td>Ticket volume is growing faster than headcount; first-response time is slipping; agents reinvent answers every time</td>
+            <td>Ticket triage and routing, response drafting, escalation detection, CSAT report generation, knowledge base synthesis</td>
+            <td>~3.1M SMBs</td>
+            <td><span class="badge badge--yellow">Q4 2026</span></td>
+          </tr>
+          <tr>
+            <td>Operations</td>
+            <td>COO / Head of Ops, 50-person co.</td>
+            <td>Too many recurring coordination tasks; status updates consume all 1:1 time; reporting is manual and backward-looking</td>
+            <td>Weekly ops report automation, vendor follow-up drafts, meeting agenda preparation, project status aggregation, SOP drafting</td>
+            <td>~2.5M SMBs</td>
+            <td><span class="badge badge--blue">Q1 2027</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout--accent" style="margin-top: 2rem;">
+      <div class="callout__title">The duplication strategy</div>
+      <div class="callout__body">Each new lane is not a full product build — it's a new kit deployed on top of the same infrastructure, agent runtime, and delivery channels. The marketing lane proves the model: the onboarding flow, the pricing, the bottom-up viral loop, the activation metrics. Every subsequent lane inherits this proven architecture and adds only the role-specific prompt layer and integrations. This is why our expansion timeline is aggressive.</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    document.getElementById('progress-bar').style.width = (p * 100) + '%';
+  }, { passive: true });
+  const subBtn = document.querySelector('.gtm-nav__sub-btn');
+  const dropdown = document.querySelector('.gtm-nav__dropdown');
+  subBtn.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('open'); subBtn.querySelector('svg').style.transform = dropdown.classList.contains('open') ? 'rotate(180deg)' : ''; });
+  document.addEventListener('click', () => { dropdown.classList.remove('open'); subBtn.querySelector('svg').style.transform = ''; });
+  dropdown.addEventListener('click', e => e.stopPropagation());
+  const currentFile = location.pathname.split('/').pop();
+  document.querySelectorAll('.gtm-nav__dropdown a').forEach(a => { if (a.getAttribute('href') === currentFile) a.classList.add('active'); });
+</script>
+</body>
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Success Metrics — Globster GTM 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root { --light-bg: #f5f5f3; --light-bg-2: #ebebea; --light-text: #0f0f12; --light-text-2: #4a4a5a; --light-surface: #ffffff; --light-border: rgba(0,0,0,.09); }
+    * { box-sizing: border-box; }
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--accent); z-index: 9999; transition: width 80ms linear; }
+    body { padding-top: 60px; font-family: var(--font, 'Poppins', sans-serif); }
+    .gtm-nav { position: fixed; top: 0; left: 0; right: 0; height: 60px; background: rgba(10,10,11,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; z-index: 1000; gap: 1rem; }
+    .gtm-nav__brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; flex-shrink: 0; }
+    .gtm-nav__logo { font-size: .95rem; font-weight: 800; color: var(--text); letter-spacing: -.01em; }
+    .gtm-nav__label { font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); padding: .2rem .5rem; border: 1px solid var(--accent-dim); border-radius: 4px; }
+    .gtm-nav__back { font-size: .75rem; font-weight: 500; color: var(--text-2); text-decoration: none; display: flex; align-items: center; gap: .35rem; transition: color 150ms; }
+    .gtm-nav__back:hover { color: var(--text); }
+    .gtm-nav__sub { position: relative; margin-left: auto; }
+    .gtm-nav__sub-btn { display: flex; align-items: center; gap: .35rem; font-size: .75rem; font-weight: 600; color: var(--text-2); background: rgba(255,255,255,.06); border: 1px solid var(--border-med); border-radius: 6px; padding: .35rem .7rem; cursor: pointer; transition: all 150ms; white-space: nowrap; }
+    .gtm-nav__sub-btn:hover { color: var(--text); background: rgba(255,255,255,.1); }
+    .gtm-nav__sub-btn svg { width: 11px; height: 11px; opacity: .5; transition: transform 200ms; }
+    .gtm-nav__dropdown { position: absolute; top: calc(100% + 8px); right: 0; min-width: 210px; background: #1a1a1f; border: 1px solid var(--border-med); border-radius: 10px; padding: .4rem; box-shadow: var(--shadow-lg); display: none; flex-direction: column; gap: .1rem; z-index: 2000; }
+    .gtm-nav__dropdown.open { display: flex; }
+    .gtm-nav__dropdown a { font-size: .78rem; font-weight: 500; color: var(--text-2); text-decoration: none; padding: .5rem .75rem; border-radius: 6px; transition: all 150ms; }
+    .gtm-nav__dropdown a:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .gtm-nav__dropdown a.active { color: var(--accent); background: var(--accent-dim); }
+    .page-hero { padding: 4rem 2rem 3rem; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .page-hero__inner { max-width: 1080px; margin: 0 auto; }
+    .page-hero__eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; display: block; }
+    .page-hero__h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.1; color: var(--text); margin: 0 0 1rem; }
+    .page-hero__sub { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-2); line-height: 1.65; max-width: 620px; margin: 0; }
+    .gtm-section { padding: 4rem 2rem; position: relative; }
+    .gtm-section--dark { background: var(--bg); color: var(--text); }
+    .gtm-section--dark2 { background: var(--bg-2, #111113); color: var(--text); }
+    .gtm-section--light { background: var(--light-bg); color: var(--light-text); }
+    .gtm-section--light2 { background: var(--light-bg-2); color: var(--light-text); }
+    .gtm-inner { max-width: 1080px; margin: 0 auto; }
+    .gtm-section-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .6rem; display: block; }
+    .gtm-h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 1.5rem; }
+    .gtm-section--dark .gtm-h2, .gtm-section--dark2 .gtm-h2 { color: var(--text); }
+    .gtm-section--light .gtm-h2, .gtm-section--light2 .gtm-h2 { color: var(--light-text); }
+    .gtm-divider { width: 2.5rem; height: 3px; background: var(--accent); border-radius: 2px; margin: 1rem 0 1.5rem; }
+    .gtm-lead { font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1rem, 1.8vw, 1.15rem); font-style: italic; line-height: 1.75; margin: 0 0 2rem; max-width: 680px; }
+    .gtm-section--dark .gtm-lead, .gtm-section--dark2 .gtm-lead { color: var(--text-2); }
+    .gtm-section--light .gtm-lead, .gtm-section--light2 .gtm-lead { color: var(--light-text-2); }
+    .gtm-narrative { font-size: .97rem; line-height: 1.9; max-width: 680px; }
+    .gtm-section--dark .gtm-narrative, .gtm-section--dark2 .gtm-narrative { color: var(--text-2); }
+    .data-table-wrap { overflow-x: auto; margin: 2rem 0; border-radius: 12px; border: 1px solid var(--light-border); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+    .data-table th { background: var(--light-bg-2); color: var(--light-text-2); font-weight: 600; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; padding: .85rem 1rem; text-align: left; border-bottom: 1px solid var(--light-border); white-space: nowrap; }
+    .data-table td { padding: .8rem 1rem; border-bottom: 1px solid var(--light-border); color: var(--light-text-2); vertical-align: middle; }
+    .data-table td:first-child { font-weight: 600; color: var(--light-text); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tbody tr:hover { background: rgba(0,0,0,.03); }
+    .data-table--dark th { background: var(--surface-2); color: var(--text-3); border-bottom-color: var(--border); }
+    .data-table--dark td { border-bottom-color: var(--border); color: var(--text-2); }
+    .data-table--dark td:first-child { color: var(--text); }
+    .data-table--dark tbody tr:hover { background: rgba(255,255,255,.03); }
+    .badge { display: inline-block; font-size: .68rem; font-weight: 700; padding: .2rem .55rem; border-radius: 20px; }
+    .badge--green { background: rgba(22,163,74,.12); color: #16a34a; }
+    .badge--red { background: rgba(233,47,35,.1); color: var(--accent); }
+    .badge--yellow { background: rgba(217,119,6,.1); color: #d97706; }
+    .callout { background: var(--surface-2); border: 1px solid var(--border-med); border-radius: 14px; padding: 1.75rem 2rem; margin: 2rem 0; }
+    .callout--accent { background: var(--accent-dim); border-color: rgba(233,47,35,.25); }
+    .callout__title { font-size: .95rem; font-weight: 800; margin-bottom: .6rem; color: var(--text); }
+    .callout__body { font-size: .88rem; line-height: 1.7; color: var(--text-2); }
+    @media (max-width: 640px) { .kpi-grid-2 { grid-template-columns: 1fr; } }
+
+    /* North Star callout */
+    .ns-callout { background: var(--accent-dim); border: 1.5px solid rgba(233,47,35,.3); border-radius: 16px; padding: 2rem 2.5rem; margin: 2rem 0; }
+    .ns-callout__eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+    .ns-callout__metric { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; letter-spacing: -.04em; color: var(--accent); line-height: 1; margin-bottom: .4rem; }
+    .ns-callout__label { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: .75rem; }
+    .ns-callout__def { font-size: .88rem; line-height: 1.75; color: var(--text-2); max-width: 560px; }
+
+    /* PMF formula */
+    .pmf-formula { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin: 2rem 0; }
+    .pmf-formula__item { background: var(--surface); border: 1px solid var(--border-med); border-radius: 12px; padding: 1rem 1.4rem; text-align: center; flex: 1; min-width: 140px; }
+    .pmf-formula__item .val { font-size: 1.6rem; font-weight: 900; color: var(--accent); letter-spacing: -.03em; }
+    .pmf-formula__item .label { font-size: .72rem; color: var(--text-2); margin-top: .2rem; line-height: 1.4; }
+    .pmf-formula__op { font-size: 1.4rem; font-weight: 900; color: var(--text-3); flex-shrink: 0; }
+    .pmf-formula__result { background: var(--accent); border-radius: 12px; padding: 1rem 1.4rem; text-align: center; flex: 1; min-width: 140px; }
+    .pmf-formula__result .val { font-size: 1.3rem; font-weight: 900; color: #fff; letter-spacing: -.02em; }
+    .pmf-formula__result .label { font-size: .72rem; color: rgba(255,255,255,.75); margin-top: .2rem; }
+
+    /* KPI grid */
+    .kpi-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 2rem 0; }
+    .kpi-block { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+    .kpi-block__title { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .kpi-row { display: flex; justify-content: space-between; align-items: baseline; padding: .55rem 0; border-bottom: 1px solid var(--border); gap: 1rem; }
+    .kpi-row:last-child { border-bottom: none; }
+    .kpi-row__name { font-size: .82rem; color: var(--text-2); flex: 1; }
+    .kpi-row__target { font-size: .78rem; font-weight: 700; color: var(--text); white-space: nowrap; }
+    .kpi-row__owner { font-size: .7rem; color: var(--text-3); }
+
+    /* Review cadence */
+    .cadence-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0; }
+    @media (max-width: 768px) { .cadence-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .cadence-grid { grid-template-columns: 1fr; } }
+    .cadence-card { background: var(--light-surface); border: 1px solid var(--light-border); border-radius: 12px; padding: 1.25rem; }
+    .cadence-card__freq { font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+    .cadence-card__title { font-size: .9rem; font-weight: 800; color: var(--light-text); margin-bottom: .6rem; }
+    .cadence-card__items { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .35rem; }
+    .cadence-card__items li { font-size: .78rem; line-height: 1.55; color: var(--light-text-2); padding-left: .9rem; position: relative; }
+    .cadence-card__items li::before { content: '·'; position: absolute; left: 0; color: var(--accent); font-weight: 900; font-size: 1rem; top: -.1rem; }
+  </style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<header class="gtm-nav">
+  <a href="GTM planning.html" class="gtm-nav__brand">
+    <span class="gtm-nav__logo">Globster</span>
+    <span class="gtm-nav__label">GTM 2026</span>
+  </a>
+  <a href="GTM planning.html" class="gtm-nav__back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="15 18 9 12 15 6"/></svg>
+    GTM Overview
+  </a>
+  <div class="gtm-nav__sub">
+    <button class="gtm-nav__sub-btn">
+      Subpages
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="gtm-nav__dropdown">
+      <a href="gtm-competitors.html">Competitive Landscape</a>
+      <a href="gtm-icp.html">ICP Framework</a>
+      <a href="gtm-messaging.html">Messaging Framework</a>
+      <a href="gtm-narrative.html">Narrative</a>
+      <a href="gtm-channels.html">Channel Strategy</a>
+      <a href="gtm-content.html">Content Strategy</a>
+      <a href="gtm-launch.html">Launch Sequence</a>
+      <a href="gtm-metrics.html">Success Metrics</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero__inner">
+    <span class="page-hero__eyebrow">GTM 2026 · Success Metrics</span>
+    <h1 class="page-hero__h1">Success Metrics</h1>
+    <p class="page-hero__sub">Metrics without context are noise. Here's what we track, why it matters, and what we do when a number is off.</p>
+  </div>
+</section>
+
+<!-- SECTION 1: North Star + PMF -->
+<section class="gtm-section gtm-section--dark">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Section 01</span>
+    <h2 class="gtm-h2">North Star &amp; PMF Formula</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">One metric to rule the roadmap. Three criteria to declare product-market fit. Everything else is context.</p>
+
+    <div class="ns-callout">
+      <div class="ns-callout__eyebrow">North Star Metric</div>
+      <div class="ns-callout__metric">&gt;60%</div>
+      <div class="ns-callout__label">Weekly Active Agents (WAA)</div>
+      <div class="ns-callout__def">Of all agents deployed by active users, what percentage ran at least one task in the last 7 days? A WAA below 60% means agents are being set up but not actually used — which is the most dangerous form of false activation. WAA above 60% is our signal that Globster has become a habit, not a novelty. Every product decision should move this number.</div>
+    </div>
+
+    <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--text); margin: 2.5rem 0 .5rem;">PMF Formula</h3>
+    <p style="font-size: .88rem; color: var(--text-2); margin-bottom: 1.25rem; line-height: 1.7;">Three independent signals that must all be true simultaneously. No single metric is sufficient — you need all three to confirm PMF, not just a favorable one.</p>
+
+    <div class="pmf-formula">
+      <div class="pmf-formula__item">
+        <div class="val">&gt;25%</div>
+        <div class="label">D30 Retention<br>(users still active at Day 30)</div>
+      </div>
+      <div class="pmf-formula__op">+</div>
+      <div class="pmf-formula__item">
+        <div class="val">&gt;50</div>
+        <div class="label">Net Promoter Score<br>(surveyed at Day 30)</div>
+      </div>
+      <div class="pmf-formula__op">+</div>
+      <div class="pmf-formula__item">
+        <div class="val">&gt;20%</div>
+        <div class="label">Organic Referral<br>(of new signups)</div>
+      </div>
+      <div class="pmf-formula__op">=</div>
+      <div class="pmf-formula__result">
+        <div class="val">PMF</div>
+        <div class="label">Product-Market Fit declared</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout__title">Why These Three Together</div>
+      <div class="callout__body">
+        <strong style="color: var(--text);">D30 Retention &gt;25%</strong> proves the product earns repeat behavior over a full month — not just first-week curiosity. It's the most objective retention bar for a B2B SaaS tool with weekly use expectations.<br><br>
+        <strong style="color: var(--text);">NPS &gt;50</strong> (the Promoter zone) proves users feel strongly enough to actively recommend us — not just click a 5-star. NPS in the 30–50 range signals satisfaction but not advocacy. We need advocacy.<br><br>
+        <strong style="color: var(--text);">Organic referral &gt;20%</strong> proves word-of-mouth is actually happening in the wild — not just in response to a nudge email. When one in five new signups arrives without us doing anything, the flywheel is turning on its own.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: Full KPI Dashboard -->
+<section class="gtm-section gtm-section--dark2">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Section 02</span>
+    <h2 class="gtm-h2">Full KPI Dashboard</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">Every metric tracked, grouped by function. These are checked in the weekly review. Red = take action this week, not next month.</p>
+
+    <div class="kpi-grid-2">
+      <div class="kpi-block">
+        <div class="kpi-block__title">Acquisition</div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">New signups / week</span>
+          <span class="kpi-row__target">&gt;20</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Activation rate (kit deployed w/in 24h)</span>
+          <span class="kpi-row__target">&gt;60%</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Customer acquisition cost (blended)</span>
+          <span class="kpi-row__target">&lt;$50</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">LinkedIn → signup rate</span>
+          <span class="kpi-row__target">&gt;3%</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Organic referral % of signups</span>
+          <span class="kpi-row__target">&gt;20% (Phase 3)</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Source breakdown</span>
+          <span class="kpi-row__target">LinkedIn / Referral / Direct / Other</span>
+        </div>
+      </div>
+      <div class="kpi-block">
+        <div class="kpi-block__title">Retention</div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">D7 retention (active 7 days after signup)</span>
+          <span class="kpi-row__target">&gt;40%</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">D14 retention</span>
+          <span class="kpi-row__target">&gt;30%</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">D30 retention (PMF criterion)</span>
+          <span class="kpi-row__target">&gt;25%</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Weekly Active Agents (WAA)</span>
+          <span class="kpi-row__target">&gt;60%</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Involuntary churn (payment failure)</span>
+          <span class="kpi-row__target">&lt;2%</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Voluntary churn (cancelation)</span>
+          <span class="kpi-row__target">&lt;5% / month</span>
+        </div>
+      </div>
+      <div class="kpi-block">
+        <div class="kpi-block__title">Product</div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Time to first value (signup → first task run)</span>
+          <span class="kpi-row__target">&lt;10 min</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Kit config rate (% who deploy without help)</span>
+          <span class="kpi-row__target">&gt;70%</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Tasks per agent per week (active agents)</span>
+          <span class="kpi-row__target">&gt;5</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Support tickets per 100 users / week</span>
+          <span class="kpi-row__target">&lt;3</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">NPS (surveyed at D30)</span>
+          <span class="kpi-row__target">&gt;50</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Team invite conversion (individual → team)</span>
+          <span class="kpi-row__target">&gt;15%</span>
+        </div>
+      </div>
+      <div class="kpi-block">
+        <div class="kpi-block__title">Content &amp; Channel</div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">LinkedIn weekly impressions</span>
+          <span class="kpi-row__target">&gt;10,000</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">LinkedIn engagement rate</span>
+          <span class="kpi-row__target">&gt;1.5%</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Profile click-through rate</span>
+          <span class="kpi-row__target">&gt;2%</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Content → signup conversion</span>
+          <span class="kpi-row__target">&gt;3%</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Organic referral % of new signups</span>
+          <span class="kpi-row__target">&gt;20%</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-row__name">Community-sourced signups / week</span>
+          <span class="kpi-row__target">&gt;3</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: Leading vs Lagging Indicators -->
+<section class="gtm-section gtm-section--light">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Section 03</span>
+    <h2 class="gtm-h2">Leading vs. Lagging Indicators</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead" style="color: var(--light-text-2);">Leading indicators tell you where you're going before you get there. Lagging indicators confirm you arrived. You need both — but you act on leading indicators.</p>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Metric</th>
+            <th>Definition</th>
+            <th>What it predicts / confirms</th>
+            <th>Check frequency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge--green">Leading</span></td>
+            <td>Time to first task run</td>
+            <td>How long from signup to the first completed agent task, in minutes.</td>
+            <td>Predicts D7 retention. Users who run their first task in &lt;10 min are 2–3× more likely to still be active at Day 7.</td>
+            <td>Daily (per cohort)</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--green">Leading</span></td>
+            <td>Kit deploy rate (Day 1)</td>
+            <td>% of new signups who deploy at least one kit within 24 hours.</td>
+            <td>Predicts activation. If &lt;50%, onboarding has a friction point — diagnose immediately, don't wait for D7 data.</td>
+            <td>Daily</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--green">Leading</span></td>
+            <td>LinkedIn engagement rate</td>
+            <td>% of post impressions that result in likes, comments, or shares.</td>
+            <td>Predicts weekly signup volume 5–7 days later. A post with &gt;2% engagement typically drives 15–30 signups the following week.</td>
+            <td>Per post (immediate)</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--green">Leading</span></td>
+            <td>Team invite sent rate</td>
+            <td>% of activated users who click "invite team member" within 14 days.</td>
+            <td>Predicts organic referral % and team-tier conversion. If invite rate drops, audit the in-product share flow — the prompt may have lost prominence.</td>
+            <td>Weekly</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--green">Leading</span></td>
+            <td>Tasks per agent (week 1)</td>
+            <td>Average number of tasks run by a user's first agent in their first 7 days.</td>
+            <td>Predicts D30 retention. Users who run 5+ tasks in Week 1 have 2× higher D30 retention than those who run 1–2 tasks.</td>
+            <td>Weekly per cohort</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--red">Lagging</span></td>
+            <td>D30 Retention</td>
+            <td>% of users who signed up exactly 30 days ago who were active in the last 7 days.</td>
+            <td>Confirms that activation turned into habitual use. PMF criterion. You can't act on this in time to save a cohort — use it to improve the next cohort's onboarding.</td>
+            <td>Monthly (per cohort)</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--red">Lagging</span></td>
+            <td>NPS Score</td>
+            <td>Net Promoter Score from D30 survey. (% Promoters) − (% Detractors).</td>
+            <td>Confirms product-market fit advocacy. A high NPS with low organic referral means users like the product but aren't active recommenders — close the gap with in-product share prompts.</td>
+            <td>Monthly</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--red">Lagging</span></td>
+            <td>CAC (Customer Acquisition Cost)</td>
+            <td>Total marketing spend ÷ new paying customers in the same period.</td>
+            <td>Confirms channel efficiency retroactively. Useful for budget allocation in next quarter — but by the time you see a high CAC, 4–6 weeks of budget have already been spent. Use leading channel metrics (engagement rate, CTR) to predict it earlier.</td>
+            <td>Monthly</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--red">Lagging</span></td>
+            <td>Organic referral %</td>
+            <td>% of new signups in a period attributable to referral (friend, colleague, community word-of-mouth).</td>
+            <td>Confirms the viral loop is working. Can't be influenced directly — it's the result of all the leading indicators (NPS, product value, team invite flow) working together.</td>
+            <td>Weekly (but trends matter more than week-to-week)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: Review Cadence -->
+<section class="gtm-section gtm-section--light2">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Section 04</span>
+    <h2 class="gtm-h2">Review Cadence</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead" style="color: var(--light-text-2);">Metrics only drive decisions if you look at them at the right time with the right questions. Here's exactly when we review what — and what we do when something's red.</p>
+
+    <div class="cadence-grid">
+      <div class="cadence-card">
+        <div class="cadence-card__freq">Daily</div>
+        <div class="cadence-card__title">Pulse Check<br><span style="font-weight: 500; font-size: .82rem; color: var(--light-text-2);">5 min, async</span></div>
+        <ul class="cadence-card__items">
+          <li>New signups in last 24h</li>
+          <li>Kit deploy rate (yesterday's signups)</li>
+          <li>Any support tickets opened</li>
+          <li>LinkedIn post engagement (if posted)</li>
+          <li>Any errors or infra alerts</li>
+        </ul>
+      </div>
+      <div class="cadence-card">
+        <div class="cadence-card__freq">Weekly</div>
+        <div class="cadence-card__title">GTM Review<br><span style="font-weight: 500; font-size: .82rem; color: var(--light-text-2);">30 min, Fridays</span></div>
+        <ul class="cadence-card__items">
+          <li>Signups vs. target for the week</li>
+          <li>Activation rate for week's cohort</li>
+          <li>WAA across all active users</li>
+          <li>LinkedIn impressions + top post</li>
+          <li>Organic referral % this week</li>
+          <li>D7 data for cohort from 7 days ago</li>
+          <li>One red metric: root cause identified</li>
+        </ul>
+      </div>
+      <div class="cadence-card">
+        <div class="cadence-card__freq">Monthly</div>
+        <div class="cadence-card__title">Cohort Analysis<br><span style="font-weight: 500; font-size: .82rem; color: var(--light-text-2);">60 min, first Monday</span></div>
+        <ul class="cadence-card__items">
+          <li>D30 retention for last cohort</li>
+          <li>NPS survey results + qualitative review</li>
+          <li>CAC by channel</li>
+          <li>Churn analysis: who left and why</li>
+          <li>Feature usage patterns: what % use each kit type</li>
+          <li>Decision: adjust onboarding, content, or channel mix?</li>
+        </ul>
+      </div>
+      <div class="cadence-card">
+        <div class="cadence-card__freq">Quarterly</div>
+        <div class="cadence-card__title">Phase Gate<br><span style="font-weight: 500; font-size: .82rem; color: var(--light-text-2);">Half-day offsite</span></div>
+        <ul class="cadence-card__items">
+          <li>Phase go/no-go criteria assessment</li>
+          <li>ICP validation: is our customer evolving?</li>
+          <li>Channel mix review: what's working, what's not?</li>
+          <li>Pricing check: are we leaving money on the table?</li>
+          <li>Reset KPI targets for next phase</li>
+          <li>PMF criteria progress vs. projection</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-size: 1rem; font-weight: 800; color: var(--light-text); margin: 2.5rem 0 1rem;">"If This Metric is Red" Response Guide</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Red = Below</th>
+            <th>First Action (within 48h)</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Activation rate</td>
+            <td>&lt;50%</td>
+            <td>Manually reach out to every non-activated user from the last 3 days. Offer a 10-min setup call. Identify where they dropped off in the onboarding flow.</td>
+            <td>Founder</td>
+          </tr>
+          <tr>
+            <td>D7 Retention</td>
+            <td>&lt;30%</td>
+            <td>Interview 5 churned users from the cohort within 48 hours. Ask one question: "What would have made you come back?" Do not build anything until you've done 5 interviews.</td>
+            <td>Founder + Product</td>
+          </tr>
+          <tr>
+            <td>WAA</td>
+            <td>&lt;45%</td>
+            <td>Check which agent types have the lowest task run rates. Are agents being deployed but sitting idle? Add an email trigger: "Your [agent name] hasn't run a task this week. Here's a quick prompt."</td>
+            <td>Product</td>
+          </tr>
+          <tr>
+            <td>Signups / week</td>
+            <td>&lt;10</td>
+            <td>Don't touch paid. Review the last 5 LinkedIn posts: was engagement above 1%? If posts are performing but signups are low, the landing page is the problem. A/B test a new headline this week.</td>
+            <td>Founder</td>
+          </tr>
+          <tr>
+            <td>LinkedIn engagement</td>
+            <td>&lt;0.8%</td>
+            <td>The hook failed. Rewrite the top-performing old post from a different angle and re-publish. Do not write a new topic — test a different hook on a proven topic first.</td>
+            <td>Founder</td>
+          </tr>
+          <tr>
+            <td>Organic referral %</td>
+            <td>&lt;10%</td>
+            <td>Check if the in-product invite prompt is visible. Survey 10 active users: "Have you told anyone about Globster?" If yes but not tracked, fix attribution. If no, add a post-task share nudge.</td>
+            <td>Product</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    document.getElementById('progress-bar').style.width = (p * 100) + '%';
+  }, { passive: true });
+  const subBtn = document.querySelector('.gtm-nav__sub-btn');
+  const dropdown = document.querySelector('.gtm-nav__dropdown');
+  subBtn.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('open'); subBtn.querySelector('svg').style.transform = dropdown.classList.contains('open') ? 'rotate(180deg)' : ''; });
+  document.addEventListener('click', () => { dropdown.classList.remove('open'); subBtn.querySelector('svg').style.transform = ''; });
+  dropdown.addEventListener('click', e => e.stopPropagation());
+  const currentFile = location.pathname.split('/').pop();
+  document.querySelectorAll('.gtm-nav__dropdown a').forEach(a => { if (a.getAttribute('href') === currentFile) a.classList.add('active'); });
+</script>
+</body>
+</html>

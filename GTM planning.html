@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Globster GTM 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --light-bg: #f5f5f3;
+      --light-bg-2: #ebebea;
+      --light-text: #0f0f12;
+      --light-text-2: #4a4a5a;
+      --light-surface: #ffffff;
+      --light-border: rgba(0,0,0,.09);
+    }
+    * { box-sizing: border-box; }
+
+    /* Progress bar */
+    #progress-bar {
+      position: fixed; top: 0; left: 0;
+      height: 3px; width: 0%;
+      background: var(--accent);
+      z-index: 9999; transition: width 80ms linear;
+    }
+
+    /* Act indicator */
+    #act-indicator {
+      position: fixed; right: 1.5rem; top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: .6rem;
+      z-index: 100;
+    }
+    @media (max-width: 768px) { #act-indicator { display: none; } }
+    .act-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,.2);
+      border: 1.5px solid rgba(255,255,255,.3);
+      cursor: pointer; transition: all 200ms;
+      position: relative; display: block;
+    }
+    .act-dot.active { background: var(--accent); border-color: var(--accent); transform: scale(1.4); }
+    .act-dot:hover::after {
+      content: attr(data-label);
+      position: absolute; right: 16px; top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap; font-size: .7rem; font-weight: 600;
+      color: var(--text); background: var(--surface);
+      border: 1px solid var(--border-med);
+      padding: .25rem .6rem; border-radius: 4px;
+    }
+
+    /* Nav */
+    .gtm-nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 60px;
+      background: rgba(10,10,11,.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; z-index: 1000; gap: 1rem;
+    }
+    .gtm-nav__brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; flex-shrink: 0; }
+    .gtm-nav__logo { font-size: .95rem; font-weight: 800; color: var(--text); letter-spacing: -.01em; }
+    .gtm-nav__label {
+      font-size: .68rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--accent);
+      padding: .2rem .5rem; border: 1px solid var(--accent-dim); border-radius: 4px;
+    }
+    .gtm-nav__links { display: flex; align-items: center; gap: .1rem; list-style: none; margin: 0; padding: 0; }
+    @media (max-width: 900px) { .gtm-nav__links { display: none; } }
+    .gtm-nav__links a {
+      font-size: .73rem; font-weight: 500; color: var(--text-2);
+      text-decoration: none; padding: .3rem .55rem; border-radius: 5px;
+      transition: color 150ms, background 150ms; white-space: nowrap;
+    }
+    .gtm-nav__links a:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .gtm-nav__sub { position: relative; }
+    .gtm-nav__sub-btn {
+      display: flex; align-items: center; gap: .35rem;
+      font-size: .75rem; font-weight: 600; color: var(--text-2);
+      background: rgba(255,255,255,.06); border: 1px solid var(--border-med);
+      border-radius: 6px; padding: .35rem .7rem; cursor: pointer;
+      transition: all 150ms; white-space: nowrap;
+    }
+    .gtm-nav__sub-btn:hover { color: var(--text); background: rgba(255,255,255,.1); }
+    .gtm-nav__sub-btn svg { width: 11px; height: 11px; opacity: .5; transition: transform 200ms; }
+    .gtm-nav__dropdown {
+      position: absolute; top: calc(100% + 8px); right: 0;
+      min-width: 210px; background: #1a1a1f;
+      border: 1px solid var(--border-med); border-radius: 10px;
+      padding: .4rem; box-shadow: var(--shadow-lg);
+      display: none; flex-direction: column; gap: .1rem;
+      z-index: 2000;
+    }
+    .gtm-nav__dropdown.open { display: flex; }
+    .gtm-nav__dropdown a {
+      font-size: .78rem; font-weight: 500; color: var(--text-2);
+      text-decoration: none; padding: .5rem .75rem; border-radius: 6px;
+      transition: all 150ms;
+    }
+    .gtm-nav__dropdown a:hover { color: var(--text); background: rgba(255,255,255,.06); }
+
+    /* Sections */
+    body { padding-top: 60px; font-family: var(--font, 'Poppins', sans-serif); }
+    .gtm-section { padding: 8rem 2rem; position: relative; }
+    .gtm-section--dark  { background: var(--bg, #0a0a0b); color: var(--text, #f0f0f2); }
+    .gtm-section--dark2 { background: var(--bg-2, #111113); color: var(--text, #f0f0f2); }
+    .gtm-section--light  { background: var(--light-bg);  color: var(--light-text); }
+    .gtm-section--light2 { background: var(--light-bg-2); color: var(--light-text); }
+    .gtm-inner { max-width: 1100px; margin: 0 auto; }
+    .gtm-act-label {
+      font-size: .68rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: .75rem; display: block;
+    }
+    .gtm-h2 {
+      font-size: clamp(2.2rem, 4.5vw, 3.75rem); font-weight: 900;
+      line-height: 1.15; letter-spacing: -.02em; margin: 0 0 1.5rem;
+    }
+    .gtm-section--dark .gtm-h2, .gtm-section--dark2 .gtm-h2 { color: var(--text); }
+    .gtm-section--light .gtm-h2, .gtm-section--light2 .gtm-h2 { color: var(--light-text); }
+
+    /* Evidence blocks */
+    .evidence-block {
+      background: var(--surface); border: 1px solid var(--border-med);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px; padding: 1.1rem 1.25rem; margin-bottom: .9rem;
+      font-family: var(--font-serif, 'Source Serif 4', Georgia, serif);
+      font-size: .88rem; line-height: 1.65; color: var(--text);
+    }
+    .gtm-section--light .evidence-block,
+    .gtm-section--light2 .evidence-block {
+      background: var(--light-surface); border-color: rgba(0,0,0,.12);
+      border-left-color: var(--accent); color: var(--light-text);
+    }
+    .evidence-block .source {
+      display: block; margin-top: .6rem;
+      font-family: var(--font, 'Poppins', sans-serif);
+      font-size: .7rem; font-weight: 600; letter-spacing: .04em;
+      color: var(--text-3); font-style: normal;
+    }
+    .gtm-section--light .evidence-block .source,
+    .gtm-section--light2 .evidence-block .source { color: var(--light-text-2); }
+
+    /* Two-column */
+    .gtm-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    @media (max-width: 768px) { .gtm-two-col { grid-template-columns: 1fr; } }
+
+    .gtm-narrative { font-size: 1rem; line-height: 1.9; }
+    .gtm-section--dark .gtm-narrative, .gtm-section--dark2 .gtm-narrative { color: var(--text-2); }
+    .gtm-section--light .gtm-narrative, .gtm-section--light2 .gtm-narrative { color: var(--light-text-2); }
+
+    /* Tension */
+    .tension-statement {
+      text-align: center; font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 700; line-height: 1.55;
+      margin-top: 3.5rem; padding: 2rem;
+      border-top: 1px solid var(--light-border); color: var(--light-text);
+    }
+
+    /* Stats row */
+    .gtm-stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin: 2.5rem 0; }
+    @media (max-width: 640px) { .gtm-stats-row { grid-template-columns: 1fr; } }
+    .gtm-stat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem; text-align: center;
+    }
+    .gtm-stat-num {
+      font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900;
+      letter-spacing: -.03em; color: var(--accent); line-height: 1;
+      display: block; margin-bottom: .4rem;
+    }
+    .gtm-stat-label { font-size: .78rem; line-height: 1.5; color: var(--text-2); }
+    .gtm-stat-sublabel {
+      display: block; font-size: .65rem; font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase;
+      color: var(--text-3); margin-top: .6rem;
+    }
+
+    /* Dept grid */
+    .dept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 1rem; margin: 2rem 0; }
+    .dept-card {
+      border-radius: 14px; padding: 1.25rem; transition: all 200ms;
+    }
+    .gtm-section--light .dept-card, .gtm-section--light2 .dept-card {
+      background: var(--light-surface); border: 1px solid var(--light-border); color: var(--light-text);
+    }
+    .gtm-section--dark .dept-card, .gtm-section--dark2 .dept-card {
+      background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    }
+    .dept-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+    .dept-card__header { font-size: .88rem; font-weight: 700; margin-bottom: .75rem; }
+    .dept-card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .3rem; }
+    .dept-card ul li { font-size: .78rem; color: var(--light-text-2); padding-left: .9rem; position: relative; }
+    .gtm-section--dark .dept-card ul li, .gtm-section--dark2 .dept-card ul li { color: var(--text-2); }
+    .dept-card ul li::before { content: '·'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+    /* Pillars */
+    .pillar-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin: 2.5rem 0; }
+    @media (max-width: 768px) { .pillar-row { grid-template-columns: 1fr; } }
+    .pillar-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; }
+    .pillar-card__num { font-size: 2rem; font-weight: 900; color: var(--accent); opacity: .25; line-height: 1; margin-bottom: .75rem; }
+    .pillar-card__title { font-size: .9rem; font-weight: 700; margin-bottom: .75rem; color: var(--text); }
+    .pillar-card__body { font-size: .82rem; line-height: 1.7; color: var(--text-2); }
+
+    /* Callout box */
+    .callout-box { background: var(--surface-2); border: 1px solid var(--border-med); border-radius: 14px; padding: 1.75rem 2rem; margin: 2rem 0; }
+    .callout-box--accent { background: var(--accent-dim); border-color: rgba(233,47,35,.25); }
+    .callout-box__title { font-size: 1rem; font-weight: 800; margin-bottom: .75rem; color: var(--text); }
+    .callout-box__body { font-size: .88rem; line-height: 1.7; color: var(--text-2); }
+    .gtm-section--light .callout-box { background: var(--light-surface); border-color: var(--light-border); }
+    .gtm-section--light .callout-box__title { color: var(--light-text); }
+    .gtm-section--light .callout-box__body { color: var(--light-text-2); }
+
+    /* Three-col */
+    .gtm-three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin: 2rem 0; }
+    @media (max-width: 768px) { .gtm-three-col { grid-template-columns: 1fr; } }
+    .gtm-col-card { padding: 1.5rem; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); }
+    .gtm-section--light .gtm-col-card { background: var(--light-surface); border-color: var(--light-border); }
+    .gtm-col-card__title { font-size: .85rem; font-weight: 700; margin-bottom: .9rem; }
+    .gtm-section--dark .gtm-col-card__title, .gtm-section--dark2 .gtm-col-card__title { color: var(--text); }
+    .gtm-section--light .gtm-col-card__title { color: var(--light-text); }
+    .gtm-col-card__body { font-size: .82rem; line-height: 1.75; }
+    .gtm-section--dark .gtm-col-card__body, .gtm-section--dark2 .gtm-col-card__body { color: var(--text-2); }
+    .gtm-section--light .gtm-col-card__body { color: var(--light-text-2); }
+    .gtm-col-card__body ul { padding-left: 1.1rem; margin: .5rem 0; }
+    .gtm-col-card__body li { margin-bottom: .3rem; }
+
+    /* Competitive table */
+    .comp-table-wrap { overflow-x: auto; margin: 2rem 0; border-radius: 12px; border: 1px solid var(--light-border); }
+    .comp-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+    .comp-table th {
+      background: var(--light-bg-2); color: var(--light-text-2);
+      font-weight: 600; font-size: .7rem; letter-spacing: .06em;
+      text-transform: uppercase; padding: .85rem 1rem;
+      text-align: left; border-bottom: 1px solid var(--light-border); white-space: nowrap;
+    }
+    .comp-table td { padding: .8rem 1rem; border-bottom: 1px solid var(--light-border); color: var(--light-text-2); vertical-align: middle; }
+    .comp-table td:first-child { font-weight: 700; color: var(--light-text); white-space: nowrap; }
+    .comp-table tr:last-child td { border-bottom: none; }
+    .comp-table tbody tr { transition: background 150ms; cursor: default; }
+    .comp-table tbody tr:hover { background: rgba(0,0,0,.03); }
+    .comp-table tbody tr.us-row { background: rgba(233,47,35,.04); }
+    .comp-table tbody tr.us-row:hover { background: rgba(233,47,35,.08); }
+    .check { color: #16a34a; } .cross { color: #aaa; } .partial { color: #d97706; font-size: .78rem; }
+
+    /* North star */
+    .north-star {
+      text-align: center; padding: 2.5rem;
+      background: var(--surface); border: 1px solid var(--border-med);
+      border-radius: 20px; margin: 2rem 0;
+    }
+    .north-star__icon { font-size: 2rem; margin-bottom: .75rem; }
+    .north-star__metric { font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 900; color: var(--text); margin-bottom: .5rem; }
+    .north-star__metric span { color: var(--accent); }
+    .north-star__desc { font-size: .85rem; color: var(--text-2); line-height: 1.65; max-width: 500px; margin: .5rem auto 0; }
+    .north-star__target {
+      display: inline-block; margin-top: .75rem;
+      font-size: .78rem; font-weight: 700; padding: .3rem .8rem;
+      background: var(--accent-dim); border: 1px solid rgba(233,47,35,.3);
+      border-radius: 20px; color: var(--accent);
+    }
+
+    /* PMF box */
+    .pmf-box { background: var(--surface); border: 1px solid var(--border-med); border-radius: 14px; padding: 1.5rem 2rem; text-align: center; margin: 2rem 0; }
+    .pmf-box__label { font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); margin-bottom: .75rem; }
+    .pmf-box__formula { font-size: clamp(.88rem, 2vw, 1.05rem); font-weight: 700; color: var(--text); line-height: 1.7; }
+    .pmf-box__formula span { color: var(--accent); }
+    .pmf-box__verdict { margin-top: .75rem; font-size: .8rem; color: var(--text-3); }
+
+    /* KPI grid */
+    .kpi-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; margin: 2rem 0; }
+    @media (max-width: 640px) { .kpi-grid { grid-template-columns: 1fr; } }
+    .kpi-category { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+    .kpi-category__title { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .kpi-row { display: flex; justify-content: space-between; align-items: baseline; padding: .55rem 0; border-bottom: 1px solid var(--border); gap: 1rem; }
+    .kpi-row:last-child { border-bottom: none; }
+    .kpi-row__name { font-size: .8rem; color: var(--text-2); flex: 1; }
+    .kpi-row__current { font-size: .75rem; color: var(--text-3); min-width: 24px; text-align: center; }
+    .kpi-row__target { font-size: .75rem; font-weight: 700; color: var(--text); white-space: nowrap; }
+
+    /* Phase timeline */
+    .phase-timeline { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin: 2.5rem 0; border: 1px solid var(--light-border); border-radius: 14px; overflow: hidden; }
+    @media (max-width: 768px) { .phase-timeline { grid-template-columns: 1fr; } }
+    .phase-card { padding: 1.5rem 1.25rem; border-right: 1px solid var(--light-border); cursor: pointer; transition: background 200ms; }
+    .phase-card:last-child { border-right: none; }
+    .phase-card:hover { background: rgba(0,0,0,.03); }
+    .phase-card.active { background: rgba(233,47,35,.04); }
+    .phase-card__num { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .4rem; }
+    .phase-card__name { font-size: .95rem; font-weight: 800; color: var(--light-text); margin-bottom: .3rem; }
+    .phase-card__dates { font-size: .7rem; color: var(--light-text-2); margin-bottom: .9rem; }
+    .phase-card__desc { font-size: .78rem; line-height: 1.6; color: var(--light-text-2); }
+    .phase-card__detail { display: none; margin-top: .9rem; padding-top: .9rem; border-top: 1px solid var(--light-border); }
+    .phase-card.active .phase-card__detail { display: block; }
+    .phase-card__detail ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .35rem; }
+    .phase-card__detail li { font-size: .75rem; color: var(--light-text-2); padding-left: 1rem; position: relative; }
+    .phase-card__detail li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: .7rem; }
+
+    /* Milestones */
+    .milestone-list { display: flex; flex-direction: column; gap: .5rem; margin: 1.5rem 0; }
+    .milestone-item { display: flex; align-items: center; gap: .75rem; padding: .7rem 1rem; background: var(--light-surface); border: 1px solid var(--light-border); border-radius: 8px; font-size: .82rem; color: var(--light-text-2); cursor: pointer; transition: background 150ms; }
+    .milestone-item:hover { background: #f0f0ee; }
+    .milestone-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--accent); flex-shrink: 0; cursor: pointer; }
+
+    /* Reasons */
+    .reasons-list { display: flex; flex-direction: column; gap: .65rem; margin: 2rem 0; }
+    .reason-item { display: flex; align-items: flex-start; gap: 1rem; padding: .9rem 1.25rem; background: var(--light-surface); border: 1px solid var(--light-border); border-radius: 10px; }
+    .reason-num { font-size: 1.1rem; font-weight: 900; color: var(--accent); flex-shrink: 0; line-height: 1.4; min-width: 24px; }
+    .reason-text { font-size: .85rem; line-height: 1.6; color: var(--light-text-2); }
+    .reason-text strong { color: var(--light-text); }
+
+    /* Section CTA */
+    .section-cta {
+      display: inline-flex; align-items: center; gap: .5rem;
+      margin-top: 2.5rem;
+      padding: .7rem 1.5rem;
+      font-size: .82rem; font-weight: 700;
+      border-radius: 10px; text-decoration: none;
+      transition: all 180ms; cursor: pointer; border: none;
+    }
+    .section-cta svg { width: 14px; height: 14px; transition: transform 180ms; }
+    .section-cta:hover svg { transform: translateX(3px); }
+    .section-cta--dark {
+      background: var(--text); color: var(--bg);
+    }
+    .section-cta--dark:hover { background: #fff; }
+    .section-cta--light {
+      background: var(--light-text); color: var(--light-bg);
+    }
+    .section-cta--light:hover { background: #000; }
+    .section-cta--ghost-dark {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border-med);
+    }
+    .section-cta--ghost-dark:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.25); }
+    .section-cta--ghost-light {
+      background: transparent; color: var(--light-text);
+      border: 1px solid var(--light-border);
+    }
+    .section-cta--ghost-light:hover { background: rgba(0,0,0,.05); border-color: rgba(0,0,0,.2); }
+
+    /* Act 0 — learnings carousel */
+    .learnings-carousel { margin-top: 3rem; position: relative; }
+    .learnings-track { position: relative; }
+    .learning-card {
+      display: none;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.75rem 2.5rem 2.25rem;
+      position: relative; overflow: hidden;
+      animation: lcFadeIn 280ms ease;
+    }
+    .learning-card.active { display: block; }
+    @keyframes lcFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .learning-card__num {
+      font-size: 6rem; font-weight: 900; letter-spacing: -.05em;
+      color: var(--accent); opacity: .1; line-height: 1;
+      position: absolute; top: 1rem; right: 1.75rem;
+      font-variant-numeric: tabular-nums; pointer-events: none;
+    }
+    .learning-card__insight {
+      font-size: clamp(1.25rem, 2.5vw, 1.7rem); font-weight: 800;
+      line-height: 1.25; letter-spacing: -.025em;
+      color: var(--text); margin-bottom: 1rem;
+      max-width: 680px; position: relative; z-index: 1;
+    }
+    .learning-card__context {
+      font-size: .95rem; line-height: 1.8; color: var(--text-2);
+      max-width: 600px; position: relative; z-index: 1;
+    }
+    .learning-card__context em { color: var(--text); font-style: normal; font-weight: 600; }
+
+    /* Learnings nav */
+    .learnings-nav {
+      display: flex; align-items: center; gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .lc-btn {
+      width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border-med); background: transparent;
+      color: var(--text-2); transition: all 150ms; flex-shrink: 0;
+    }
+    .lc-btn:hover { background: rgba(255,255,255,.08); color: var(--text); border-color: rgba(255,255,255,.3); }
+    .lc-btn:disabled { opacity: .25; cursor: not-allowed; }
+    .lc-dots { display: flex; gap: .5rem; align-items: center; }
+    .lc-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(255,255,255,.18); cursor: pointer;
+      transition: all 200ms;
+    }
+    .lc-dot.active { background: var(--accent); transform: scale(1.4); }
+    .lc-count {
+      font-size: .72rem; font-weight: 600; letter-spacing: .06em;
+      color: var(--text-3); margin-left: auto;
+    }
+
+    /* Rotating word */
+    .rotating-word {
+      display: inline-block;
+      position: relative;
+      color: var(--accent);
+      min-width: 3ch;
+    }
+    .rotating-word__inner {
+      display: inline-block;
+      transition: opacity 200ms ease, transform 200ms ease;
+    }
+    .rotating-word__inner.exit {
+      opacity: 0; transform: translateY(-8px);
+    }
+    .rotating-word__inner.enter {
+      opacity: 0; transform: translateY(8px);
+    }
+
+    /* Parallax transition */
+    .parallax-transition {
+      position: relative;
+      height: 100vh;
+      background: #000;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .parallax-transition__bg {
+      position: absolute; inset: -30%;
+      background: radial-gradient(ellipse 80% 60% at 50% 60%, rgba(233,47,35,.12) 0%, transparent 70%);
+      will-change: transform;
+    }
+    .parallax-transition__content {
+      position: relative; z-index: 2;
+      text-align: center;
+      will-change: transform;
+    }
+    .parallax-transition__eyebrow {
+      font-size: .72rem; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.5rem; display: block;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+    .parallax-transition__h1 {
+      font-size: clamp(3.5rem, 12vw, 9rem); font-weight: 900;
+      letter-spacing: -.04em; line-height: .95;
+      color: #fff;
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 700ms ease 150ms, transform 700ms ease 150ms;
+    }
+    .parallax-transition__h1 span { color: var(--accent); }
+    .parallax-transition.visible .parallax-transition__eyebrow,
+    .parallax-transition.visible .parallax-transition__h1 {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* Status section */
+    .status-section {
+      background: var(--bg-2, #111113);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    .status-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 640px) { .status-inner { grid-template-columns: 1fr; } }
+    .status-item {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .status-item:last-child { border-right: none; }
+    @media (max-width: 640px) { .status-item { border-right: none; border-bottom: 1px solid var(--border); } .status-item:last-child { border-bottom: none; } }
+    .status-item__label {
+      font-size: .65rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--text-3);
+      margin-bottom: .75rem; display: flex; align-items: center; gap: .5rem;
+    }
+    .status-live-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
+      box-shadow: 0 0 0 2px rgba(34,197,94,.2);
+      animation: pulse-green 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 2px rgba(34,197,94,.2); }
+      50% { box-shadow: 0 0 0 5px rgba(34,197,94,.1); }
+    }
+    .status-item__value {
+      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900;
+      letter-spacing: -.03em; color: var(--text); line-height: 1;
+      margin-bottom: .6rem; display: block;
+    }
+    .status-item__value--accent { color: var(--accent); }
+    .status-item__avg {
+      font-size: .75rem; color: var(--text-3); display: flex; align-items: center; gap: .35rem;
+    }
+    .status-item__avg strong { color: var(--text-2); font-weight: 600; }
+
+    /* Closing strip */
+    .closing-strip { background: var(--bg); color: var(--text); text-align: center; padding: 5rem 2rem; margin-top: 3rem; }
+    .closing-strip__text { font-size: clamp(1.1rem, 3vw, 1.9rem); font-weight: 700; line-height: 1.7; max-width: 600px; margin: 0 auto; }
+    .closing-strip__accent { color: var(--accent); }
+
+/* Lead paragraph */
+.gtm-lead {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-style: italic;
+  line-height: 1.75;
+  margin: 0 0 2.25rem;
+  max-width: 740px;
+}
+.gtm-section--dark .gtm-lead, .gtm-section--dark2 .gtm-lead { color: var(--text-2); }
+.gtm-section--light .gtm-lead, .gtm-section--light2 .gtm-lead { color: var(--light-text-2); }
+
+/* Accent divider */
+.gtm-divider { width: 2.5rem; height: 3px; background: var(--accent); border-radius: 2px; margin: 1.25rem 0 1.75rem; }
+
+/* Evidence block upgrade */
+.evidence-block {
+  position: relative;
+  padding: 1.4rem 1.4rem 1.1rem 2rem;
+  font-size: .9rem;
+}
+.evidence-block::before {
+  content: '"';
+  position: absolute; top: -.2rem; left: .6rem;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 3.5rem; line-height: 1;
+  color: var(--accent); opacity: .35;
+  font-style: italic; pointer-events: none;
+}
+
+/* Quote carousel */
+.quote-carousel { position: relative; }
+.quote-slide { display: none; animation: qcFadeIn 300ms ease; }
+.quote-slide.active { display: block; }
+@keyframes qcFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.quote-carousel__nav {
+  display: flex; align-items: center; gap: .6rem; margin-top: 1rem;
+}
+.qc-btn {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: transparent; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 150ms; flex-shrink: 0;
+}
+.gtm-section--light .qc-btn, .gtm-section--light2 .qc-btn {
+  border: 1px solid var(--light-border); color: var(--light-text-2);
+}
+.gtm-section--light .qc-btn:hover, .gtm-section--light2 .qc-btn:hover {
+  background: rgba(0,0,0,.06); color: var(--light-text); border-color: rgba(0,0,0,.25);
+}
+.gtm-section--dark .qc-btn, .gtm-section--dark2 .qc-btn {
+  border: 1px solid var(--border-med); color: var(--text-2);
+}
+.gtm-section--dark .qc-btn:hover, .gtm-section--dark2 .qc-btn:hover {
+  background: rgba(255,255,255,.08); color: var(--text); border-color: rgba(255,255,255,.3);
+}
+.qc-dots { display: flex; gap: .45rem; align-items: center; }
+.qc-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  cursor: pointer; transition: all 200ms;
+}
+.gtm-section--light .qc-dot, .gtm-section--light2 .qc-dot { background: rgba(0,0,0,.18); }
+.gtm-section--light .qc-dot.active, .gtm-section--light2 .qc-dot.active { background: var(--accent); transform: scale(1.35); }
+.gtm-section--dark .qc-dot, .gtm-section--dark2 .qc-dot { background: rgba(255,255,255,.2); }
+.gtm-section--dark .qc-dot.active, .gtm-section--dark2 .qc-dot.active { background: var(--accent); transform: scale(1.35); }
+.qc-count { font-size: .68rem; font-weight: 600; letter-spacing: .06em; margin-left: auto; }
+.gtm-section--light .qc-count, .gtm-section--light2 .qc-count { color: var(--light-text-2); }
+.gtm-section--dark .qc-count, .gtm-section--dark2 .qc-count { color: var(--text-3); }
+
+/* Dept card icon badge */
+.dept-card__icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--accent-dim); display: flex; align-items: center; justify-content: center;
+  margin-bottom: .75rem;
+}
+.dept-card__icon svg { width: 16px; height: 16px; color: var(--accent); }
+.gtm-section--light .dept-card__icon, .gtm-section--light2 .dept-card__icon {
+  background: rgba(233,47,35,.08);
+}
+
+/* Narrative size upgrade */
+.gtm-narrative { font-size: 1rem; line-height: 1.9; }
+
+/* Carousel full-width mode */
+.quote-carousel--wide { max-width: 640px; }
+
+/* Big stat display for shift section */
+.big-number-row { display: flex; gap: 0; margin: 3rem 0; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+.big-number-item { flex: 1; padding: 2.5rem 2rem; border-right: 1px solid var(--border); text-align: center; }
+.big-number-item:last-child { border-right: none; }
+.big-number-item__num { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; color: var(--accent); letter-spacing: -.04em; line-height: 1; display: block; margin-bottom: .5rem; }
+.big-number-item__label { font-size: .78rem; color: var(--text-2); line-height: 1.5; }
+.big-number-item__sub { display: block; font-size: .65rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); margin-top: .5rem; }
+@media (max-width: 600px) { .big-number-row { flex-direction: column; } .big-number-item { border-right: none; border-bottom: 1px solid var(--border); } .big-number-item:last-child { border-bottom: none; } }
+
+/* Dept card minimal mode */
+.dept-grid--tight { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .75rem; }
+.dept-card--min { padding: 1rem 1.1rem; }
+.dept-card--min .dept-card__header { font-size: .82rem; font-weight: 700; }
+.dept-card--min ul li { font-size: .73rem; }
+
+/* Pillar card minimal */
+.pillar-card--slim .pillar-card__body { font-size: .8rem; line-height: 1.65; }
+
+    /* Hero */
+    #hero {
+      min-height: calc(100svh - 60px); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 4rem 2rem; background: var(--bg); position: relative;
+    }
+    .hero-eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+    .hero-h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.0; margin: 0 0 1.25rem; color: var(--text); }
+    .hero-sub { font-size: clamp(1rem, 2vw, 1.35rem); font-weight: 500; color: var(--text-2); margin: 0 0 2.5rem; }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .85rem 2rem; background: var(--accent); color: #fff;
+      font-size: .9rem; font-weight: 700; border-radius: 12px;
+      text-decoration: none; transition: opacity 200ms, transform 200ms;
+    }
+    .hero-cta:hover { opacity: .88; transform: translateY(-2px); }
+    .scroll-cue {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      opacity: .3; animation: bounce 2s ease-in-out infinite;
+    }
+    .scroll-cue__line { width: 1px; height: 36px; background: var(--text); }
+    .scroll-cue__label { font-size: .62rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text); }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav id="act-indicator" aria-label="Section navigation">
+  <a class="act-dot active" data-label="Hero" href="#hero" data-section="hero"></a>
+  <a class="act-dot" data-label="Where We At" href="#status" data-section="status"></a>
+  <a class="act-dot" data-label="What We Learned" href="#learned" data-section="learned"></a>
+  <a class="act-dot" data-label="The Reality" href="#reality" data-section="reality"></a>
+  <a class="act-dot" data-label="The Shift" href="#shift" data-section="shift"></a>
+  <a class="act-dot" data-label="Our Bet" href="#bet" data-section="bet"></a>
+  <a class="act-dot" data-label="The Product" href="#product" data-section="product"></a>
+  <a class="act-dot" data-label="How We Win" href="#howwewin" data-section="howwewin"></a>
+  <a class="act-dot" data-label="KPIs" href="#kpis" data-section="kpis"></a>
+  <a class="act-dot" data-label="First Step" href="#firststep" data-section="firststep"></a>
+</nav>
+
+<header class="gtm-nav">
+  <a href="index.html" class="gtm-nav__brand">
+    <span class="gtm-nav__logo">Globster</span>
+    <span class="gtm-nav__label">GTM 2026</span>
+  </a>
+  <ul class="gtm-nav__links">
+    <li><a href="#reality">The Reality</a></li>
+    <li><a href="#shift">The Shift</a></li>
+    <li><a href="#bet">Our Bet</a></li>
+    <li><a href="#product">The Product</a></li>
+    <li><a href="#howwewin">How We Win</a></li>
+    <li><a href="#kpis">KPIs</a></li>
+    <li><a href="#firststep">First Step</a></li>
+  </ul>
+  <div class="gtm-nav__sub">
+    <button class="gtm-nav__sub-btn">
+      Subpages
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="gtm-nav__dropdown">
+      <a href="gtm-competitors.html">Competitive Landscape</a>
+      <a href="gtm-icp.html">ICP Framework</a>
+      <a href="gtm-messaging.html">Messaging Framework</a>
+      <a href="gtm-narrative.html">Narrative</a>
+      <a href="gtm-channels.html">Channel Strategy</a>
+      <a href="gtm-content.html">Content Strategy</a>
+      <a href="gtm-launch.html">Launch Sequence</a>
+      <a href="gtm-metrics.html">Success Metrics</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-eyebrow">Internal · 2026</p>
+  <h1 class="hero-h1">Globster.ai GTM</h1>
+  <p class="hero-sub">2026 Go-To-Market Strategy</p>
+  <a href="#reality" class="hero-cta">Let's Go To Market →</a>
+  <div class="scroll-cue">
+    <span class="scroll-cue__label">Scroll</span>
+    <span class="scroll-cue__line"></span>
+  </div>
+</section>
+
+<!-- WHERE WE AT -->
+<section id="status" class="status-section">
+  <div class="status-inner">
+    <div class="status-item">
+      <div class="status-item__label">
+        <span class="status-live-dot"></span>
+        Launched
+      </div>
+      <span class="status-item__value">4 weeks</span>
+      <div class="status-item__avg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <strong>Day 28</strong>&nbsp;— still early
+      </div>
+    </div>
+    <div class="status-item">
+      <div class="status-item__label">Total Payers</div>
+      <span class="status-item__value">44</span>
+      <div class="status-item__avg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        <strong>~1.6 payers/day</strong>&nbsp;avg since launch
+      </div>
+    </div>
+    <div class="status-item">
+      <div class="status-item__label">Net ARR</div>
+      <span class="status-item__value status-item__value--accent">$16,543</span>
+      <div class="status-item__avg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        <strong>~$591 ARR/day</strong>&nbsp;avg since launch
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT 0: WHAT WE LEARNED -->
+<section id="learned" class="gtm-section gtm-section--dark">
+  <div class="gtm-inner">
+    <span class="gtm-act-label">Act 0 — 4 weeks in</span>
+    <h2 class="gtm-h2">What we learned.</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">28 days of real customers. Here's what the market told us.</p>
+    <div class="learnings-carousel" id="lc-learned">
+      <div class="learnings-track">
+
+        <div class="learning-card active">
+          <div class="learning-card__num">01</div>
+          <div class="learning-card__insight">~1% of people know what agents actually are.</div>
+        </div>
+
+        <div class="learning-card">
+          <div class="learning-card__num">02</div>
+          <div class="learning-card__insight">Most people are not builders. They want business outcomes.</div>
+        </div>
+
+        <div class="learning-card">
+          <div class="learning-card__num">03</div>
+          <div class="learning-card__insight">People see the value in Globster.</div>
+        </div>
+
+        <div class="learning-card">
+          <div class="learning-card__num">04</div>
+          <div class="learning-card__insight">The platform is horizontal — but the value is vertical.</div>
+        </div>
+
+      </div>
+      <div class="learnings-nav">
+        <button class="lc-btn lc-prev" aria-label="Previous" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="lc-dots">
+          <span class="lc-dot active"></span>
+          <span class="lc-dot"></span>
+          <span class="lc-dot"></span>
+          <span class="lc-dot"></span>
+        </div>
+        <button class="lc-btn lc-next" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <span class="lc-count">1 / 4</span>
+      </div>
+    </div>
+    <a href="#reality" class="section-cta section-cta--dark">
+      See the market opportunity
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ACT 1: THE REALITY -->
+<section id="reality" class="gtm-section gtm-section--light">
+  <div class="gtm-inner">
+    <span class="gtm-act-label">Act 1</span>
+    <h2 class="gtm-h2">People don't want to work hard.<br>They want results.</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">91% of businesses use AI in some capacity in 2026. But ~80% haven't deployed at scale. The gap isn't willingness — it's friction.</p>
+    <div class="quote-carousel quote-carousel--wide" id="qc-reality">
+        <div class="quote-carousel__track">
+          <blockquote class="evidence-block quote-slide active">
+            "The gap between having a ChatGPT license and actually saving 40 minutes a day per employee is where most of the unrealized value sits."
+            <cite class="source">— Goldman Sachs / Fortune, April 2026</cite>
+          </blockquote>
+          <blockquote class="evidence-block quote-slide">
+            "I looked into a vast amount of 'revolutionary' AI tools for e-commerce brands, and I found them all underwhelming. There are some good tools, but nothing that does anything the average business owner can't do on their own."
+            <cite class="source">— r/marketing, 10-year e-commerce marketer (top post)</cite>
+          </blockquote>
+          <blockquote class="evidence-block quote-slide">
+            "AI as a tool is great and all, but it would be nice to go for like... 3 days straight without having to come across an AI discussion or announcement."
+            <cite class="source">— r/marketing</cite>
+          </blockquote>
+        </div>
+        <div class="quote-carousel__nav">
+          <button class="qc-btn qc-prev" aria-label="Previous quote">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="qc-dots">
+            <span class="qc-dot active"></span>
+            <span class="qc-dot"></span>
+            <span class="qc-dot"></span>
+          </div>
+          <button class="qc-btn qc-next" aria-label="Next quote">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <span class="qc-count">1 / 3</span>
+        </div>
+      </div>
+    <div class="tension-statement">
+      The problem isn't that people don't want AI agents.<br>
+      The problem is <strong>nobody built agents that already know their job.</strong>
+    </div>
+    <a href="#shift" class="section-cta section-cta--light">
+      See the opportunity
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ACT 2: THE SHIFT -->
+<section id="shift" class="gtm-section gtm-section--dark2">
+  <div class="gtm-inner">
+    <span class="gtm-act-label">Act 2</span>
+    <h2 class="gtm-h2">The window is open.<br>Right now.</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">The window to own this space is open right now. It won't be forever — and the companies that move first will define the category.</p>
+    <div class="big-number-row">
+      <div class="big-number-item">
+        <span class="big-number-item__num">62%</span>
+        <div class="big-number-item__label">Companies that experimented with AI agents</div>
+        <span class="big-number-item__sub">But most never shipped to production</span>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number-item__num">23%</span>
+        <div class="big-number-item__label">Companies that scaled even one agent</div>
+        <span class="big-number-item__sub">McKinsey State of AI, 2025</span>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number-item__num">&lt;10%</span>
+        <div class="big-number-item__label">Of any given role with scaled agents</div>
+        <span class="big-number-item__sub">McKinsey State of AI, 2025</span>
+      </div>
+    </div>
+    <blockquote class="evidence-block">
+      The bottom line: writing code for an AI agent is easy — that's why 62% try it. But changing how an organization actually works so the agent runs at scale? That's hard. That's why fewer than 10% succeed.
+    </blockquote>
+    <a href="#bet" class="section-cta section-cta--dark">
+      See our bet
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- TRANSITION: THE CHANGE -->
+<div class="parallax-transition" id="parallax-change">
+  <div class="parallax-transition__bg" id="parallax-bg"></div>
+  <div class="parallax-transition__content" id="parallax-content">
+    <span class="parallax-transition__eyebrow">The Change</span>
+    <h2 class="parallax-transition__h1">Globster.<br><span>Verticalized.</span></h2>
+  </div>
+</div>
+
+<!-- ACT 3: OUR BET -->
+<section id="bet" class="gtm-section gtm-section--light2">
+  <div class="gtm-inner">
+    <span class="gtm-act-label">Act 3</span>
+    <h2 class="gtm-h2">Not 1-click AI agents.<br>But, 1-click <span class="rotating-word"><span class="rotating-word__inner" id="rotating-role">HR</span></span> AI agents.</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">We're not selling infrastructure. We're selling your marketing agent — pre-configured, pre-built, ready on day one.</p>
+    <div class="dept-grid dept-grid--tight">
+      <div class="dept-card dept-card--min">
+        <div class="dept-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></div>
+        <div class="dept-card__header">Marketing</div>
+        <ul><li>SEO reports</li><li>Content calendar</li><li>Competitor tracking</li></ul>
+      </div>
+      <div class="dept-card dept-card--min">
+        <div class="dept-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+        <div class="dept-card__header">Sales</div>
+        <ul><li>CRM updates</li><li>Follow-up sequences</li><li>Pipeline digest</li></ul>
+      </div>
+      <div class="dept-card dept-card--min">
+        <div class="dept-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg></div>
+        <div class="dept-card__header">HR</div>
+        <ul><li>Onboarding flows</li><li>Policy Q&amp;A</li><li>Pulse surveys</li></ul>
+      </div>
+      <div class="dept-card dept-card--min">
+        <div class="dept-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg></div>
+        <div class="dept-card__header">Support</div>
+        <ul><li>Tier-1 tickets</li><li>Escalation routing</li><li>CSAT follow-up</li></ul>
+      </div>
+      <div class="dept-card dept-card--min">
+        <div class="dept-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div>
+        <div class="dept-card__header">Ops</div>
+        <ul><li>Weekly digest</li><li>Vendor alerts</li><li>Process docs</li></ul>
+      </div>
+      <div class="dept-card dept-card--min">
+        <div class="dept-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div>
+        <div class="dept-card__header">IT</div>
+        <ul><li>Ticket triage</li><li>Access requests</li><li>Onboarding</li></ul>
+      </div>
+      <div class="dept-card dept-card--min">
+        <div class="dept-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg></div>
+        <div class="dept-card__header">Dev</div>
+        <ul><li>Standup digest</li><li>PR summaries</li><li>Bug triage</li></ul>
+      </div>
+    </div>
+    <a href="#product" class="section-cta section-cta--light">
+      See how the product works
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ACT 4: THE PRODUCT -->
+<section id="product" class="gtm-section gtm-section--dark">
+  <div class="gtm-inner">
+    <span class="gtm-act-label">Act 4</span>
+    <h2 class="gtm-h2">How we make it real —<br>the product alignment.</h2>
+    <div class="gtm-divider"></div>
+    <div class="pillar-row">
+      <div class="pillar-card pillar-card--slim">
+        <div class="pillar-card__num">01</div>
+        <div class="pillar-card__title">Pre-set skills &amp; connectors</div>
+        <div class="pillar-card__body">Each kit ships pre-wired with the right plugins, MCPs, and connectors for that role. The user activates, not configures.</div>
+      </div>
+      <div class="pillar-card pillar-card--slim">
+        <div class="pillar-card__num">02</div>
+        <div class="pillar-card__title">Fixed, role-aware onboarding</div>
+        <div class="pillar-card__body">Onboarding asks the right questions for the role and configures automatically. First useful output in under 10 minutes.</div>
+      </div>
+      <div class="pillar-card pillar-card--slim">
+        <div class="pillar-card__num">03</div>
+        <div class="pillar-card__title">Agent-led onboarding</div>
+        <div class="pillar-card__body">The agent leads setup. It asks what you need, configures itself, and delivers before you've touched a setting.</div>
+      </div>
+    </div>
+    <a href="#howwewin" class="section-cta section-cta--dark">
+      See how we win
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ACT 5: HOW WE WIN -->
+<section id="howwewin" class="gtm-section gtm-section--light">
+  <div class="gtm-inner">
+    <span class="gtm-act-label">Act 5</span>
+    <h2 class="gtm-h2">Why we win.<br>Why now. Why us.</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">We have the tech, the positioning, and the motion. No competitor has combined all four of our differentiators. The gap is real — and it's closing.</p>
+    <div class="gtm-three-col">
+      <div class="gtm-col-card">
+        <div class="gtm-col-card__title">🎯 The gap nobody owns</div>
+        <div class="gtm-col-card__body">No competitor has combined role-based kits, 1-click deploy, WhatsApp/Telegram delivery, and SMB pricing. The Head of Marketing at a 50-person company has no pre-built agent built for them. That's our space.</div>
+      </div>
+      <div class="gtm-col-card">
+        <div class="gtm-col-card__title">⬆️ The motion that works</div>
+        <div class="gtm-col-card__body">Bottom-up. The person doing the work is the champion. They get value, tell their manager, the team scales it. No IT approval. No enterprise sales cycle. Results in 10 minutes.</div>
+      </div>
+      <div class="gtm-col-card">
+        <div class="gtm-col-card__title">⚡ The tech we already have</div>
+        <div class="gtm-col-card__body">Built on NVIDIA NemoClaw, hosted on monday.com's managed cloud. Already deployed, already working. This is a packaging play — not a rebuild.</div>
+      </div>
+    </div>
+    <h3 style="font-size:.88rem;font-weight:700;margin:2.5rem 0 1rem;color:var(--light-text);">Competitive Position</h3>
+    <div class="comp-table-wrap">
+      <table class="comp-table">
+        <thead>
+          <tr><th></th><th>Globster</th><th>Hostinger OpenClaw</th><th>KiloClaw</th><th>Lindy</th><th>Beam AI</th></tr>
+        </thead>
+        <tbody>
+          <tr class="us-row"><td>Role-based kits</td><td><span class="check">✅</span></td><td><span class="cross">❌</span></td><td><span class="cross">❌</span></td><td><span class="cross">❌</span></td><td><span class="partial">Partial (enterprise only)</span></td></tr>
+          <tr><td>1-click non-technical</td><td><span class="check">✅</span></td><td><span class="check">✅</span></td><td><span class="cross">❌</span></td><td><span class="check">✅</span></td><td><span class="cross">❌</span></td></tr>
+          <tr><td>WhatsApp/Telegram native</td><td><span class="check">✅</span></td><td><span class="check">✅</span></td><td><span class="partial">Partial</span></td><td><span class="cross">❌</span></td><td><span class="cross">❌</span></td></tr>
+          <tr><td>SMB pricing</td><td><span class="check">✅</span></td><td><span class="check">✅</span></td><td><span class="cross">❌</span></td><td><span class="check">✅</span></td><td><span class="cross">❌</span></td></tr>
+          <tr><td>Job-aware onboarding</td><td><span class="check">✅</span></td><td><span class="cross">❌</span></td><td><span class="cross">❌</span></td><td><span class="cross">❌</span></td><td><span class="cross">❌</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <a href="#kpis" class="section-cta section-cta--light">
+      See our KPIs
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- KPIs -->
+<section id="kpis" class="gtm-section gtm-section--dark2">
+  <div class="gtm-inner">
+    <span class="gtm-act-label">KPIs</span>
+    <h2 class="gtm-h2">How we know it's working.</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">One north star tells us everything: are the agents actually being used? Everything else flows from there.</p>
+    <div class="north-star">
+      <div class="north-star__icon">⭐</div>
+      <div class="north-star__metric">North Star: <span>Weekly Active Paying Agents (WAPA)</span></div>
+      <div class="north-star__desc">% of paying customers' agents that ran at least one task in the last 7 days. An agent sitting idle isn't delivering value. WAPA tells us people are actually delegating — and getting enough value to stay.</div>
+      <span class="north-star__target">Target: &gt;60%</span>
+    </div>
+    <div class="pmf-box">
+      <div class="pmf-box__label">PMF Verdict Formula</div>
+      <div class="pmf-box__formula">When ONE lane hits:<br><span>D30 retention &gt;25%</span> + <span>NPS &gt;50</span> + <span>Organic referral &gt;20%</span></div>
+      <div class="pmf-box__verdict">→ We have PMF. That lane's ICP is the 2027 plan.</div>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-category">
+        <div class="kpi-category__title">Acquisition</div>
+        <div class="kpi-row"><span class="kpi-row__name">New signups/week</span><span class="kpi-row__current">—</span><span class="kpi-row__target">&gt;20/week</span></div>
+        <div class="kpi-row"><span class="kpi-row__name">Activation rate</span><span class="kpi-row__current">—</span><span class="kpi-row__target">&gt;60%</span></div>
+        <div class="kpi-row"><span class="kpi-row__name">CAC (paid)</span><span class="kpi-row__current">—</span><span class="kpi-row__target">&lt;$50</span></div>
+      </div>
+      <div class="kpi-category">
+        <div class="kpi-category__title">Retention</div>
+        <div class="kpi-row"><span class="kpi-row__name">D7 retention</span><span class="kpi-row__current">—</span><span class="kpi-row__target">&gt;40%</span></div>
+        <div class="kpi-row"><span class="kpi-row__name">D30 retention</span><span class="kpi-row__current">—</span><span class="kpi-row__target">&gt;25%</span></div>
+        <div class="kpi-row"><span class="kpi-row__name">Agent interaction freq.</span><span class="kpi-row__current">—</span><span class="kpi-row__target">&gt;3x/week</span></div>
+      </div>
+      <div class="kpi-category">
+        <div class="kpi-category__title">Product</div>
+        <div class="kpi-row"><span class="kpi-row__name">Time to first value</span><span class="kpi-row__current">—</span><span class="kpi-row__target">&lt;10 min</span></div>
+        <div class="kpi-row"><span class="kpi-row__name">Kit configuration rate</span><span class="kpi-row__current">—</span><span class="kpi-row__target">&gt;40%</span></div>
+        <div class="kpi-row"><span class="kpi-row__name">WAPA / total paying deployed</span><span class="kpi-row__current">—</span><span class="kpi-row__target">&gt;60%</span></div>
+      </div>
+      <div class="kpi-category">
+        <div class="kpi-category__title">Content &amp; Channel</div>
+        <div class="kpi-row"><span class="kpi-row__name">LinkedIn engagement rate</span><span class="kpi-row__current">—</span><span class="kpi-row__target">&gt;1.5%</span></div>
+        <div class="kpi-row"><span class="kpi-row__name">Content → signup</span><span class="kpi-row__current">—</span><span class="kpi-row__target">&gt;3%</span></div>
+        <div class="kpi-row"><span class="kpi-row__name">Organic referral rate</span><span class="kpi-row__current">—</span><span class="kpi-row__target">&gt;20%</span></div>
+      </div>
+    </div>
+    <a href="#firststep" class="section-cta section-cta--dark">
+      See the plan
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- FIRST STEP -->
+<section id="firststep" class="gtm-section gtm-section--light">
+  <div class="gtm-inner">
+    <span class="gtm-act-label">Where We Start</span>
+    <h2 class="gtm-h2">Step one: the marketing lane.</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">Marketing is where we start — because it's where we know the problem, the person, and the proof.</p>
+
+    <h3 style="font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:2.5rem 0 1.25rem;">Phase Timeline — click to expand</h3>
+    <div class="phase-timeline">
+      <div class="phase-card active" onclick="activatePhase(this)">
+        <div class="phase-card__num">Phase 0</div>
+        <div class="phase-card__name">Foundation</div>
+        <div class="phase-card__dates">Now → Jun 15</div>
+        <div class="phase-card__desc">Set up everything before going loud.</div>
+        <div class="phase-card__detail"><ul><li>Kit architecture defined</li><li>Infra provisioned</li><li>Analytics tracking live</li><li>Domain + landing page ready</li></ul></div>
+      </div>
+      <div class="phase-card" onclick="activatePhase(this)">
+        <div class="phase-card__num">Phase 1</div>
+        <div class="phase-card__name">Marketing Lane</div>
+        <div class="phase-card__dates">Jun 15 → Aug 31</div>
+        <div class="phase-card__desc">Prove the lane. 50 users. 3 case studies. D7 &gt;35%.</div>
+        <div class="phase-card__detail"><ul><li>50 activated users</li><li>3 published case studies</li><li>D7 retention &gt;35%</li><li>Infra ready to duplicate</li><li>4x LinkedIn/week running</li></ul></div>
+      </div>
+      <div class="phase-card" onclick="activatePhase(this)">
+        <div class="phase-card__num">Phase 2</div>
+        <div class="phase-card__name">Expand</div>
+        <div class="phase-card__dates">Sep → Oct</div>
+        <div class="phase-card__desc">Add 2nd lane based on signals. 75 total activated.</div>
+        <div class="phase-card__detail"><ul><li>2nd lane chosen from signal data</li><li>75 total activated users</li><li>Lane 1 retention stable</li></ul></div>
+      </div>
+      <div class="phase-card" onclick="activatePhase(this)">
+        <div class="phase-card__num">Phase 3</div>
+        <div class="phase-card__name">PMF Sprint</div>
+        <div class="phase-card__dates">Nov → Dec</div>
+        <div class="phase-card__desc">Name the ICP. Name the use case. Write 2027 plan.</div>
+        <div class="phase-card__detail"><ul><li>ICP locked</li><li>PMF formula checked</li><li>2027 GTM plan written</li></ul></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:2.5rem 0 1.25rem;">Phase 1 Key Milestones</h3>
+    <div class="milestone-list">
+      <label class="milestone-item"><input type="checkbox"> Marketing kit fully configured (agents, plugins, MCPs)</label>
+      <label class="milestone-item"><input type="checkbox"> Role-aware onboarding live</label>
+      <label class="milestone-item"><input type="checkbox"> First agent delivers value in &lt;10 min (tested)</label>
+      <label class="milestone-item"><input type="checkbox"> Marketing landing page live</label>
+      <label class="milestone-item"><input type="checkbox"> Content engine running (4x LinkedIn/week)</label>
+      <label class="milestone-item"><input type="checkbox"> Analytics tracking activation, D7, source</label>
+      <label class="milestone-item"><input type="checkbox"> 5 early adopters identified for case studies</label>
+      <label class="milestone-item"><input type="checkbox"> Agentic infrastructure ready to duplicate to next lane</label>
+      <label class="milestone-item"><input type="checkbox"> Teams / B2B pricing live</label>
+      <label class="milestone-item"><input type="checkbox"> Admin dashboard shipped</label>
+      <label class="milestone-item"><input type="checkbox"> Terminal access enabled</label>
+      <label class="milestone-item"><input type="checkbox"> Sales motion: "Contact Sales" on homepage and LPs</label>
+      <label class="milestone-item"><input type="checkbox"> Educational content series launched</label>
+    </div>
+  </div>
+
+  <div class="closing-strip">
+    <p class="closing-strip__text">
+      The era of chatting with AI is over.<br>
+      The era of <span class="closing-strip__accent">delegating to AI</span> has begun.<br><br>
+      <span style="font-size:.75em;opacity:.65;font-weight:500;">Every role. Every team. One click.<br>That's where we're going. Marketing is where we start.</span>
+    </p>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (!t) return;
+      e.preventDefault();
+      t.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  const sections = ['hero','status','learned','reality','shift','bet','product','howwewin','kpis','firststep'];
+  const dots = document.querySelectorAll('.act-dot');
+
+  function onScroll() {
+    const scrolled = window.scrollY;
+    const total = document.body.scrollHeight - window.innerHeight;
+    document.getElementById('progress-bar').style.width = (scrolled / total * 100) + '%';
+    let current = 'hero';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 80) current = id;
+    });
+    dots.forEach(d => d.classList.toggle('active', d.dataset.section === current));
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  function activatePhase(card) {
+    document.querySelectorAll('.phase-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+  }
+
+  // Subpages dropdown toggle
+  const subBtn = document.querySelector('.gtm-nav__sub-btn');
+  const dropdown = document.querySelector('.gtm-nav__dropdown');
+  subBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    dropdown.classList.toggle('open');
+    const isOpen = dropdown.classList.contains('open');
+    subBtn.querySelector('svg').style.transform = isOpen ? 'rotate(180deg)' : '';
+  });
+  document.addEventListener('click', () => {
+    dropdown.classList.remove('open');
+    subBtn.querySelector('svg').style.transform = '';
+  });
+  dropdown.addEventListener('click', e => e.stopPropagation());
+
+  // Rotating role word
+  (function() {
+    const el = document.getElementById('rotating-role');
+    if (!el) return;
+    const words = ['Marketing','Sales','HR','Legal','Support','Ops','IT','Dev'];
+    let i = 0;
+    setInterval(() => {
+      el.classList.add('exit');
+      setTimeout(() => {
+        i = (i + 1) % words.length;
+        el.textContent = words[i];
+        el.classList.remove('exit');
+        el.classList.add('enter');
+        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('enter')));
+      }, 200);
+    }, 1800);
+  })();
+
+  // Parallax transition
+  const parallaxSection = document.getElementById('parallax-change');
+  const parallaxContent = document.getElementById('parallax-content');
+  const parallaxBg = document.getElementById('parallax-bg');
+
+  const parallaxObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) parallaxSection.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+  parallaxObserver.observe(parallaxSection);
+
+  function updateParallax() {
+    if (!parallaxSection) return;
+    const rect = parallaxSection.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // progress: -1 (section below) → 0 (centered) → 1 (section above)
+    const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
+    parallaxContent.style.transform = `translateY(${progress * 80}px)`;
+    parallaxBg.style.transform = `translateY(${progress * -120}px)`;
+  }
+
+  window.addEventListener('scroll', updateParallax, { passive: true });
+  updateParallax();
+
+  // Learnings carousel (click-only, no auto-advance)
+  (function() {
+    const carousel = document.getElementById('lc-learned');
+    if (!carousel) return;
+    const cards = carousel.querySelectorAll('.learning-card');
+    const dots = carousel.querySelectorAll('.lc-dot');
+    const prevBtn = carousel.querySelector('.lc-prev');
+    const nextBtn = carousel.querySelector('.lc-next');
+    const countEl = carousel.querySelector('.lc-count');
+    let cur = 0;
+
+    function goTo(n) {
+      cards[cur].classList.remove('active');
+      dots[cur].classList.remove('active');
+      cur = n;
+      cards[cur].classList.add('active');
+      dots[cur].classList.add('active');
+      countEl.textContent = (cur + 1) + ' / ' + cards.length;
+      prevBtn.disabled = cur === 0;
+      nextBtn.disabled = cur === cards.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => { if (cur > 0) goTo(cur - 1); });
+    nextBtn.addEventListener('click', () => { if (cur < cards.length - 1) goTo(cur + 1); });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+  })();
+
+  // Quote carousels
+  document.querySelectorAll('.quote-carousel').forEach(carousel => {
+    const slides = carousel.querySelectorAll('.quote-slide');
+    const dots = carousel.querySelectorAll('.qc-dot');
+    const count = carousel.querySelector('.qc-count');
+    let current = 0;
+
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      if (count) count.textContent = (current + 1) + ' / ' + slides.length;
+    }
+
+    carousel.querySelector('.qc-prev')?.addEventListener('click', () => goTo(current - 1));
+    carousel.querySelector('.qc-next')?.addEventListener('click', () => goTo(current + 1));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+    // Auto-advance every 5s
+    let timer = setInterval(() => goTo(current + 1), 5000);
+    carousel.addEventListener('mouseenter', () => clearInterval(timer));
+    carousel.addEventListener('mouseleave', () => { timer = setInterval(() => goTo(current + 1), 5000); });
+  });
+</script>
+</body>
+</html>

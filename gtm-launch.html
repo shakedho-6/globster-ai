@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Launch Sequence — Globster GTM 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root { --light-bg: #f5f5f3; --light-bg-2: #ebebea; --light-text: #0f0f12; --light-text-2: #4a4a5a; --light-surface: #ffffff; --light-border: rgba(0,0,0,.09); }
+    * { box-sizing: border-box; }
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--accent); z-index: 9999; transition: width 80ms linear; }
+    body { padding-top: 60px; font-family: var(--font, 'Poppins', sans-serif); }
+    .gtm-nav { position: fixed; top: 0; left: 0; right: 0; height: 60px; background: rgba(10,10,11,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; z-index: 1000; gap: 1rem; }
+    .gtm-nav__brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; flex-shrink: 0; }
+    .gtm-nav__logo { font-size: .95rem; font-weight: 800; color: var(--text); letter-spacing: -.01em; }
+    .gtm-nav__label { font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); padding: .2rem .5rem; border: 1px solid var(--accent-dim); border-radius: 4px; }
+    .gtm-nav__back { font-size: .75rem; font-weight: 500; color: var(--text-2); text-decoration: none; display: flex; align-items: center; gap: .35rem; transition: color 150ms; }
+    .gtm-nav__back:hover { color: var(--text); }
+    .gtm-nav__sub { position: relative; margin-left: auto; }
+    .gtm-nav__sub-btn { display: flex; align-items: center; gap: .35rem; font-size: .75rem; font-weight: 600; color: var(--text-2); background: rgba(255,255,255,.06); border: 1px solid var(--border-med); border-radius: 6px; padding: .35rem .7rem; cursor: pointer; transition: all 150ms; white-space: nowrap; }
+    .gtm-nav__sub-btn:hover { color: var(--text); background: rgba(255,255,255,.1); }
+    .gtm-nav__sub-btn svg { width: 11px; height: 11px; opacity: .5; transition: transform 200ms; }
+    .gtm-nav__dropdown { position: absolute; top: calc(100% + 8px); right: 0; min-width: 210px; background: #1a1a1f; border: 1px solid var(--border-med); border-radius: 10px; padding: .4rem; box-shadow: var(--shadow-lg); display: none; flex-direction: column; gap: .1rem; z-index: 2000; }
+    .gtm-nav__dropdown.open { display: flex; }
+    .gtm-nav__dropdown a { font-size: .78rem; font-weight: 500; color: var(--text-2); text-decoration: none; padding: .5rem .75rem; border-radius: 6px; transition: all 150ms; }
+    .gtm-nav__dropdown a:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .gtm-nav__dropdown a.active { color: var(--accent); background: var(--accent-dim); }
+    .page-hero { padding: 4rem 2rem 3rem; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .page-hero__inner { max-width: 1080px; margin: 0 auto; }
+    .page-hero__eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; display: block; }
+    .page-hero__h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.1; color: var(--text); margin: 0 0 1rem; }
+    .page-hero__sub { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-2); line-height: 1.65; max-width: 620px; margin: 0; }
+    .gtm-section { padding: 4rem 2rem; position: relative; }
+    .gtm-section--dark { background: var(--bg); color: var(--text); }
+    .gtm-section--dark2 { background: var(--bg-2, #111113); color: var(--text); }
+    .gtm-section--light { background: var(--light-bg); color: var(--light-text); }
+    .gtm-section--light2 { background: var(--light-bg-2); color: var(--light-text); }
+    .gtm-inner { max-width: 1080px; margin: 0 auto; }
+    .gtm-section-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .6rem; display: block; }
+    .gtm-h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 1.5rem; }
+    .gtm-section--dark .gtm-h2, .gtm-section--dark2 .gtm-h2 { color: var(--text); }
+    .gtm-section--light .gtm-h2, .gtm-section--light2 .gtm-h2 { color: var(--light-text); }
+    .gtm-divider { width: 2.5rem; height: 3px; background: var(--accent); border-radius: 2px; margin: 1rem 0 1.5rem; }
+    .gtm-lead { font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1rem, 1.8vw, 1.15rem); font-style: italic; line-height: 1.75; margin: 0 0 2rem; max-width: 680px; }
+    .gtm-section--dark .gtm-lead, .gtm-section--dark2 .gtm-lead { color: var(--text-2); }
+    .gtm-section--light .gtm-lead, .gtm-section--light2 .gtm-lead { color: var(--light-text-2); }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
+    .card { border-radius: 14px; padding: 1.5rem; transition: transform 200ms; }
+    .gtm-section--dark .card, .gtm-section--dark2 .card { background: var(--surface); border: 1px solid var(--border); }
+    .gtm-section--light .card, .gtm-section--light2 .card { background: var(--light-surface); border: 1px solid var(--light-border); }
+    .card:hover { transform: translateY(-2px); }
+    .card__label { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+    .card__title { font-size: .92rem; font-weight: 700; margin-bottom: .6rem; }
+    .gtm-section--dark .card__title, .gtm-section--dark2 .card__title { color: var(--text); }
+    .gtm-section--light .card__title { color: var(--light-text); }
+    .card__body { font-size: .82rem; line-height: 1.7; }
+    .gtm-section--dark .card__body, .gtm-section--dark2 .card__body { color: var(--text-2); }
+    .gtm-section--light .card__body { color: var(--light-text-2); }
+    .data-table-wrap { overflow-x: auto; margin: 2rem 0; border-radius: 12px; border: 1px solid var(--light-border); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+    .data-table th { background: var(--light-bg-2); color: var(--light-text-2); font-weight: 600; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; padding: .85rem 1rem; text-align: left; border-bottom: 1px solid var(--light-border); white-space: nowrap; }
+    .data-table td { padding: .8rem 1rem; border-bottom: 1px solid var(--light-border); color: var(--light-text-2); vertical-align: middle; }
+    .data-table td:first-child { font-weight: 600; color: var(--light-text); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tbody tr:hover { background: rgba(0,0,0,.03); }
+    .badge { display: inline-block; font-size: .68rem; font-weight: 700; padding: .2rem .55rem; border-radius: 20px; }
+    .badge--green { background: rgba(22,163,74,.12); color: #16a34a; }
+    .badge--red { background: rgba(233,47,35,.1); color: var(--accent); }
+    .badge--yellow { background: rgba(217,119,6,.1); color: #d97706; }
+    .callout { background: var(--surface-2); border: 1px solid var(--border-med); border-radius: 14px; padding: 1.75rem 2rem; margin: 2rem 0; }
+    .callout--accent { background: var(--accent-dim); border-color: rgba(233,47,35,.25); }
+    .callout__title { font-size: .95rem; font-weight: 800; margin-bottom: .6rem; color: var(--text); }
+    .callout__body { font-size: .88rem; line-height: 1.7; color: var(--text-2); }
+    @media (max-width: 640px) { .card-grid { grid-template-columns: 1fr; } }
+
+    /* Timeline */
+    .timeline { display: flex; flex-direction: column; gap: 0; margin: 2rem 0; }
+    .timeline-item { display: flex; gap: 1.5rem; padding-bottom: 2.5rem; position: relative; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item__left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .timeline-item__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: .25rem; }
+    .timeline-item__line { width: 1px; background: var(--border); flex: 1; margin-top: 4px; }
+    .timeline-item:last-child .timeline-item__line { display: none; }
+    .timeline-item__date { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: .25rem; }
+    .timeline-item__title { font-size: 1rem; font-weight: 800; margin-bottom: .3rem; color: var(--text); }
+    .timeline-item__goal { font-size: .85rem; font-style: italic; color: var(--text-3); margin-bottom: .75rem; font-family: 'Source Serif 4', Georgia, serif; }
+    .timeline-item__bullets { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .35rem; }
+    .timeline-item__bullets li { font-size: .83rem; line-height: 1.6; color: var(--text-2); padding-left: 1rem; position: relative; }
+    .timeline-item__bullets li::before { content: '·'; position: absolute; left: 0; color: var(--accent); font-weight: 900; }
+
+    /* Checklist */
+    .checklist-group { margin-bottom: 2rem; }
+    .checklist-group__title { font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--light-text-2); margin-bottom: .75rem; padding-bottom: .4rem; border-bottom: 2px solid var(--accent); display: inline-block; }
+    .checklist { list-style: none; padding: 0; margin: 0 0 .5rem; display: flex; flex-direction: column; gap: .4rem; }
+    .checklist li { display: flex; align-items: flex-start; gap: .75rem; padding: .6rem .9rem; border-radius: 8px; font-size: .83rem; line-height: 1.5; cursor: pointer; transition: background 150ms; background: var(--light-surface); border: 1px solid var(--light-border); color: var(--light-text-2); }
+    .checklist li:hover { background: rgba(233,47,35,.04); }
+    .checklist li input[type="checkbox"] { width: 15px; height: 15px; accent-color: var(--accent); flex-shrink: 0; margin-top: .1rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<header class="gtm-nav">
+  <a href="GTM planning.html" class="gtm-nav__brand">
+    <span class="gtm-nav__logo">Globster</span>
+    <span class="gtm-nav__label">GTM 2026</span>
+  </a>
+  <a href="GTM planning.html" class="gtm-nav__back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="15 18 9 12 15 6"/></svg>
+    GTM Overview
+  </a>
+  <div class="gtm-nav__sub">
+    <button class="gtm-nav__sub-btn">
+      Subpages
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="gtm-nav__dropdown">
+      <a href="gtm-competitors.html">Competitive Landscape</a>
+      <a href="gtm-icp.html">ICP Framework</a>
+      <a href="gtm-messaging.html">Messaging Framework</a>
+      <a href="gtm-narrative.html">Narrative</a>
+      <a href="gtm-channels.html">Channel Strategy</a>
+      <a href="gtm-content.html">Content Strategy</a>
+      <a href="gtm-launch.html">Launch Sequence</a>
+      <a href="gtm-metrics.html">Success Metrics</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero__inner">
+    <span class="page-hero__eyebrow">GTM 2026 · Launch Sequence</span>
+    <h1 class="page-hero__h1">Launch Sequence</h1>
+    <p class="page-hero__sub">We don't announce, then go quiet. We build in public, ship in phases, and treat every milestone as a distribution event.</p>
+  </div>
+</section>
+
+<!-- SECTION 1: The Four Phases -->
+<section class="gtm-section gtm-section--dark">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Section 01</span>
+    <h2 class="gtm-h2">The Four Phases</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">Each phase has a single goal. We don't move to the next phase until the current one's go-criteria are met. This is how we avoid scaling before we're ready.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-item__left">
+          <div class="timeline-item__dot"></div>
+          <div class="timeline-item__line"></div>
+        </div>
+        <div>
+          <div class="timeline-item__date">Now → Jun 15, 2026</div>
+          <div class="timeline-item__title">Phase 0 — Foundation</div>
+          <div class="timeline-item__goal">"Get the infrastructure right before we invite anyone in."</div>
+          <ul class="timeline-item__bullets">
+            <li>Ship the Marketing Kit v1: content brief agent, campaign calendar agent, competitor monitor agent, email sequence agent. All 1-click deploy, no configuration required.</li>
+            <li>Onboard 5 beta users through founder direct outreach. Goal is learning, not growth — use weekly 30-min check-ins to map the real activation journey.</li>
+            <li>Establish LinkedIn posting cadence. First 6 weeks are for finding which pillar and hook style resonates with target ICP. Track impressions and engagement rate per post.</li>
+            <li>Define and instrument the core events in the product: signup, kit deploy, first task run, team invite sent, D7 active, D30 active. Analytics in place before Phase 1 starts.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__left">
+          <div class="timeline-item__dot"></div>
+          <div class="timeline-item__line"></div>
+        </div>
+        <div>
+          <div class="timeline-item__date">Jun 15 → Aug 31, 2026</div>
+          <div class="timeline-item__title">Phase 1 — Marketing Lane</div>
+          <div class="timeline-item__goal">"Prove the marketing kit works well enough that users tell colleagues about it."</div>
+          <ul class="timeline-item__bullets">
+            <li>Public launch of the Marketing Kit. LinkedIn post announcing it goes out Jun 15 with a before/after demo video. First-comment link to signup.</li>
+            <li>Target 20+ new signups/week by Week 4. Track activation rate (kit deploy within 24h of signup). Must exceed 60% activation before scaling any channel.</li>
+            <li>First 3 case studies published by Aug 1 — one per "result" type: time saved, campaign velocity, team handoff eliminated. These feed the content flywheel.</li>
+            <li>Referral mechanics live by Jun 22: in-product "invite your team" prompt, D7 referral nudge, and "Made with Globster" agent output attribution. Measure organic referral % weekly.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__left">
+          <div class="timeline-item__dot"></div>
+          <div class="timeline-item__line"></div>
+        </div>
+        <div>
+          <div class="timeline-item__date">Sep → Oct, 2026</div>
+          <div class="timeline-item__title">Phase 2 — Expand</div>
+          <div class="timeline-item__goal">"Add two more job-role kits and prove the model isn't just a marketing fluke."</div>
+          <ul class="timeline-item__bullets">
+            <li>Launch Sales Kit and HR Kit based on ICP interviews from Phase 1. Each kit must have at least 3 reference customers before public launch.</li>
+            <li>Begin LinkedIn retargeting campaign targeting Phase 1 site visitors with $500/month budget. A/B test two ad creatives against each other. Measure CAC vs organic cohort.</li>
+            <li>First team-tier pricing introduced. Goal: 5 teams (3+ users) converted from individual accounts by Oct 31. WAA metric should be higher in team accounts — validate this.</li>
+            <li>Community strategy: regular presence in 3 Slack communities (Demand Curve, Growthmentor, RevOps Co-op). Measure referral traffic and signups per community per week.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__left">
+          <div class="timeline-item__dot"></div>
+          <div class="timeline-item__line"></div>
+        </div>
+        <div>
+          <div class="timeline-item__date">Nov → Dec, 2026</div>
+          <div class="timeline-item__title">Phase 3 — PMF Sprint</div>
+          <div class="timeline-item__goal">"Hit the three PMF criteria simultaneously and declare product-market fit."</div>
+          <ul class="timeline-item__bullets">
+            <li>D30 retention target: &gt;25% of users who signed up 30 days ago are still running at least one agent per week. If below 25%, hold and iterate on onboarding — do not continue growth spend.</li>
+            <li>Run first NPS survey at D30 for all users who activated. Target NPS &gt;50. Qualitative follow-up calls with all Detractors (score ≤6) to understand churn drivers.</li>
+            <li>Organic referral metric: &gt;20% of new signups should come from referral sources (not LinkedIn, not paid). This validates word-of-mouth is working without our active involvement.</li>
+            <li>If all three PMF criteria met by Dec 15: prepare 2027 scale plan, begin fundraising conversations, expand kit library to 5 roles. Celebrate publicly on LinkedIn — this is a distribution event too.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: Phase 1 Launch Checklist -->
+<section class="gtm-section gtm-section--light">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Section 02</span>
+    <h2 class="gtm-h2">Phase 1 Launch Checklist</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead" style="color: var(--light-text-2);">The items that need to be true before, during, and after launch day on Jun 15. Each owner is responsible for checking their items off before the next gate.</p>
+
+    <div class="checklist-group">
+      <div class="checklist-group__title">Pre-Launch (complete by Jun 13)</div>
+      <ul class="checklist">
+        <li><input type="checkbox"> Marketing Kit is deployed and end-to-end tested by all 5 beta users. No critical bugs open.</li>
+        <li><input type="checkbox"> Landing page live with ICP-specific headline, demo video, and 3 beta user quotes. Mobile-tested.</li>
+        <li><input type="checkbox"> Analytics instrumented: signup, kit deploy, first task run, D7 active events all firing correctly in production.</li>
+        <li><input type="checkbox"> LinkedIn launch post drafted, reviewed, and scheduled for Jun 15 at 8am (peak feed time). Demo video exported and uploaded natively.</li>
+        <li><input type="checkbox"> Referral mechanics live in product: "invite team" prompt, D7 nudge email, and "Made with Globster" output footer.</li>
+        <li><input type="checkbox"> Onboarding email sequence set up: Day 0 (welcome + first task guide), Day 3 (tips based on kit type), Day 7 (referral nudge + case study).</li>
+        <li><input type="checkbox"> Support inbox monitored — Slack channel or Intercom live with &lt;2h response SLA for launch week.</li>
+        <li><input type="checkbox"> Phase 1 KPI dashboard live and visible to team: signups/week, activation rate, D7 retention, WAA.</li>
+      </ul>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group__title">Launch Day (Jun 15)</div>
+      <ul class="checklist">
+        <li><input type="checkbox"> LinkedIn post goes live at 8am. Reply to every comment within 1 hour. DM anyone who expresses direct interest.</li>
+        <li><input type="checkbox"> Post in 3 communities (Reddit r/marketing, Demand Curve Slack, relevant HN thread if applicable). Authentic, non-spammy framing.</li>
+        <li><input type="checkbox"> Monitor signup volume in real time. If server load spikes, have infrastructure plan ready (autoscaling enabled).</li>
+        <li><input type="checkbox"> Personally onboard the first 5 signups with a 10-minute Loom video walkthrough sent within 1 hour of their signup.</li>
+        <li><input type="checkbox"> End-of-day recap post: "We launched today. Here's what happened in the first 8 hours." (Builds in-public narrative.)</li>
+      </ul>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group__title">Week 1 (Jun 15–22)</div>
+      <ul class="checklist">
+        <li><input type="checkbox"> Reach out personally to all users who signed up but didn't deploy a kit within 24h. One-sentence offer: "I'll set it up for you in 5 minutes."</li>
+        <li><input type="checkbox"> Analyze Day 1 activation data: what % deployed a kit? What % ran their first task? Identify the drop-off point.</li>
+        <li><input type="checkbox"> Publish a second LinkedIn post on Day 3: "We got X signups in our first 48 hours. Here's what surprised us."</li>
+        <li><input type="checkbox"> First weekly 30-min team metrics review: signups, activation rate, any early D7 data available, qualitative user feedback.</li>
+        <li><input type="checkbox"> Identify top 3 most engaged users and schedule 20-min user interviews for the following week to collect quote and case study material.</li>
+      </ul>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group__title">Month 1 (by Jul 15)</div>
+      <ul class="checklist">
+        <li><input type="checkbox"> First case study published. Real numbers, real customer name (with permission), real before/after. Promoted as a LinkedIn post + sent to existing user base.</li>
+        <li><input type="checkbox"> Activation rate stable at &gt;60%. If not, run a 3-option onboarding A/B test: current flow vs. guided wizard vs. white-glove setup call offer.</li>
+        <li><input type="checkbox"> D7 retention data available for first cohort. Target: &gt;40%. If below, analyze which users retained and what they did differently in their first 3 days.</li>
+        <li><input type="checkbox"> Organic referral % tracked. If &gt;15%, referral mechanics are working — amplify. If &lt;10%, audit the in-product share prompts and simplify the invite flow.</li>
+        <li><input type="checkbox"> Month 1 retrospective: what did we learn, what changes for Month 2, what's the revised signup target for Phase 1 completion?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: Distribution Events -->
+<section class="gtm-section gtm-section--dark2">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Section 03</span>
+    <h2 class="gtm-h2">Distribution Events</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">Every milestone is an announcement. We don't wait until we've "made it" to tell the story publicly — we tell it in real time. This builds an audience while building the product.</p>
+
+    <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));">
+      <div class="card">
+        <div class="card__label">Milestone 01</div>
+        <div class="card__title">First 10 Users</div>
+        <div class="card__body">
+          <strong style="color: var(--text); font-size: .79rem;">How we announce it:</strong> LinkedIn post — "10 heads of marketing are now running agents with Globster. Here's what they said in week 1." Include 2–3 direct quotes.<br><br>
+          <strong style="color: var(--text); font-size: .79rem;">Expected reach:</strong> 2,000–6,000 impressions<br><br>
+          <strong style="color: var(--text); font-size: .79rem;">Goal:</strong> Convert 5% of post viewers to signup (100–300 new leads in the pipeline).
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__label">Milestone 02</div>
+        <div class="card__title">First Case Study</div>
+        <div class="card__body">
+          <strong style="color: var(--text); font-size: .79rem;">How we announce it:</strong> LinkedIn thread — "[Company] saves 6 hours/week. Here's the exact agent setup." Link to full case study page. Tag the customer (with permission).<br><br>
+          <strong style="color: var(--text); font-size: .79rem;">Expected reach:</strong> 5,000–15,000 impressions (customer's network amplifies)<br><br>
+          <strong style="color: var(--text); font-size: .79rem;">Goal:</strong> 3–5% conversion. This is the highest-converting content format we'll produce.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__label">Milestone 03</div>
+        <div class="card__title">First Team Deployment</div>
+        <div class="card__body">
+          <strong style="color: var(--text); font-size: .79rem;">How we announce it:</strong> LinkedIn post — "First full marketing team running on Globster. Not just one person — the whole team. Here's how they set it up." Product screenshot included.<br><br>
+          <strong style="color: var(--text); font-size: .79rem;">Expected reach:</strong> 3,000–10,000 impressions<br><br>
+          <strong style="color: var(--text); font-size: .79rem;">Goal:</strong> Drive team-tier signups. This post targets heads of marketing who want to go beyond individual use.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__label">Milestone 04</div>
+        <div class="card__title">First Referral Signup</div>
+        <div class="card__body">
+          <strong style="color: var(--text); font-size: .79rem;">How we announce it:</strong> Short LinkedIn post — "Today someone signed up for Globster because a colleague recommended it. We didn't ask them to. That's the whole game." Simple, authentic, no CTA needed.<br><br>
+          <strong style="color: var(--text); font-size: .79rem;">Expected reach:</strong> 1,500–4,000 impressions<br><br>
+          <strong style="color: var(--text); font-size: .79rem;">Goal:</strong> Signal product-market fit momentum publicly. Builds investor narrative too.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__label">Milestone 05</div>
+        <div class="card__title">PMF Signal Detected</div>
+        <div class="card__body">
+          <strong style="color: var(--text); font-size: .79rem;">How we announce it:</strong> Long-form LinkedIn post — "We hit the three metrics we set for product-market fit. D30 retention, NPS, organic referral. Here's what we learned building in public." Full breakdown.<br><br>
+          <strong style="color: var(--text); font-size: .79rem;">Expected reach:</strong> 10,000–40,000 impressions (high share potential)<br><br>
+          <strong style="color: var(--text); font-size: .79rem;">Goal:</strong> Massive top-of-funnel awareness + fundraising credibility signal.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: Go/No-Go Criteria -->
+<section class="gtm-section gtm-section--light">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Section 04</span>
+    <h2 class="gtm-h2">Go / No-Go Criteria</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead" style="color: var(--light-text-2);">We advance phases on evidence, not optimism. These criteria are the gates. If we're not through them, we don't move forward — we fix what's broken first.</p>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Transition</th>
+            <th>Go Criteria</th>
+            <th>No-Go Signal</th>
+            <th>Decision Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Phase 0 → Phase 1</td>
+            <td>5 beta users completed full onboarding. Activation rate &gt;60% in beta cohort. All core analytics events firing correctly. LinkedIn posting cadence established (at least 3 weeks of 4x/week). Marketing Kit has zero P0 bugs.</td>
+            <td>Activation rate &lt;40% in beta, OR beta users can't reach first value in &lt;15 min, OR analytics infrastructure incomplete, OR fewer than 3 beta users giving positive qualitative feedback.</td>
+            <td>Founder + Product lead. Unanimous decision required.</td>
+          </tr>
+          <tr>
+            <td>Phase 1 → Phase 2</td>
+            <td>≥20 new signups/week for 3 consecutive weeks. Activation rate ≥60% sustained. D7 retention ≥35% in first cohort. At least 1 published case study. WAA trending toward 60%. Organic referral &gt;10% of signups.</td>
+            <td>Signup growth plateaued at &lt;10/week, OR D7 retention &lt;25% (retention problem must be fixed before expanding), OR activation rate &lt;50%, OR no published case study, OR &gt;30% of activated users churning before Day 14.</td>
+            <td>Founder decision. No unanimous requirement — founder has final call.</td>
+          </tr>
+          <tr>
+            <td>Phase 2 → Phase 3</td>
+            <td>Sales Kit and HR Kit each have ≥3 reference customers. Team-tier has ≥5 paying teams. WAA ≥55% across all active users. CAC &lt;$50 blended. Organic referral ≥15% sustained for 4 weeks. D30 retention ≥20% in Phase 1 cohort.</td>
+            <td>Any new kit has activation rate &lt;50% (stop and fix), OR team churn is higher than individual churn (pricing or value problem), OR organic referral has stalled &lt;10% despite referral mechanics being live, OR D30 retention regressed below 15%.</td>
+            <td>Founder + investor/advisor review. Requires external validation that PMF criteria are achievable in 60 days.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout--accent">
+      <div class="callout__title">The No-Go Rule</div>
+      <div class="callout__body">A no-go decision is not a failure. It's the correct response to data. When we hit a no-go signal, we have a focused 2-week sprint to diagnose and fix the root cause. The two most common causes historically: (1) onboarding friction that prevents activation, and (2) kit value that doesn't match what users actually needed. Fix the onboarding or redefine the kit — don't add a new channel to mask the problem.</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    document.getElementById('progress-bar').style.width = (p * 100) + '%';
+  }, { passive: true });
+  const subBtn = document.querySelector('.gtm-nav__sub-btn');
+  const dropdown = document.querySelector('.gtm-nav__dropdown');
+  subBtn.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('open'); subBtn.querySelector('svg').style.transform = dropdown.classList.contains('open') ? 'rotate(180deg)' : ''; });
+  document.addEventListener('click', () => { dropdown.classList.remove('open'); subBtn.querySelector('svg').style.transform = ''; });
+  dropdown.addEventListener('click', e => e.stopPropagation());
+  const currentFile = location.pathname.split('/').pop();
+  document.querySelectorAll('.gtm-nav__dropdown a').forEach(a => { if (a.getAttribute('href') === currentFile) a.classList.add('active'); });
+</script>
+</body>
+</html>

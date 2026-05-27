@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Competitive Landscape — Globster GTM 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --light-bg: #f5f5f3; --light-bg-2: #ebebea;
+      --light-text: #0f0f12; --light-text-2: #4a4a5a;
+      --light-surface: #ffffff; --light-border: rgba(0,0,0,.09);
+    }
+    * { box-sizing: border-box; }
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--accent); z-index: 9999; transition: width 80ms linear; }
+    body { padding-top: 60px; font-family: var(--font, 'Poppins', sans-serif); }
+
+    .gtm-nav { position: fixed; top: 0; left: 0; right: 0; height: 60px; background: rgba(10,10,11,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; z-index: 1000; gap: 1rem; }
+    .gtm-nav__brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; flex-shrink: 0; }
+    .gtm-nav__logo { font-size: .95rem; font-weight: 800; color: var(--text); letter-spacing: -.01em; }
+    .gtm-nav__label { font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); padding: .2rem .5rem; border: 1px solid var(--accent-dim); border-radius: 4px; }
+    .gtm-nav__back { font-size: .75rem; font-weight: 500; color: var(--text-2); text-decoration: none; display: flex; align-items: center; gap: .35rem; transition: color 150ms; }
+    .gtm-nav__back:hover { color: var(--text); }
+    .gtm-nav__sub { position: relative; margin-left: auto; }
+    .gtm-nav__sub-btn { display: flex; align-items: center; gap: .35rem; font-size: .75rem; font-weight: 600; color: var(--text-2); background: rgba(255,255,255,.06); border: 1px solid var(--border-med); border-radius: 6px; padding: .35rem .7rem; cursor: pointer; transition: all 150ms; white-space: nowrap; }
+    .gtm-nav__sub-btn:hover { color: var(--text); background: rgba(255,255,255,.1); }
+    .gtm-nav__sub-btn svg { width: 11px; height: 11px; opacity: .5; transition: transform 200ms; }
+    .gtm-nav__dropdown { position: absolute; top: calc(100% + 8px); right: 0; min-width: 210px; background: #1a1a1f; border: 1px solid var(--border-med); border-radius: 10px; padding: .4rem; box-shadow: var(--shadow-lg); display: none; flex-direction: column; gap: .1rem; z-index: 2000; }
+    .gtm-nav__dropdown.open { display: flex; }
+    .gtm-nav__dropdown a { font-size: .78rem; font-weight: 500; color: var(--text-2); text-decoration: none; padding: .5rem .75rem; border-radius: 6px; transition: all 150ms; }
+    .gtm-nav__dropdown a:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .gtm-nav__dropdown a.active { color: var(--accent); background: var(--accent-dim); }
+
+    .page-hero { padding: 4rem 2rem 3rem; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .page-hero__inner { max-width: 1080px; margin: 0 auto; }
+    .page-hero__eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; display: block; }
+    .page-hero__h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.1; color: var(--text); margin: 0 0 1rem; }
+    .page-hero__sub { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-2); line-height: 1.65; max-width: 600px; margin: 0; }
+
+    .gtm-section { padding: 4rem 2rem; position: relative; }
+    .gtm-section--dark { background: var(--bg, #0a0a0b); color: var(--text); }
+    .gtm-section--dark2 { background: var(--bg-2, #111113); color: var(--text); }
+    .gtm-section--light { background: var(--light-bg); color: var(--light-text); }
+    .gtm-section--light2 { background: var(--light-bg-2); color: var(--light-text); }
+    .gtm-inner { max-width: 1080px; margin: 0 auto; }
+    .gtm-section-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .6rem; display: block; }
+    .gtm-h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 1.5rem; }
+    .gtm-section--dark .gtm-h2, .gtm-section--dark2 .gtm-h2 { color: var(--text); }
+    .gtm-section--light .gtm-h2, .gtm-section--light2 .gtm-h2 { color: var(--light-text); }
+    .gtm-divider { width: 2.5rem; height: 3px; background: var(--accent); border-radius: 2px; margin: 1rem 0 1.5rem; }
+    .gtm-lead { font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1rem, 1.8vw, 1.15rem); font-style: italic; line-height: 1.75; margin: 0 0 2rem; max-width: 680px; }
+    .gtm-section--dark .gtm-lead, .gtm-section--dark2 .gtm-lead { color: var(--text-2); }
+    .gtm-section--light .gtm-lead, .gtm-section--light2 .gtm-lead { color: var(--light-text-2); }
+    .gtm-narrative { font-size: .97rem; line-height: 1.9; max-width: 680px; }
+    .gtm-section--dark .gtm-narrative, .gtm-section--dark2 .gtm-narrative { color: var(--text-2); }
+    .gtm-section--light .gtm-narrative, .gtm-section--light2 .gtm-narrative { color: var(--light-text-2); }
+
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
+    .card { border-radius: 14px; padding: 1.5rem; transition: transform 200ms; }
+    .gtm-section--dark .card, .gtm-section--dark2 .card { background: var(--surface); border: 1px solid var(--border); }
+    .gtm-section--light .card, .gtm-section--light2 .card { background: var(--light-surface); border: 1px solid var(--light-border); }
+    .card:hover { transform: translateY(-2px); }
+    .card__label { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+    .card__title { font-size: .92rem; font-weight: 700; margin-bottom: .6rem; }
+    .gtm-section--dark .card__title, .gtm-section--dark2 .card__title { color: var(--text); }
+    .gtm-section--light .card__title { color: var(--light-text); }
+    .card__body { font-size: .82rem; line-height: 1.7; }
+    .gtm-section--dark .card__body, .gtm-section--dark2 .card__body { color: var(--text-2); }
+    .gtm-section--light .card__body { color: var(--light-text-2); }
+
+    .data-table-wrap { overflow-x: auto; margin: 2rem 0; border-radius: 12px; border: 1px solid var(--light-border); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+    .data-table th { background: var(--light-bg-2); color: var(--light-text-2); font-weight: 600; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; padding: .85rem 1rem; text-align: left; border-bottom: 1px solid var(--light-border); white-space: nowrap; }
+    .data-table td { padding: .8rem 1rem; border-bottom: 1px solid var(--light-border); color: var(--light-text-2); vertical-align: middle; }
+    .data-table td:first-child { font-weight: 600; color: var(--light-text); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tbody tr:hover { background: rgba(0,0,0,.03); }
+    .badge { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .03em; padding: .2rem .55rem; border-radius: 20px; }
+    .badge--green { background: rgba(22,163,74,.12); color: #16a34a; }
+    .badge--red { background: rgba(233,47,35,.1); color: var(--accent); }
+    .badge--yellow { background: rgba(217,119,6,.1); color: #d97706; }
+    .badge--blue { background: rgba(37,99,235,.1); color: #2563eb; }
+
+    .callout { background: var(--surface-2); border: 1px solid var(--border-med); border-radius: 14px; padding: 1.75rem 2rem; margin: 2rem 0; }
+    .callout--accent { background: var(--accent-dim); border-color: rgba(233,47,35,.25); }
+    .callout__title { font-size: .95rem; font-weight: 800; margin-bottom: .6rem; color: var(--text); }
+    .callout__body { font-size: .88rem; line-height: 1.7; color: var(--text-2); }
+
+    .styled-list { list-style: none; padding: 0; margin: 1.5rem 0; display: flex; flex-direction: column; gap: .5rem; }
+    .styled-list li { font-size: .9rem; line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .gtm-section--dark .styled-list li, .gtm-section--dark2 .styled-list li { color: var(--text-2); }
+    .gtm-section--light .styled-list li, .gtm-section--light2 .styled-list li { color: var(--light-text-2); }
+    .styled-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: .8rem; top: .15rem; font-weight: 700; }
+
+    /* Competitor cards */
+    .comp-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
+    .comp-card { background: var(--light-surface); border: 1px solid var(--light-border); border-radius: 14px; padding: 1.5rem; }
+    .comp-card__name { font-size: 1rem; font-weight: 800; color: var(--light-text); margin-bottom: .25rem; }
+    .comp-card__position { font-size: .75rem; color: var(--light-text-2); margin-bottom: 1rem; font-style: italic; }
+    .comp-card__row { display: flex; flex-direction: column; gap: .1rem; margin-bottom: .75rem; }
+    .comp-card__row-label { font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+    .comp-card__row-val { font-size: .8rem; line-height: 1.55; color: var(--light-text-2); }
+
+    /* 2x2 matrix visual */
+    .matrix-wrap { margin: 2rem 0; }
+    .matrix-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; border: 1px solid var(--border-med); border-radius: 12px; overflow: hidden; max-width: 600px; }
+    .matrix-cell { padding: 1.5rem; background: var(--surface); }
+    .matrix-cell--highlight { background: var(--accent-dim); border: 1px solid rgba(233,47,35,.3); }
+    .matrix-cell__label { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .4rem; }
+    .matrix-cell__title { font-size: .9rem; font-weight: 800; color: var(--text); margin-bottom: .35rem; }
+    .matrix-cell__body { font-size: .78rem; line-height: 1.6; color: var(--text-2); }
+    .matrix-axis { display: flex; justify-content: space-between; align-items: center; max-width: 600px; margin-top: .5rem; }
+    .matrix-axis span { font-size: .7rem; color: var(--text-3); }
+    .matrix-y-label { writing-mode: vertical-rl; text-orientation: mixed; font-size: .7rem; color: var(--text-3); margin-right: .75rem; transform: rotate(180deg); }
+    .matrix-container { display: flex; align-items: center; }
+
+    @media (max-width: 640px) { .comp-cards { grid-template-columns: 1fr; } .matrix-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<header class="gtm-nav">
+  <a href="GTM planning.html" class="gtm-nav__brand">
+    <span class="gtm-nav__logo">Globster</span>
+    <span class="gtm-nav__label">GTM 2026</span>
+  </a>
+  <a href="GTM planning.html" class="gtm-nav__back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="15 18 9 12 15 6"/></svg>
+    GTM Overview
+  </a>
+  <div class="gtm-nav__sub">
+    <button class="gtm-nav__sub-btn">
+      Subpages
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="gtm-nav__dropdown">
+      <a href="gtm-competitors.html">Competitive Landscape</a>
+      <a href="gtm-icp.html">ICP Framework</a>
+      <a href="gtm-messaging.html">Messaging Framework</a>
+      <a href="gtm-narrative.html">Narrative</a>
+      <a href="gtm-channels.html">Channel Strategy</a>
+      <a href="gtm-content.html">Content Strategy</a>
+      <a href="gtm-launch.html">Launch Sequence</a>
+      <a href="gtm-metrics.html">Success Metrics</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero__inner">
+    <span class="page-hero__eyebrow">Competitive Intelligence</span>
+    <h1 class="page-hero__h1">The Competitive<br>Landscape</h1>
+    <p class="page-hero__sub">Nobody has connected role-based kits, 1-click deploy, and SMB pricing. That's the gap we're building into.</p>
+  </div>
+</section>
+
+<!-- SECTION 1: HOW WE STACK UP -->
+<section class="gtm-section gtm-section--dark">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Feature Comparison</span>
+    <h2 class="gtm-h2">How We Stack Up</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">The incumbents are either too technical for SMBs or too generic to deliver role-specific value. Globster is purpose-built for the job.</p>
+
+    <div style="background: var(--light-bg); border-radius: 14px; padding: 1.5rem; overflow-x: auto;">
+      <table class="data-table" style="background: var(--light-bg);">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Globster</th>
+            <th>Hostinger OpenClaw</th>
+            <th>KiloClaw</th>
+            <th>Lindy</th>
+            <th>Beam AI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Role-based kits</td>
+            <td><span class="badge badge--green">✅ Core</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+            <td><span class="badge badge--yellow">Partial</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+          </tr>
+          <tr>
+            <td>1-click deploy</td>
+            <td><span class="badge badge--green">✅ Core</span></td>
+            <td><span class="badge badge--yellow">Partial</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+            <td><span class="badge badge--yellow">Partial</span></td>
+            <td><span class="badge badge--yellow">Partial</span></td>
+          </tr>
+          <tr>
+            <td>WhatsApp / Telegram native</td>
+            <td><span class="badge badge--green">✅ Native</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+            <td><span class="badge badge--yellow">Via Zapier</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+          </tr>
+          <tr>
+            <td>SMB pricing (&lt;$100/mo)</td>
+            <td><span class="badge badge--green">✅ Yes</span></td>
+            <td><span class="badge badge--green">✅ Yes</span></td>
+            <td><span class="badge badge--red">❌ Enterprise</span></td>
+            <td><span class="badge badge--yellow">Partial</span></td>
+            <td><span class="badge badge--red">❌ Enterprise</span></td>
+          </tr>
+          <tr>
+            <td>Job-aware onboarding</td>
+            <td><span class="badge badge--green">✅ Core</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+            <td><span class="badge badge--yellow">Partial</span></td>
+          </tr>
+          <tr>
+            <td>Multi-channel delivery</td>
+            <td><span class="badge badge--green">✅ Native</span></td>
+            <td><span class="badge badge--yellow">Partial</span></td>
+            <td><span class="badge badge--yellow">Partial</span></td>
+            <td><span class="badge badge--yellow">Partial</span></td>
+            <td><span class="badge badge--yellow">Partial</span></td>
+          </tr>
+          <tr>
+            <td>Marketing-specific kit</td>
+            <td><span class="badge badge--green">✅ Live</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+            <td><span class="badge badge--yellow">Templates</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+          </tr>
+          <tr>
+            <td>Sales-specific kit</td>
+            <td><span class="badge badge--blue">✅ Roadmap Q2</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+            <td><span class="badge badge--red">❌</span></td>
+            <td><span class="badge badge--yellow">Templates</span></td>
+            <td><span class="badge badge--yellow">Partial</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="gtm-narrative" style="margin-top: 1.5rem;">The table above reflects the state of the market as of Q1 2026. "Partial" means the feature exists but requires meaningful configuration time, developer involvement, or third-party integrations that break the self-serve promise. Only Globster ships each row as a native, zero-config experience.</p>
+  </div>
+</section>
+
+<!-- SECTION 2: COMPETITOR PROFILES -->
+<section class="gtm-section gtm-section--light">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Deep Dives</span>
+    <h2 class="gtm-h2" style="color: var(--light-text);">Competitor Profiles</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead" style="color: var(--light-text-2);">Know them well. Understand their strengths so you don't dismiss them. Understand their weaknesses so you know where to fight.</p>
+
+    <div class="comp-cards">
+      <div class="comp-card">
+        <div class="comp-card__name">Hostinger OpenClaw</div>
+        <div class="comp-card__position">"AI for your website, powered by your brand"</div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Positioning</span>
+          <span class="comp-card__row-val">Website-native AI assistant for small business owners. Bundled with hosting plans.</span>
+        </div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Their Strength</span>
+          <span class="comp-card__row-val">Massive distribution via Hostinger's 3M+ customer base. Low acquisition cost. Easy bundling with existing plans.</span>
+        </div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Their Weakness</span>
+          <span class="comp-card__row-val">Superficial AI — reactive chatbot, not a proactive agent. No role specificity. No action capabilities beyond FAQ responses.</span>
+        </div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Why We Win</span>
+          <span class="comp-card__row-val">We're an agent, not a chatbot. Our Marketing Kit runs campaigns, qualifies leads, and reports results — it doesn't just answer questions.</span>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card__name">KiloClaw</div>
+        <div class="comp-card__position">"Enterprise AI orchestration at scale"</div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Positioning</span>
+          <span class="comp-card__row-val">Mid-market to enterprise AI agent builder. Heavy customization, deep integrations, professional services layer.</span>
+        </div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Their Strength</span>
+          <span class="comp-card__row-val">Deep workflow customization. Strong IT/dev buyer relationships. Handles complex multi-agent orchestration.</span>
+        </div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Their Weakness</span>
+          <span class="comp-card__row-val">Minimum contract ~$12k/yr. Requires 2–6 week implementation. Not accessible to a 50-person company without IT budget.</span>
+        </div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Why We Win</span>
+          <span class="comp-card__row-val">We're the KiloClaw experience for SMBs who can't afford a 6-week rollout. Same output, zero configuration debt.</span>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card__name">Lindy</div>
+        <div class="comp-card__position">"Build your AI team in minutes"</div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Positioning</span>
+          <span class="comp-card__row-val">No-code AI agent builder targeting prosumers and teams. Strong on automation, integrations, template library.</span>
+        </div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Their Strength</span>
+          <span class="comp-card__row-val">Wide integration surface. Polished UX. Growing template library. Slack-native. Good product velocity.</span>
+        </div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Their Weakness</span>
+          <span class="comp-card__row-val">Still build-your-own. Templates require configuration. No role-specific context. WhatsApp/Telegram is via third-party.</span>
+        </div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Why We Win</span>
+          <span class="comp-card__row-val">Lindy is a canvas. Globster is a finished painting. Our buyer wants to delegate outcomes, not manage a builder interface.</span>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card__name">Beam AI</div>
+        <div class="comp-card__position">"Automate your back office with AI agents"</div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Positioning</span>
+          <span class="comp-card__row-val">Operations-focused AI automation for mid-market finance, HR, and compliance workflows. Top-down sales motion.</span>
+        </div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Their Strength</span>
+          <span class="comp-card__row-val">Strong in ops and back-office. Deep ERP and HRIS integrations. Compliance-first angle resonates with regulated industries.</span>
+        </div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Their Weakness</span>
+          <span class="comp-card__row-val">Enterprise pricing. No front-office (marketing, sales) play. Not consumer-channel native. Long POC cycles.</span>
+        </div>
+        <div class="comp-card__row">
+          <span class="comp-card__row-label">Why We Win</span>
+          <span class="comp-card__row-val">We start where they don't play — marketing and sales — and expand into ops as we prove ROI. Different buyer, different channel, different motion.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: THE UNOCCUPIED POSITION -->
+<section class="gtm-section gtm-section--dark2">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Strategic Positioning</span>
+    <h2 class="gtm-h2">The Unoccupied Position</h2>
+    <div class="gtm-divider"></div>
+
+    <div class="callout callout--accent">
+      <div class="callout__title">The gap in plain English</div>
+      <div class="callout__body">Every AI agent tool in the market today forces the buyer to choose: either you get deep customization with high complexity (KiloClaw, Beam AI), or you get cheap and simple with shallow capability (OpenClaw). Lindy lives in the middle but still requires building. No one has shipped a product that is simultaneously role-specific, immediately deployable, SMB-priced, and native to the channels where work actually happens. That is the unoccupied position. That is Globster.</div>
+    </div>
+
+    <p class="gtm-lead">The 2x2 below maps the market on two axes that matter most to our ICP: technical complexity required to deploy, and how role-specific the product actually is.</p>
+
+    <div class="matrix-container">
+      <span class="matrix-y-label">Role Specificity →</span>
+      <div style="flex: 1;">
+        <div class="matrix-grid">
+          <div class="matrix-cell">
+            <div class="matrix-cell__label">High complexity · High role specificity</div>
+            <div class="matrix-cell__title">KiloClaw, Beam AI</div>
+            <div class="matrix-cell__body">Powerful but inaccessible. Need IT, budget, and 4–8 weeks. SMBs can't play here.</div>
+          </div>
+          <div class="matrix-cell matrix-cell--highlight">
+            <div class="matrix-cell__label">Low complexity · High role specificity</div>
+            <div class="matrix-cell__title">🎯 Globster</div>
+            <div class="matrix-cell__body">1-click deploy. Pre-configured by role. Zero IT required. The only player in this quadrant.</div>
+          </div>
+          <div class="matrix-cell">
+            <div class="matrix-cell__label">High complexity · Low role specificity</div>
+            <div class="matrix-cell__title">Lindy</div>
+            <div class="matrix-cell__body">Flexible but you're on your own to define what the agent does. Build-your-own problem.</div>
+          </div>
+          <div class="matrix-cell">
+            <div class="matrix-cell__label">Low complexity · Low role specificity</div>
+            <div class="matrix-cell__title">OpenClaw</div>
+            <div class="matrix-cell__body">Easy but shallow. Chatbots, not agents. No proactive action, no role context.</div>
+          </div>
+        </div>
+        <div class="matrix-axis">
+          <span>Low Technical Complexity</span>
+          <span style="color: var(--text-3);">← Technical Complexity →</span>
+          <span>High Technical Complexity</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="gtm-narrative" style="margin-top: 2rem;">The upper-right quadrant is ours to own. No competitor has a credible path to it — KiloClaw and Beam AI would have to simplify their sales motion and abandon enterprise margins. Lindy would have to commit to deep role verticalization, which contradicts their platform strategy. OpenClaw is constrained by the Hostinger distribution model. We have a 12–18 month window before anyone can credibly compete in this quadrant.</p>
+
+    <ul class="styled-list" style="margin-top: 1.5rem;">
+      <li>First mover advantage in role-based SMB AI agents — no direct competitor today</li>
+      <li>Monday.com managed cloud gives us enterprise-grade infrastructure at SMB price points</li>
+      <li>NVIDIA NemoClaw integration provides model quality that OpenClaw and Lindy can't match</li>
+      <li>Native WhatsApp/Telegram delivery is a structural moat — nobody else is building for consumer-channel work</li>
+      <li>Bottom-up viral motion means our CAC is structurally lower than top-down competitors</li>
+    </ul>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    document.getElementById('progress-bar').style.width = (p * 100) + '%';
+  }, { passive: true });
+  const subBtn = document.querySelector('.gtm-nav__sub-btn');
+  const dropdown = document.querySelector('.gtm-nav__dropdown');
+  subBtn.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('open'); subBtn.querySelector('svg').style.transform = dropdown.classList.contains('open') ? 'rotate(180deg)' : ''; });
+  document.addEventListener('click', () => { dropdown.classList.remove('open'); subBtn.querySelector('svg').style.transform = ''; });
+  dropdown.addEventListener('click', e => e.stopPropagation());
+  const currentFile = location.pathname.split('/').pop();
+  document.querySelectorAll('.gtm-nav__dropdown a').forEach(a => { if (a.getAttribute('href') === currentFile) a.classList.add('active'); });
+</script>
+</body>
+</html>

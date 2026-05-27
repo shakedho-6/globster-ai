@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messaging Framework — Globster GTM 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --light-bg: #f5f5f3; --light-bg-2: #ebebea;
+      --light-text: #0f0f12; --light-text-2: #4a4a5a;
+      --light-surface: #ffffff; --light-border: rgba(0,0,0,.09);
+    }
+    * { box-sizing: border-box; }
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--accent); z-index: 9999; transition: width 80ms linear; }
+    body { padding-top: 60px; font-family: var(--font, 'Poppins', sans-serif); }
+
+    .gtm-nav { position: fixed; top: 0; left: 0; right: 0; height: 60px; background: rgba(10,10,11,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; z-index: 1000; gap: 1rem; }
+    .gtm-nav__brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; flex-shrink: 0; }
+    .gtm-nav__logo { font-size: .95rem; font-weight: 800; color: var(--text); letter-spacing: -.01em; }
+    .gtm-nav__label { font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); padding: .2rem .5rem; border: 1px solid var(--accent-dim); border-radius: 4px; }
+    .gtm-nav__back { font-size: .75rem; font-weight: 500; color: var(--text-2); text-decoration: none; display: flex; align-items: center; gap: .35rem; transition: color 150ms; }
+    .gtm-nav__back:hover { color: var(--text); }
+    .gtm-nav__sub { position: relative; margin-left: auto; }
+    .gtm-nav__sub-btn { display: flex; align-items: center; gap: .35rem; font-size: .75rem; font-weight: 600; color: var(--text-2); background: rgba(255,255,255,.06); border: 1px solid var(--border-med); border-radius: 6px; padding: .35rem .7rem; cursor: pointer; transition: all 150ms; white-space: nowrap; }
+    .gtm-nav__sub-btn:hover { color: var(--text); background: rgba(255,255,255,.1); }
+    .gtm-nav__sub-btn svg { width: 11px; height: 11px; opacity: .5; transition: transform 200ms; }
+    .gtm-nav__dropdown { position: absolute; top: calc(100% + 8px); right: 0; min-width: 210px; background: #1a1a1f; border: 1px solid var(--border-med); border-radius: 10px; padding: .4rem; box-shadow: var(--shadow-lg); display: none; flex-direction: column; gap: .1rem; z-index: 2000; }
+    .gtm-nav__dropdown.open { display: flex; }
+    .gtm-nav__dropdown a { font-size: .78rem; font-weight: 500; color: var(--text-2); text-decoration: none; padding: .5rem .75rem; border-radius: 6px; transition: all 150ms; }
+    .gtm-nav__dropdown a:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .gtm-nav__dropdown a.active { color: var(--accent); background: var(--accent-dim); }
+
+    .page-hero { padding: 4rem 2rem 3rem; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .page-hero__inner { max-width: 1080px; margin: 0 auto; }
+    .page-hero__eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; display: block; }
+    .page-hero__h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.1; color: var(--text); margin: 0 0 1rem; }
+    .page-hero__sub { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-2); line-height: 1.65; max-width: 660px; margin: 0; }
+
+    .gtm-section { padding: 4rem 2rem; position: relative; }
+    .gtm-section--dark { background: var(--bg, #0a0a0b); color: var(--text); }
+    .gtm-section--dark2 { background: var(--bg-2, #111113); color: var(--text); }
+    .gtm-section--light { background: var(--light-bg); color: var(--light-text); }
+    .gtm-section--light2 { background: var(--light-bg-2); color: var(--light-text); }
+    .gtm-inner { max-width: 1080px; margin: 0 auto; }
+    .gtm-section-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .6rem; display: block; }
+    .gtm-h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 1.5rem; }
+    .gtm-section--dark .gtm-h2, .gtm-section--dark2 .gtm-h2 { color: var(--text); }
+    .gtm-section--light .gtm-h2, .gtm-section--light2 .gtm-h2 { color: var(--light-text); }
+    .gtm-divider { width: 2.5rem; height: 3px; background: var(--accent); border-radius: 2px; margin: 1rem 0 1.5rem; }
+    .gtm-lead { font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1rem, 1.8vw, 1.15rem); font-style: italic; line-height: 1.75; margin: 0 0 2rem; max-width: 680px; }
+    .gtm-section--dark .gtm-lead, .gtm-section--dark2 .gtm-lead { color: var(--text-2); }
+    .gtm-section--light .gtm-lead, .gtm-section--light2 .gtm-lead { color: var(--light-text-2); }
+    .gtm-narrative { font-size: .97rem; line-height: 1.9; max-width: 680px; }
+    .gtm-section--dark .gtm-narrative, .gtm-section--dark2 .gtm-narrative { color: var(--text-2); }
+    .gtm-section--light .gtm-narrative, .gtm-section--light2 .gtm-narrative { color: var(--light-text-2); }
+
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
+    .card { border-radius: 14px; padding: 1.5rem; transition: transform 200ms; }
+    .gtm-section--dark .card, .gtm-section--dark2 .card { background: var(--surface); border: 1px solid var(--border); }
+    .gtm-section--light .card, .gtm-section--light2 .card { background: var(--light-surface); border: 1px solid var(--light-border); }
+    .card:hover { transform: translateY(-2px); }
+    .card__label { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+    .card__title { font-size: .92rem; font-weight: 700; margin-bottom: .6rem; }
+    .gtm-section--dark .card__title, .gtm-section--dark2 .card__title { color: var(--text); }
+    .gtm-section--light .card__title { color: var(--light-text); }
+    .card__body { font-size: .82rem; line-height: 1.7; }
+    .gtm-section--dark .card__body, .gtm-section--dark2 .card__body { color: var(--text-2); }
+    .gtm-section--light .card__body { color: var(--light-text-2); }
+
+    .data-table-wrap { overflow-x: auto; margin: 2rem 0; border-radius: 12px; border: 1px solid var(--light-border); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+    .data-table th { background: var(--light-bg-2); color: var(--light-text-2); font-weight: 600; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; padding: .85rem 1rem; text-align: left; border-bottom: 1px solid var(--light-border); white-space: nowrap; }
+    .data-table td { padding: .8rem 1rem; border-bottom: 1px solid var(--light-border); color: var(--light-text-2); vertical-align: middle; }
+    .data-table td:first-child { font-weight: 600; color: var(--light-text); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tbody tr:hover { background: rgba(0,0,0,.03); }
+
+    .callout { background: var(--surface-2); border: 1px solid var(--border-med); border-radius: 14px; padding: 1.75rem 2rem; margin: 2rem 0; }
+    .callout--accent { background: var(--accent-dim); border-color: rgba(233,47,35,.25); }
+    .callout__title { font-size: .95rem; font-weight: 800; margin-bottom: .6rem; color: var(--text); }
+    .callout__body { font-size: .88rem; line-height: 1.7; color: var(--text-2); }
+
+    .styled-list { list-style: none; padding: 0; margin: 1.5rem 0; display: flex; flex-direction: column; gap: .5rem; }
+    .styled-list li { font-size: .9rem; line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .gtm-section--dark .styled-list li, .gtm-section--dark2 .styled-list li { color: var(--text-2); }
+    .gtm-section--light .styled-list li, .gtm-section--light2 .styled-list li { color: var(--light-text-2); }
+    .styled-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: .8rem; top: .15rem; font-weight: 700; }
+
+    /* Message architecture */
+    .msg-hierarchy { display: flex; flex-direction: column; gap: 1.5rem; margin: 2rem 0; }
+    .msg-level { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem 2rem; }
+    .msg-level__num { font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: .4rem; }
+    .msg-level__type { font-size: .75rem; font-weight: 600; color: var(--text-3); margin-bottom: .75rem; }
+    .msg-level__content { font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 800; color: var(--text); line-height: 1.3; letter-spacing: -.02em; }
+    .msg-level--tagline .msg-level__content { font-size: clamp(1.6rem, 4vw, 2.5rem); color: var(--accent); }
+    .msg-level__sub { font-size: .88rem; line-height: 1.7; color: var(--text-2); margin-top: .75rem; }
+
+    .positioning-stmt { background: var(--surface-2); border: 1px solid var(--border-med); border-radius: 12px; padding: 1.75rem 2rem; margin-top: 1.5rem; font-size: .95rem; line-height: 1.8; color: var(--text-2); }
+    .positioning-stmt strong { color: var(--text); }
+    .positioning-stmt em { color: var(--accent); font-style: normal; font-weight: 700; }
+
+    /* Language rules */
+    .lang-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    @media (max-width: 640px) { .lang-cols { grid-template-columns: 1fr; } }
+    .lang-col__title { font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: .5rem 1rem; border-radius: 6px; margin-bottom: 1rem; display: inline-block; }
+    .lang-col__title--yes { background: rgba(22,163,74,.12); color: #16a34a; }
+    .lang-col__title--no { background: rgba(233,47,35,.1); color: var(--accent); }
+    .lang-item { padding: .9rem 1rem; border-radius: 10px; margin-bottom: .6rem; }
+    .lang-item--yes { background: rgba(22,163,74,.06); border: 1px solid rgba(22,163,74,.15); }
+    .lang-item--no { background: rgba(233,47,35,.04); border: 1px solid rgba(233,47,35,.12); }
+    .lang-item__word { font-size: .88rem; font-weight: 700; margin-bottom: .2rem; }
+    .lang-item--yes .lang-item__word { color: #16a34a; }
+    .lang-item--no .lang-item__word { color: var(--accent); text-decoration: line-through; text-decoration-color: rgba(233,47,35,.4); }
+    .lang-item__reason { font-size: .78rem; line-height: 1.55; color: var(--light-text-2); }
+
+    @media (max-width: 640px) { .card-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<header class="gtm-nav">
+  <a href="GTM planning.html" class="gtm-nav__brand">
+    <span class="gtm-nav__logo">Globster</span>
+    <span class="gtm-nav__label">GTM 2026</span>
+  </a>
+  <a href="GTM planning.html" class="gtm-nav__back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="15 18 9 12 15 6"/></svg>
+    GTM Overview
+  </a>
+  <div class="gtm-nav__sub">
+    <button class="gtm-nav__sub-btn">
+      Subpages
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="gtm-nav__dropdown">
+      <a href="gtm-competitors.html">Competitive Landscape</a>
+      <a href="gtm-icp.html">ICP Framework</a>
+      <a href="gtm-messaging.html">Messaging Framework</a>
+      <a href="gtm-narrative.html">Narrative</a>
+      <a href="gtm-channels.html">Channel Strategy</a>
+      <a href="gtm-content.html">Content Strategy</a>
+      <a href="gtm-launch.html">Launch Sequence</a>
+      <a href="gtm-metrics.html">Success Metrics</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero__inner">
+    <span class="page-hero__eyebrow">Messaging Architecture</span>
+    <h1 class="page-hero__h1">Messaging Framework</h1>
+    <p class="page-hero__sub">Every message we send should say the same thing in a different way: your agent already knows the job.</p>
+  </div>
+</section>
+
+<!-- SECTION 1: CORE MESSAGE ARCHITECTURE -->
+<section class="gtm-section gtm-section--dark">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Message Hierarchy</span>
+    <h2 class="gtm-h2">Core Message Architecture</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">Three levels, one truth. Every external communication — ad, email, landing page, tweet, sales email — should be traceable back to one of these layers.</p>
+
+    <div class="msg-hierarchy">
+      <div class="msg-level msg-level--tagline">
+        <div class="msg-level__num">Level 1</div>
+        <div class="msg-level__type">Tagline — 6 words, any context</div>
+        <div class="msg-level__content">Your agent already knows the job.</div>
+        <div class="msg-level__sub">Used on: homepage hero, social bios, product tagline, swag, investor decks. This is the one thing we want etched into memory. It separates us from every "build your own agent" tool in the market.</div>
+      </div>
+
+      <div class="msg-level">
+        <div class="msg-level__num">Level 2</div>
+        <div class="msg-level__type">Value Proposition — 1-2 sentences, informed audience</div>
+        <div class="msg-level__content">Globster ships AI agent kits pre-configured for your role — marketing, sales, HR, and more. Deploy in one click on WhatsApp, Slack, or Telegram. No setup. No prompts. Just results.</div>
+        <div class="msg-level__sub">Used on: above-the-fold website copy, LinkedIn ads, product hunt listing, email subject lines, partnership decks. The value prop does one job: make the prospect say "that sounds like exactly what I need."</div>
+      </div>
+
+      <div class="msg-level">
+        <div class="msg-level__num">Level 3</div>
+        <div class="msg-level__type">Elevator Pitch — 50 words, curious stranger</div>
+        <div class="msg-level__content">Most AI tools give you a blank canvas. You still have to figure out what to build. Globster is different — we ship agent kits pre-loaded with the workflows, knowledge, and defaults your specific job actually needs. Head of Marketing? Your agent runs campaigns, follows up on leads, and writes your weekly report. You just approve.</div>
+        <div class="msg-level__sub">Used on: sales calls opening, podcast appearances, demo intros, conference conversations, investor 30-second pitches. Three sentences that earn the next three minutes.</div>
+      </div>
+    </div>
+
+    <div class="positioning-stmt">
+      <strong>Positioning Statement:</strong> For <em>Heads of Marketing at 30–120 person companies</em> who are <strong>drowning in execution while trying to lead strategy,</strong> Globster is the <em>role-based AI agent platform</em> that <strong>deploys pre-configured agents to WhatsApp, Slack, and Telegram in one click</strong> — so they get the output of a full team without the headcount. Unlike <em>Lindy, ChatGPT, or generic agent builders</em>, Globster agents <strong>already know what a Head of Marketing does</strong> on day one.
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: MESSAGE BY AUDIENCE -->
+<section class="gtm-section gtm-section--light">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Audience Segments</span>
+    <h2 class="gtm-h2" style="color: var(--light-text);">Message by Audience</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead" style="color: var(--light-text-2);">The same product means different things to different people in the same company. Calibrate the message to the frame, not the feature.</p>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Audience</th>
+            <th>Their Frame</th>
+            <th>Their Pain</th>
+            <th>Our Message</th>
+            <th>Proof Point</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Individual Contributor<br><span style="font-weight: 400; font-size: .75rem; color: var(--light-text-2);">Marketing coordinator, content manager, SDR</span></td>
+            <td>"I'm overwhelmed and nobody sees it"</td>
+            <td>Repetitive tasks eat their day. Reporting, first drafts, follow-ups, status updates. They're paid to think but spend most time doing.</td>
+            <td>Globster is your AI teammate that handles the stuff that shouldn't require your brain. Tell it what's due. It gets it done.</td>
+            <td>Users report saving 6–10 hrs/week on content drafts, follow-up emails, and status reports after first week of use.</td>
+          </tr>
+          <tr>
+            <td>Manager / Director<br><span style="font-weight: 400; font-size: .75rem; color: var(--light-text-2);">Head of Marketing, VP Sales, Marketing Director</span></td>
+            <td>"I need to do more with the team I have"</td>
+            <td>Headcount is frozen. Output expectations aren't. They're expected to scale marketing with no additional resources and prove ROI on every dollar.</td>
+            <td>Globster gives your team the operational leverage of a team twice its size. Pre-configured for marketing workflows. Deployed in a day.</td>
+            <td>Teams using the Marketing Kit increase their weekly content output by 3x without adding headcount, based on early access cohort data.</td>
+          </tr>
+          <tr>
+            <td>Founder / CEO<br><span style="font-weight: 400; font-size: .75rem; color: var(--light-text-2);">CEO, Co-founder, Managing Director</span></td>
+            <td>"I need to compete with companies that have bigger teams"</td>
+            <td>Larger competitors have dedicated teams for every function. They need to punch above their weight — and AI is the lever, if they can actually get it to work.</td>
+            <td>Globster is how a 50-person company runs like a 150-person company. Role-specific AI agents, deployed in a day, no IT required.</td>
+            <td>Companies using Globster across 2+ departments report a 40% reduction in execution overhead in the first 90 days.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: OBJECTION HANDLING -->
+<section class="gtm-section gtm-section--dark2">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Sales Enablement</span>
+    <h2 class="gtm-h2">Objection Handling</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">Every objection is a question in disguise. Train the team to hear what's underneath the words.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card__label">Objection #1</div>
+        <div class="card__title">"I can already do this with ChatGPT."</div>
+        <div class="card__body">
+          <p style="margin-bottom: .75rem;">What they're really saying: "I'm not sure this is worth paying for when I have a free alternative."</p>
+          <p style="font-weight: 700; color: var(--text); margin-bottom: .4rem;">Our response:</p>
+          <p>ChatGPT is a blank canvas — you bring the context, the prompts, the workflow, the memory. Every session starts from zero. Globster agents know your role, your company context, and your preferences before they do anything. The difference is 6 hours of setup versus 6 minutes. Ask yourself: how many hours have you spent re-prompting ChatGPT this week to get something you could just approve?</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__label">Objection #2</div>
+        <div class="card__title">"We don't have budget for this right now."</div>
+        <div class="card__body">
+          <p style="margin-bottom: .75rem;">What they're really saying: "I'm not convinced the ROI is obvious enough to fight for budget."</p>
+          <p style="font-weight: 700; color: var(--text); margin-bottom: .4rem;">Our response:</p>
+          <p>Totally fair. Let's make it concrete: our Marketing Kit saves the average head of marketing 8 hours per week on content drafts, reporting, and follow-up. At your loaded cost, that's likely $2,000–$3,000/month in recaptured time. Our plan is $79/month. The ROI math isn't close. Start the free trial — no credit card, no IT sign-off needed — and bring us the numbers after two weeks.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__label">Objection #3</div>
+        <div class="card__title">"Our IT team won't approve it."</div>
+        <div class="card__body">
+          <p style="margin-bottom: .75rem;">What they're really saying: "I'm worried about a procurement blocker that will kill momentum."</p>
+          <p style="font-weight: 700; color: var(--text); margin-bottom: .4rem;">Our response:</p>
+          <p>Globster is hosted on monday.com's managed cloud infrastructure — the same platform used by 225,000 companies including enterprise clients. We're SOC 2 Type II compliant, GDPR-ready, and we don't train on your data. IT has a security questionnaire doc ready on request. More importantly: start on the personal plan at $29/month — below most expense approval thresholds — and bring IT in once you have results to show them.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__label">Objection #4</div>
+        <div class="card__title">"We tried AI tools and they didn't stick."</div>
+        <div class="card__body">
+          <p style="margin-bottom: .75rem;">What they're really saying: "I've been burned before and I'm skeptical of another tool that requires effort."</p>
+          <p style="font-weight: 700; color: var(--text); margin-bottom: .4rem;">Our response:</p>
+          <p>That's the most common thing we hear — and it's exactly why we built Globster differently. Every tool you've tried required YOU to configure it, maintain it, and prompt it. Globster agents are pre-configured for your role. They work in WhatsApp and Slack — tools your team already uses every day. There's nothing to install, nothing to learn, and nothing to maintain. The reason tools don't stick is adoption friction. We engineered it out.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: LANGUAGE RULES -->
+<section class="gtm-section gtm-section--light2">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Brand Voice</span>
+    <h2 class="gtm-h2" style="color: var(--light-text);">Language Rules</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead" style="color: var(--light-text-2);">Language is product. The words we choose signal who we are and who we're for. Consistency here is not cosmetic — it's strategic.</p>
+
+    <div class="lang-cols">
+      <div>
+        <span class="lang-col__title lang-col__title--yes">Words We Use</span>
+
+        <div class="lang-item lang-item--yes">
+          <div class="lang-item__word">Agent kit / Kit</div>
+          <div class="lang-item__reason">Concrete, ownable, role-specific. "Kit" implies completeness — everything is already in the box. Differentiates from generic "agents" or "tools."</div>
+        </div>
+        <div class="lang-item lang-item--yes">
+          <div class="lang-item__word">Deploy</div>
+          <div class="lang-item__reason">Implies speed and readiness. "Deploy in one click" signals that the hard work is done. Contrast with "build" or "set up."</div>
+        </div>
+        <div class="lang-item lang-item--yes">
+          <div class="lang-item__word">Pre-configured / Already knows your job</div>
+          <div class="lang-item__reason">The core differentiator in plain language. Signals that our agents come with context, not blank state.</div>
+        </div>
+        <div class="lang-item lang-item--yes">
+          <div class="lang-item__word">Results / Outcomes</div>
+          <div class="lang-item__reason">Buyers care about outputs, not processes. Lead with what gets done, not how the agent works.</div>
+        </div>
+        <div class="lang-item lang-item--yes">
+          <div class="lang-item__word">Delegate / Done</div>
+          <div class="lang-item__reason">Emotionally resonant for overwhelmed buyers. The fantasy is delegation, not configuration. "Just approve" and "it's already done" speak to the feeling.</div>
+        </div>
+        <div class="lang-item lang-item--yes">
+          <div class="lang-item__word">Your team / Team of agents</div>
+          <div class="lang-item__reason">Positions Globster as a staffing solution, not a software subscription. Elevates the value perception from "tool" to "capability."</div>
+        </div>
+      </div>
+
+      <div>
+        <span class="lang-col__title lang-col__title--no">Words We Avoid</span>
+
+        <div class="lang-item lang-item--no">
+          <div class="lang-item__word">AI platform / AI solution</div>
+          <div class="lang-item__reason">Generic category language. Every tool in our space uses this. It says nothing distinctive and triggers "another AI thing" fatigue.</div>
+        </div>
+        <div class="lang-item lang-item--no">
+          <div class="lang-item__word">Build / Create / Configure</div>
+          <div class="lang-item__reason">Implies work for the user. Our entire positioning is that the work is already done. Using "build" contradicts the promise.</div>
+        </div>
+        <div class="lang-item lang-item--no">
+          <div class="lang-item__word">Workflow automation</div>
+          <div class="lang-item__reason">Sounds like Zapier. Cold, mechanical. We're not automating workflows — we're delegating outcomes to a role-aware agent. Different category.</div>
+        </div>
+        <div class="lang-item lang-item--no">
+          <div class="lang-item__word">Cutting-edge / State-of-the-art</div>
+          <div class="lang-item__reason">Empty adjectives that every tech company uses. Our ICP doesn't care about the model. They care about whether it does their job.</div>
+        </div>
+        <div class="lang-item lang-item--no">
+          <div class="lang-item__word">Prompt / Prompting</div>
+          <div class="lang-item__reason">This word signals effort and expertise. "You need to know how to prompt it" is the exact fear we're alleviating. Don't surface it.</div>
+        </div>
+        <div class="lang-item lang-item--no">
+          <div class="lang-item__word">Scalable / Enterprise-grade</div>
+          <div class="lang-item__reason">Enterprise signals to our SMB ICP that the product isn't for them — too complex, too expensive. We can be robust without claiming enterprise.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    document.getElementById('progress-bar').style.width = (p * 100) + '%';
+  }, { passive: true });
+  const subBtn = document.querySelector('.gtm-nav__sub-btn');
+  const dropdown = document.querySelector('.gtm-nav__dropdown');
+  subBtn.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('open'); subBtn.querySelector('svg').style.transform = dropdown.classList.contains('open') ? 'rotate(180deg)' : ''; });
+  document.addEventListener('click', () => { dropdown.classList.remove('open'); subBtn.querySelector('svg').style.transform = ''; });
+  dropdown.addEventListener('click', e => e.stopPropagation());
+  const currentFile = location.pathname.split('/').pop();
+  document.querySelectorAll('.gtm-nav__dropdown a').forEach(a => { if (a.getAttribute('href') === currentFile) a.classList.add('active'); });
+</script>
+</body>
+</html>

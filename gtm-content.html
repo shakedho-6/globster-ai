@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Strategy — Globster GTM 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root { --light-bg: #f5f5f3; --light-bg-2: #ebebea; --light-text: #0f0f12; --light-text-2: #4a4a5a; --light-surface: #ffffff; --light-border: rgba(0,0,0,.09); }
+    * { box-sizing: border-box; }
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--accent); z-index: 9999; transition: width 80ms linear; }
+    body { padding-top: 60px; font-family: var(--font, 'Poppins', sans-serif); }
+    .gtm-nav { position: fixed; top: 0; left: 0; right: 0; height: 60px; background: rgba(10,10,11,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; z-index: 1000; gap: 1rem; }
+    .gtm-nav__brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; flex-shrink: 0; }
+    .gtm-nav__logo { font-size: .95rem; font-weight: 800; color: var(--text); letter-spacing: -.01em; }
+    .gtm-nav__label { font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); padding: .2rem .5rem; border: 1px solid var(--accent-dim); border-radius: 4px; }
+    .gtm-nav__back { font-size: .75rem; font-weight: 500; color: var(--text-2); text-decoration: none; display: flex; align-items: center; gap: .35rem; transition: color 150ms; }
+    .gtm-nav__back:hover { color: var(--text); }
+    .gtm-nav__sub { position: relative; margin-left: auto; }
+    .gtm-nav__sub-btn { display: flex; align-items: center; gap: .35rem; font-size: .75rem; font-weight: 600; color: var(--text-2); background: rgba(255,255,255,.06); border: 1px solid var(--border-med); border-radius: 6px; padding: .35rem .7rem; cursor: pointer; transition: all 150ms; white-space: nowrap; }
+    .gtm-nav__sub-btn:hover { color: var(--text); background: rgba(255,255,255,.1); }
+    .gtm-nav__sub-btn svg { width: 11px; height: 11px; opacity: .5; transition: transform 200ms; }
+    .gtm-nav__dropdown { position: absolute; top: calc(100% + 8px); right: 0; min-width: 210px; background: #1a1a1f; border: 1px solid var(--border-med); border-radius: 10px; padding: .4rem; box-shadow: var(--shadow-lg); display: none; flex-direction: column; gap: .1rem; z-index: 2000; }
+    .gtm-nav__dropdown.open { display: flex; }
+    .gtm-nav__dropdown a { font-size: .78rem; font-weight: 500; color: var(--text-2); text-decoration: none; padding: .5rem .75rem; border-radius: 6px; transition: all 150ms; }
+    .gtm-nav__dropdown a:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .gtm-nav__dropdown a.active { color: var(--accent); background: var(--accent-dim); }
+    .page-hero { padding: 4rem 2rem 3rem; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .page-hero__inner { max-width: 1080px; margin: 0 auto; }
+    .page-hero__eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; display: block; }
+    .page-hero__h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.1; color: var(--text); margin: 0 0 1rem; }
+    .page-hero__sub { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-2); line-height: 1.65; max-width: 620px; margin: 0; }
+    .gtm-section { padding: 4rem 2rem; position: relative; }
+    .gtm-section--dark { background: var(--bg); color: var(--text); }
+    .gtm-section--dark2 { background: var(--bg-2, #111113); color: var(--text); }
+    .gtm-section--light { background: var(--light-bg); color: var(--light-text); }
+    .gtm-section--light2 { background: var(--light-bg-2); color: var(--light-text); }
+    .gtm-inner { max-width: 1080px; margin: 0 auto; }
+    .gtm-section-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: .6rem; display: block; }
+    .gtm-h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 1.5rem; }
+    .gtm-section--dark .gtm-h2, .gtm-section--dark2 .gtm-h2 { color: var(--text); }
+    .gtm-section--light .gtm-h2, .gtm-section--light2 .gtm-h2 { color: var(--light-text); }
+    .gtm-divider { width: 2.5rem; height: 3px; background: var(--accent); border-radius: 2px; margin: 1rem 0 1.5rem; }
+    .gtm-lead { font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(1rem, 1.8vw, 1.15rem); font-style: italic; line-height: 1.75; margin: 0 0 2rem; max-width: 680px; }
+    .gtm-section--dark .gtm-lead, .gtm-section--dark2 .gtm-lead { color: var(--text-2); }
+    .gtm-section--light .gtm-lead, .gtm-section--light2 .gtm-lead { color: var(--light-text-2); }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
+    .card { border-radius: 14px; padding: 1.5rem; transition: transform 200ms; }
+    .gtm-section--dark .card, .gtm-section--dark2 .card { background: var(--surface); border: 1px solid var(--border); }
+    .gtm-section--light .card, .gtm-section--light2 .card { background: var(--light-surface); border: 1px solid var(--light-border); }
+    .card:hover { transform: translateY(-2px); }
+    .card__label { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+    .card__title { font-size: .92rem; font-weight: 700; margin-bottom: .6rem; }
+    .gtm-section--dark .card__title, .gtm-section--dark2 .card__title { color: var(--text); }
+    .gtm-section--light .card__title { color: var(--light-text); }
+    .card__body { font-size: .82rem; line-height: 1.7; }
+    .gtm-section--dark .card__body, .gtm-section--dark2 .card__body { color: var(--text-2); }
+    .gtm-section--light .card__body { color: var(--light-text-2); }
+    .data-table-wrap { overflow-x: auto; margin: 2rem 0; border-radius: 12px; border: 1px solid var(--light-border); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+    .data-table th { background: var(--light-bg-2); color: var(--light-text-2); font-weight: 600; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; padding: .85rem 1rem; text-align: left; border-bottom: 1px solid var(--light-border); white-space: nowrap; }
+    .data-table td { padding: .8rem 1rem; border-bottom: 1px solid var(--light-border); color: var(--light-text-2); vertical-align: middle; }
+    .data-table td:first-child { font-weight: 600; color: var(--light-text); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tbody tr:hover { background: rgba(0,0,0,.03); }
+    .data-table--dark { background: var(--surface); border-color: var(--border); }
+    .data-table--dark th { background: var(--surface-2); color: var(--text-3); border-bottom-color: var(--border); }
+    .data-table--dark td { border-bottom-color: var(--border); color: var(--text-2); }
+    .data-table--dark td:first-child { color: var(--text); }
+    .data-table--dark tbody tr:hover { background: rgba(255,255,255,.03); }
+    .badge { display: inline-block; font-size: .68rem; font-weight: 700; padding: .2rem .55rem; border-radius: 20px; }
+    .badge--green { background: rgba(22,163,74,.12); color: #16a34a; }
+    .badge--yellow { background: rgba(217,119,6,.1); color: #d97706; }
+    .styled-list { list-style: none; padding: 0; margin: 1.5rem 0; display: flex; flex-direction: column; gap: .5rem; }
+    .styled-list li { font-size: .9rem; line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .gtm-section--dark .styled-list li, .gtm-section--dark2 .styled-list li { color: var(--text-2); }
+    .gtm-section--light .styled-list li, .gtm-section--light2 .styled-list li { color: var(--light-text-2); }
+    .styled-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: .8rem; top: .15rem; font-weight: 700; }
+    .callout { background: var(--surface-2); border: 1px solid var(--border-med); border-radius: 14px; padding: 1.75rem 2rem; margin: 2rem 0; }
+    .callout__title { font-size: .95rem; font-weight: 800; margin-bottom: .6rem; color: var(--text); }
+    .callout__body { font-size: .88rem; line-height: 1.7; color: var(--text-2); }
+    .gtm-section--light .callout { background: var(--light-surface); border-color: var(--light-border); }
+    .gtm-section--light .callout__title { color: var(--light-text); }
+    .gtm-section--light .callout__body { color: var(--light-text-2); }
+    .gtm-section--light2 .callout { background: var(--light-surface); border-color: var(--light-border); }
+    .gtm-section--light2 .callout__title { color: var(--light-text); }
+    .gtm-section--light2 .callout__body { color: var(--light-text-2); }
+    @media (max-width: 640px) { .card-grid { grid-template-columns: 1fr; } }
+    .format-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
+    .format-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; }
+    .format-card__name { font-size: .88rem; font-weight: 800; color: var(--text); margin-bottom: .35rem; }
+    .format-card__freq { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: .8rem; }
+    .format-card__meta { display: flex; flex-direction: column; gap: .4rem; }
+    .format-card__meta-row { display: flex; justify-content: space-between; font-size: .78rem; border-bottom: 1px solid var(--border); padding-bottom: .35rem; }
+    .format-card__meta-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .format-card__meta-label { color: var(--text-3); }
+    .format-card__meta-val { color: var(--text-2); font-weight: 600; }
+    .phase-metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin: 2rem 0; }
+    @media (max-width: 640px) { .phase-metric-grid { grid-template-columns: 1fr; } }
+    .phase-metric-card { border-radius: 14px; padding: 1.4rem; }
+    .gtm-section--light2 .phase-metric-card { background: var(--light-surface); border: 1px solid var(--light-border); }
+    .phase-metric-card__phase { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .4rem; }
+    .phase-metric-card__metric { font-size: .88rem; font-weight: 800; color: var(--light-text); margin-bottom: .5rem; }
+    .phase-metric-card__def { font-size: .8rem; line-height: 1.6; color: var(--light-text-2); }
+  </style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<header class="gtm-nav">
+  <a href="GTM planning.html" class="gtm-nav__brand">
+    <span class="gtm-nav__logo">Globster</span>
+    <span class="gtm-nav__label">GTM 2026</span>
+  </a>
+  <a href="GTM planning.html" class="gtm-nav__back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="15 18 9 12 15 6"/></svg>
+    GTM Overview
+  </a>
+  <div class="gtm-nav__sub">
+    <button class="gtm-nav__sub-btn">
+      Subpages
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="gtm-nav__dropdown">
+      <a href="gtm-competitors.html">Competitive Landscape</a>
+      <a href="gtm-icp.html">ICP Framework</a>
+      <a href="gtm-messaging.html">Messaging Framework</a>
+      <a href="gtm-narrative.html">Narrative</a>
+      <a href="gtm-channels.html">Channel Strategy</a>
+      <a href="gtm-content.html">Content Strategy</a>
+      <a href="gtm-launch.html">Launch Sequence</a>
+      <a href="gtm-metrics.html">Success Metrics</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero__inner">
+    <span class="page-hero__eyebrow">GTM 2026 · Content Strategy</span>
+    <h1 class="page-hero__h1">Content Strategy</h1>
+    <p class="page-hero__sub">Content isn't a marketing channel for us — it's the proof. Every post should make a head of marketing think "I need this" before they even click.</p>
+  </div>
+</section>
+
+<!-- SECTION 1: Content Pillars -->
+<section class="gtm-section gtm-section--dark">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Section 01</span>
+    <h2 class="gtm-h2">Content Pillars</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">Four pillars. Each serves a different psychological job. Together they move someone from "never heard of Globster" to "when can I start?"</p>
+
+    <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));">
+      <div class="card">
+        <div class="card__label">Pillar 1</div>
+        <div class="card__title">The Gap</div>
+        <div class="card__body">
+          <em style="font-size: .8rem; color: var(--text-3);">Job: build authority. Show we see what others don't.</em><br><br>
+          Problems AI hasn't actually solved for marketing teams, counterintuitive observations, and honest takes on where AI tools fall short.<br><br>
+          <strong style="color: var(--text); font-size: .78rem;">Example posts:</strong><br>
+          "Why your AI writing tool is still costing you 3 hours a day"<br>
+          "The automation nobody is talking about for Q1 planning"<br>
+          "I tested 6 AI marketing tools. Here's the one job none of them do"
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__label">Pillar 2</div>
+        <div class="card__title">The Result</div>
+        <div class="card__body">
+          <em style="font-size: .8rem; color: var(--text-3);">Job: build desire. Show the before and after.</em><br><br>
+          Real customer stories with before/after metrics, founder experiments run with Globster agents, and case studies from actual deployments.<br><br>
+          <strong style="color: var(--text); font-size: .78rem;">Example posts:</strong><br>
+          "Our head of marketing reclaimed 6 hours/week. Here's exactly how."<br>
+          "Before Globster: 4 hours to brief. After: 12 minutes."<br>
+          "I ran our entire content operation for 2 weeks using only AI agents. Results inside."
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__label">Pillar 3</div>
+        <div class="card__title">The Method</div>
+        <div class="card__body">
+          <em style="font-size: .8rem; color: var(--text-3);">Job: build trust. Give real value before asking for anything.</em><br><br>
+          Step-by-step workflow walkthroughs, agent setup guides, and how-to frameworks that work regardless of whether you use Globster.<br><br>
+          <strong style="color: var(--text); font-size: .78rem;">Example posts:</strong><br>
+          "How to set up a content brief agent in under 10 minutes (step by step)"<br>
+          "The 5-agent marketing stack for teams under 10"<br>
+          "My exact process for automating competitor monitoring with AI"
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__label">Pillar 4</div>
+        <div class="card__title">The Opinion</div>
+        <div class="card__body">
+          <em style="font-size: .8rem; color: var(--text-3);">Job: build reach. Controversy triggers the algorithm.</em><br><br>
+          Provocative, defensible takes on where AI marketing is headed, what mainstream tools get wrong, and unpopular truths about the industry.<br><br>
+          <strong style="color: var(--text); font-size: .78rem;">Example posts:</strong><br>
+          "Most 'AI for marketing' tools are just ChatGPT with a paywall. Change my mind."<br>
+          "The AI marketing stack in 2026 will kill the coordinator role. Here's the evidence."<br>
+          "Automation shouldn't require a prompt engineer. If it does, it's not ready."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: Content Calendar Template -->
+<section class="gtm-section gtm-section--light">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Section 02</span>
+    <h2 class="gtm-h2">Content Calendar Template</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead" style="color: var(--light-text-2);">A sample week in the content plan. Format, pillar, and hook are decided Monday morning. CTA is always specific to the current phase goal.</p>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Format</th>
+            <th>Pillar</th>
+            <th>Hook Idea</th>
+            <th>CTA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monday</td>
+            <td>Text post (500–800 words)</td>
+            <td>The Opinion</td>
+            <td>"I think the whole category of 'AI marketing assistants' is solving the wrong problem. Here's what I mean."</td>
+            <td>Comment with your biggest marketing bottleneck</td>
+          </tr>
+          <tr>
+            <td>Tuesday</td>
+            <td>— (no post)</td>
+            <td>—</td>
+            <td>Spend this time replying to Monday comments + commenting on 10 ideal customer posts</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td>How-to text post + 1 screenshot</td>
+            <td>The Method</td>
+            <td>"How I set up a competitive intelligence agent that runs every Monday at 8am without me touching it"</td>
+            <td>Link to free kit in first comment</td>
+          </tr>
+          <tr>
+            <td>Thursday</td>
+            <td>Before/after story post</td>
+            <td>The Result</td>
+            <td>"[Customer name] was spending 4 hours every Monday writing content briefs. Now it takes 9 minutes. Here's what changed."</td>
+            <td>DM me "brief" for the template they use</td>
+          </tr>
+          <tr>
+            <td>Friday</td>
+            <td>Observation / "The Gap" post</td>
+            <td>The Gap</td>
+            <td>"Most marketing teams are automating the wrong things. The 3 tasks that actually kill productivity are the ones nobody talks about."</td>
+            <td>Follow for part 2 next week</td>
+          </tr>
+          <tr>
+            <td>Saturday (optional)</td>
+            <td>Short personal update or experiment</td>
+            <td>The Opinion / Result</td>
+            <td>"I ran an experiment this week: gave our Globster agent the same brief as our human copywriter. Results were not what I expected."</td>
+            <td>React with 🔥 if you want the full breakdown</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <div class="callout__title">Execution Rule</div>
+      <div class="callout__body">Never post without a hook in the first line. The first sentence determines whether LinkedIn shows the post to anyone. Write it last, after the body, when you know exactly what the payoff is. Good hook formula: Counterintuitive claim + implicit promise. Example: "Most AI marketing tools are actually creating more work. Here's why — and what to do instead."</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: Content Formats -->
+<section class="gtm-section gtm-section--dark2">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Section 03</span>
+    <h2 class="gtm-h2">Content Formats</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead">Not all formats are equal. Text posts are our workhorse — they get produced in 45 minutes, not 4 hours. Everything else is an occasional amplifier.</p>
+
+    <div class="format-grid">
+      <div class="format-card">
+        <div class="format-card__name">LinkedIn Text Posts</div>
+        <div class="format-card__freq">Primary · 3–4× / week</div>
+        <div class="format-card__meta">
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Production time</span>
+            <span class="format-card__meta-val">45–90 min</span>
+          </div>
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Expected reach</span>
+            <span class="format-card__meta-val">500–5,000 / post</span>
+          </div>
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Conversion estimate</span>
+            <span class="format-card__meta-val">1–4% to signup</span>
+          </div>
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Why it works</span>
+            <span class="format-card__meta-val">LinkedIn boosts text-native content. No competing tab to close.</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-card">
+        <div class="format-card__name">Carousels</div>
+        <div class="format-card__freq">Secondary · 2× / month</div>
+        <div class="format-card__meta">
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Production time</span>
+            <span class="format-card__meta-val">3–4 hours</span>
+          </div>
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Expected reach</span>
+            <span class="format-card__meta-val">2,000–12,000 / post</span>
+          </div>
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Conversion estimate</span>
+            <span class="format-card__meta-val">0.5–1.5% to signup</span>
+          </div>
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Why it works</span>
+            <span class="format-card__meta-val">High save rate. "Method" pillar topics perform especially well in slides.</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-card">
+        <div class="format-card__name">Short Video Demos</div>
+        <div class="format-card__freq">Amplifier · 1× / month</div>
+        <div class="format-card__meta">
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Production time</span>
+            <span class="format-card__meta-val">2–3 hours (record + edit)</span>
+          </div>
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Expected reach</span>
+            <span class="format-card__meta-val">3,000–20,000 / post</span>
+          </div>
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Conversion estimate</span>
+            <span class="format-card__meta-val">2–5% to signup</span>
+          </div>
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Why it works</span>
+            <span class="format-card__meta-val">Highest intent signal. Seeing the product removes the biggest purchase barrier: "Is it really that easy?"</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-card">
+        <div class="format-card__name">Case Study Threads</div>
+        <div class="format-card__freq">Amplifier · 1× / month</div>
+        <div class="format-card__meta">
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Production time</span>
+            <span class="format-card__meta-val">2 hours + customer interview</span>
+          </div>
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Expected reach</span>
+            <span class="format-card__meta-val">1,500–8,000 / post</span>
+          </div>
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Conversion estimate</span>
+            <span class="format-card__meta-val">3–6% to signup</span>
+          </div>
+          <div class="format-card__meta-row">
+            <span class="format-card__meta-label">Why it works</span>
+            <span class="format-card__meta-val">Highest trust signal. Peer social proof beats founder claims every time. Combine with customer tag for reach boost.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: Measurement -->
+<section class="gtm-section gtm-section--light2">
+  <div class="gtm-inner">
+    <span class="gtm-section-label">Section 04</span>
+    <h2 class="gtm-h2">Measurement</h2>
+    <div class="gtm-divider"></div>
+    <p class="gtm-lead" style="color: var(--light-text-2);">Three metrics tell us whether content is actually working — not vanity metrics like follower count, but leading indicators tied to business outcomes.</p>
+
+    <div class="phase-metric-grid">
+      <div class="phase-metric-card">
+        <div class="phase-metric-card__phase">Metric 01 · Awareness</div>
+        <div class="phase-metric-card__metric">Engagement Rate &gt;1.5%</div>
+        <div class="phase-metric-card__def">
+          Calculated as (likes + comments + shares) ÷ impressions. Below 1% means the content isn't resonating — rewrite the hook and test a different pillar. Above 3% is a winner to double down on with a follow-up post or carousel on the same topic.<br><br>
+          <strong>Phase 0 baseline:</strong> 0.8% (establishing voice)<br>
+          <strong>Phase 1 target:</strong> &gt;1.5% average across all posts<br>
+          <strong>Phase 2 target:</strong> &gt;2% on Method + Result pillars
+        </div>
+      </div>
+      <div class="phase-metric-card">
+        <div class="phase-metric-card__phase">Metric 02 · Interest</div>
+        <div class="phase-metric-card__metric">Click-through Rate &gt;2%</div>
+        <div class="phase-metric-card__def">
+          Of everyone who sees the post, how many click the link in the first comment or the profile link? Below 1% means the hook created curiosity but the body didn't earn the click. Rewrite the mid-post CTA. Above 4% is exceptional — analyze what the top performers have in common.<br><br>
+          <strong>Phase 0 baseline:</strong> 0.5–1% (no established trust yet)<br>
+          <strong>Phase 1 target:</strong> &gt;2% on posts with explicit product CTAs<br>
+          <strong>Phase 2 target:</strong> &gt;3% driven by case study and demo content
+        </div>
+      </div>
+      <div class="phase-metric-card">
+        <div class="phase-metric-card__phase">Metric 03 · Revenue signal</div>
+        <div class="phase-metric-card__metric">Content → Signup &gt;3%</div>
+        <div class="phase-metric-card__def">
+          Of everyone who clicks through from content, how many complete signup? Tracked via UTM source tags on all content links. Below 2% means the landing page isn't converting the right audience — check if LinkedIn audience matches ICP. Above 5% means content is qualifying well.<br><br>
+          <strong>Phase 0 baseline:</strong> 1–2% (landing page not yet optimized)<br>
+          <strong>Phase 1 target:</strong> &gt;3% after landing page iteration in Week 2<br>
+          <strong>Phase 2 target:</strong> &gt;5% by optimizing ICP-specific landing pages
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout__title" style="color: var(--light-text);">Weekly Content Review (30 min, Fridays)</div>
+      <div class="callout__body" style="color: var(--light-text-2);">Review the week's posts: Which hit above 1.5% engagement? What was the hook structure? Which pillar performed best? Identify one winner to repurpose as a carousel or video next week. Flag any post under 0.8% for hook analysis — don't just move on, understand why it missed. One insight from a failed post is worth more than one more generic win.</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    document.getElementById('progress-bar').style.width = (p * 100) + '%';
+  }, { passive: true });
+  const subBtn = document.querySelector('.gtm-nav__sub-btn');
+  const dropdown = document.querySelector('.gtm-nav__dropdown');
+  subBtn.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('open'); subBtn.querySelector('svg').style.transform = dropdown.classList.contains('open') ? 'rotate(180deg)' : ''; });
+  document.addEventListener('click', () => { dropdown.classList.remove('open'); subBtn.querySelector('svg').style.transform = ''; });
+  dropdown.addEventListener('click', e => e.stopPropagation());
+  const currentFile = location.pathname.split('/').pop();
+  document.querySelectorAll('.gtm-nav__dropdown a').forEach(a => { if (a.getAttribute('href') === currentFile) a.classList.add('active'); });
+</script>
+</body>
+</html>
